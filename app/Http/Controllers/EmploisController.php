@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Emplois;
+use App\Models\trimestre;
+use App\Models\ue;
 use Illuminate\Http\Request;
 
 class EmploisController extends Controller
@@ -17,7 +19,9 @@ class EmploisController extends Controller
     }
     public function create()
     {
-        return view('emplois.ajout');
+        $ues = ue::all();
+        $trimestres = trimestre::all();
+        return view('emplois.ajout', compact('ues','trimestres'));
     }
 
     /**

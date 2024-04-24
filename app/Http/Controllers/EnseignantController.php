@@ -37,9 +37,18 @@ class EnseignantController extends Controller
         
         if ($request->hasFile('cv')) {
             $file = $request->file('cv');
+            
+            $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png']; // Ajoutez les extensions autorisées
+            $extension = $file->getClientOriginalExtension();
+            
+            if (!in_array($extension, $allowedExtensions)) {
+                return redirect()->back()->with('error', 'Le type de fichier n\'est pas autorisé.');
+            }
+    
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $fileContent = file_get_contents($file->getRealPath());
-            $enseignant->acte_n = $fileContent;
+            $file->move(public_path('mes_cv'), $fileName);
+    
+            $enseignant->cv = $fileName;
         }
         //if ($request->hasFile('cv')) {
            // $cv = $request->file('cv');

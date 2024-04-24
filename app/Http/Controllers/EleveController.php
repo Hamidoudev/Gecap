@@ -40,9 +40,18 @@ class EleveController extends Controller
         
         if ($request->hasFile('acte_n')) {
             $file = $request->file('acte_n');
+            
+            $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png']; // Ajoutez les extensions autorisées
+            $extension = $file->getClientOriginalExtension();
+            
+            if (!in_array($extension, $allowedExtensions)) {
+                return redirect()->back()->with('error', 'Le type de fichier n\'est pas autorisé.');
+            }
+    
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $fileContent = file_get_contents($file->getRealPath());
-            $eleve->acte_n = $fileContent;
+            $file->move(public_path('actes_naissance'), $fileName);
+    
+            $eleve->acte_n = $fileName;
         }
     
         $eleve->save();

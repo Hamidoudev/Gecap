@@ -24,7 +24,7 @@
                                 @endforeach
                             </select> --}}
                             <div class="input-with-dropdown">
-                                <select id="ecoles_list" wire:model="selectedEcole">
+                                <select id="ecoles_list" wire:model="selectedEcole" name="ecole_id">
                                     <option value="">Sélectionner une école</option>
                                     @foreach($ecoles as $ecole)
                                         <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>

@@ -220,52 +220,51 @@
 <div class="sidebar-inner slimscroll">
 <div id="sidebar-menu" class="sidebar-menu">
 <ul>
-<li class="active">
-<a href="{{url('manager/home')}}"><img src="{{ URL::to('admin-template/assets/img/icons/dashboard.svg') }}" alt="img"><span> DASHBOARD</span> </a>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/product.svg') }}" alt="img"><span> ADMINISTRATIVE</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="{{url('enseignants/listes')}}">  ENSEIGNANTS</a></li>
-<li><a href="{{url('eleves/listes')}}">ELEVES</a></li>
-<li><a href="{{url('personnels/listes')}}"> PERSONNELS </a></li>
-<li><a href="{{url('emplois/listes')}}">EMPLOIS</a></li>
-<li><a href="{{url('evaluations/listes')}}">EVALUATION  </a></li>
-{{-- <li><a href="subaddcategory.html">Add Sub Category</a></li>
-<li><a href="brandlist.html">Brand List</a></li>
-<li><a href="addbrand.html">Add Brand</a></li>
-<li><a href="importproduct.html">Import Products</a></li>
-<li><a href="barcode.html">Print Barcode</a></li> --}}
-</ul>
-{{-- </li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/sales1.svg') }}" alt="img"><span> Sales</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="saleslist.html">Sales List</a></li>
-<li><a href="pos.html">POS</a></li>
-<li><a href="pos.html">New Sales</a></li>
-<li><a href="salesreturnlists.html">Sales Return List</a></li>
-<li><a href="createsalesreturns.html">New Sales Return</a></li>
-</ul>
-</li> --}}
-<li class="submenu">
-<a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/purchase1.svg') }}" alt="img"><span> PEDAGOGIE</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="{{url('programmes/listes')}}"> PROGRAMME</a></li>
-<li><a href="{{url('grilles/listes')}}"> GRILLE</a></li>
-
-{{-- <li><a href="addpurchase.html">Add Purchase</a></li>
-<li><a href="importpurchase.html">Import Purchase</a></li> --}}
-</ul>
-</li>
-<li class="submenu">
-<a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/expense1.svg') }}" alt="img"><span> RESSOURCES</span> <span class="menu-arrow"></span></a>
-<ul>
-<li><a href="{{url('equipements/listes')}}"> EQUIPEMENTS</a></li>
-{{-- <li><a href="createexpense.html">Add Expense</a></li>
-<li><a href="expensecategory.html">Expense Category</a></li> --}}
-</ul>
-</li>
+    <li class="active">
+        <a href="{{url('manager/home')}}"><img src="{{ URL::to('admin-template/assets/img/icons/dashboard.svg') }}" alt="img"><span> Dashboard</span> </a>
+        </li>
+        <li class="submenu">
+        <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/product.svg') }}" alt="img"><span> Administrative</span> <span class="menu-arrow"></span></a>
+        <ul>
+        <li><a href="{{url('enseignants/listes')}}">Enseignants</a></li>
+        <li><a href="{{url('eleves/listes')}}">Eleves</a></li>
+        <li><a href="{{url('personnels/listes')}}"> Personnels </a></li>
+        <li><a href="{{url('emplois/listes')}}">Emplois</a></li>
+        <li><a href="{{url('evaluations/listes')}}">Evaluation  </a></li>
+        {{-- <li><a href="subaddcategory.html">Add Sub Category</a></li>
+        <li><a href="brandlist.html">Brand List</a></li>
+        <li><a href="addbrand.html">Add Brand</a></li>
+        <li><a href="importproduct.html">Import Products</a></li>
+        <li><a href="barcode.html">Print Barcode</a></li> --}}
+        </ul>
+        {{-- </li>
+        <li class="submenu">
+        <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/sales1.svg') }}" alt="img"><span> Sales</span> <span class="menu-arrow"></span></a>
+        <ul>
+        <li><a href="saleslist.html">Sales List</a></li>
+        <li><a href="pos.html">POS</a></li>
+        <li><a href="pos.html">New Sales</a></li>
+        <li><a href="salesreturnlists.html">Sales Return List</a></li>
+        <li><a href="createsalesreturns.html">New Sales Return</a></li>
+        </ul>
+        </li> --}}
+        <li class="submenu">
+        <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/purchase1.svg') }}" alt="img"><span> Pedagogie</span> <span class="menu-arrow"></span></a>
+        <ul>
+        <li><a href="{{url('programmes/listes')}}"> Programmes</a></li>
+        <li><a href="{{url('grilles/listes')}}"> Grilles</a></li>
+        {{-- <li><a href="addpurchase.html">Add Purchase</a></li>
+        <li><a href="importpurchase.html">Import Purchase</a></li> --}}
+        </ul>
+        </li>
+        <li class="submenu">
+        <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/expense1.svg') }}" alt="img"><span> Ressources</span> <span class="menu-arrow"></span></a>
+        <ul>
+        <li><a href="{{url('equipements/listes')}}"> Equipements</a></li>
+        {{-- <li><a href="createexpense.html">Add Expense</a></li>
+        <li><a href="expensecategory.html">Expense Category</a></li> --}}
+        </ul>
+        </li>
 {{-- <li class="submenu">
 <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/quotation1.svg') }}" alt="img"><span> Quotation</span> <span class="menu-arrow"></span></a>
 <ul>

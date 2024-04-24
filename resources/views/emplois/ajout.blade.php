@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label> UE</label>
                             <div class="input-with-dropdown">
-                                <select id="ecoles_list" wire:model="selectedEcole">
+                                <select id="ecoles_list" wire:model="selectedEcole" name="ue">
                                     <option value="">Sélectionner une UE</option>
                                     @foreach($ues as $ue)
                                         <option value="{{ $ue->id }}">{{ $ue->libelle }}</option>
@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <label> Trimestre </label>
                             <div class="input-with-dropdown">
-                                <select id="ecoles_list" wire:model="selectedEcole">
+                                <select id="ecoles_list" wire:model="selectedEcole" name="trimestre">
                                     <option value="">Sélectionner un trimestre</option>
                                     @foreach($trimestres as $trimestre)
                                         <option value="{{ $trimestre->id }}">{{ $trimestre->libelle }}</option>
