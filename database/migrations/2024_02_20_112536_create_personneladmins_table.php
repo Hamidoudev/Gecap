@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('telephone');
             $table->string('adresse')->nullable();
+            $table->enum('genre', ['F', 'M']);
+            $table->string('poste');
             $table->binary('cv')->nullable();
             $table->timestamps();
         });

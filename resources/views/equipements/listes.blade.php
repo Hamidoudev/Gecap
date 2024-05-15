@@ -6,8 +6,10 @@
     {{-- <h6>Manage your User</h6> --}}
     </div>
     <div class="page-btn">
-    <a href="{{url('equipements/ajout')}}" class="btn btn-added"><img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Equipement</a>
-    </div>
+        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal">
+            <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Equipement
+        </a>
+        </div>
     </div>
     <div class="card">
         <div class="card-body">
@@ -130,9 +132,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="me-3" href="{{ route('equipements.edit', $equipement->id) }}">
-                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
-                                            alt="img">
+                                    <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipement->id }}">
+                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                     </a>
                                     <a class="me-3 confirm-text"
                                         href="{{ route('equipements.delete', $equipement->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $equipement->nom . '?')">
@@ -150,4 +151,22 @@
 
         </div>
     </div>
+    @include('equipements.ajout')
+    
 @endsection
+
+@foreach($equipements as $equipement)
+    <div class="modal fade" id="editModal{{ $equipement->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $equipement->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel{{ $equipement->id }}">Modification equipement : {{ $equipement->nom }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @include('equipements.edit', ['equipement' => $equipement])
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach

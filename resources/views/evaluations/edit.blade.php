@@ -2,7 +2,7 @@
 @section('content')
     <div class="page-header">
         <div class="page-title">
-            <h4>Modification enseignants</h4>
+            <h4>Modification Evaluation</h4>
             <p>
                 @if ($message = Session::get('success'))
                     <h3> {{ $message }} </h3>
@@ -10,7 +10,7 @@
             </p>
         </div>
     </div>
-    <form action="{{ route('enseignants.update', $enseignant->id) }}" method="POST">
+    <form action="{{ route('evaluations.update', $evaluation->id) }}" method="POST">
         @csrf
         <div class="card">
             <div class="card-body">

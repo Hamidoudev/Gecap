@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('grilles', function (Blueprint $table) {
             $table->id();
+            $table->string('nom');
             $table->string('prenom');
             $table->string('statut');
             $table->string('ecole');
             $table->string('classe_tenue');
             $table->string('discipline');
             $table->string('theme');
-            $table->string('duree');
-            $table->string('nom');
+            $table->string('duree');          
             $table->integer('effectif');
             $table->integer('fiche_preparation')->nullable();
             $table->integer('materiel_didactique')->nullable();

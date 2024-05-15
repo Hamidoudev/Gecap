@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ecole;
 use App\Models\Programme;
 use Illuminate\Http\Request;
 
@@ -12,13 +13,15 @@ class ProgrammeController extends Controller
      */
     public function index()
     {
+        $ecoles = Ecole::all();
         $programmes = Programme::paginate(10);
-        return view('programmes.listes', compact('programmes'));
+        return view('programmes.listes', compact('programmes','ecoles'));
     }
 
     public function create()
     {
-        return view('programmes.ajout');
+        $ecoles = Ecole::all();
+        return view('programmes.ajout', compact('ecoles'));
     }
 
     /**
@@ -27,15 +30,17 @@ class ProgrammeController extends Controller
     public function store(Request $request)
     {
         $programme = new Programme();
+        $programme->ecole_id = $request->ecole_id;
         $programme->libelle = $request->libelle;
         $programme->save();
-        return redirect()->route('programmes.listes')->with('worning', 'enregistrement effectuée'); 
+        return redirect()->route('programmes.listes')->with('success', 'enregistrement effectuée avec succès'); 
     }
 
     public function edit($id)
     {
+        $ecoles = Ecole::all();
         $programme = Programme::find($id);
-        return view('programmes.edit', compact('programme'));
+        return view('programmes.edit', compact('programme', 'ecoles'));
     }
 
     /**
@@ -52,9 +57,10 @@ class ProgrammeController extends Controller
     public function update(Request $request, string $id)
     {
         $programme = Programme::find($id);
+        $programme->ecole_id = $request->ecole_id;
         $programme->libelle = $request->libelle;
         $programme->save();
-        return redirect()->route('programmes.listes')->with('worning', 'modication effectuée');
+        return redirect()->route('programmes.listes')->with('success', 'modification effectuée avec succès');
     }
 
     /**
@@ -64,6 +70,6 @@ class ProgrammeController extends Controller
     {
         $programme = Programme::find($id);
         $programme->delete();
-        return redirect()->route('programmes.listes')->with('danger', 'suppression effectuée');
+        return redirect()->route('programmes.listes')->with('danger', 'suppression effectuée avec succès');
     }
 }

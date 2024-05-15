@@ -14,8 +14,10 @@ class EmploisController extends Controller
      */
     public function index()
     {
-        $emplois = Emplois::paginate(10);
-        return view('emplois.listes', compact('emplois'));
+        $ues = ue::all();
+        $trimestres = trimestre::all();
+        $emplois = Emplois::with('ue', 'trimestre')->get();
+        return view('emplois.listes', compact('emplois','ues','trimestres'));
     }
     public function create()
     {
@@ -30,12 +32,12 @@ class EmploisController extends Controller
     public function store(Request $request)
     {
         $emploi = new Emplois();
-        $emploi->ue = $request->ue;
-        $emploi->trimestre = $request->trimestre;
+        $emploi->ue_id = $request->ue_id;
+        $emploi->trimestre_id = $request->trimestre_id;
         $emploi->date_debut = $request->date_debut;
         $emploi->date_fin = $request->date_fin;
         $emploi->save();
-        return redirect()->route('emplois.listes')->with('worning', 'enregistrement effectuée'); 
+        return redirect()->route('emplois.listes')->with('success', 'enregistrement effectuée'); 
     }
     public function edit($id)
     {
@@ -57,12 +59,12 @@ class EmploisController extends Controller
     public function update(Request $request, string $id)
     {
         $emploi = Emplois::find($id);
-        $emploi->ue = $request->ue;
-        $emploi->trimestre = $request->trimestre;
+        $emploi->ue_id = $request->ue_id;
+        $emploi->trimestre_id = $request->trimestre_id;
         $emploi->date_debut = $request->date_debut;
         $emploi->date_fin = $request->date_fin;
         $emploi->save();
-        return redirect()->route('emplois.listes')->with('worning', 'modication effectuée');
+        return redirect()->route('emplois.listes')->with('success', 'modication effectuée');
     }
 
     /**

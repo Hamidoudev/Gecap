@@ -38,28 +38,25 @@ class EnseignantController extends Controller
         if ($request->hasFile('cv')) {
             $file = $request->file('cv');
             
+            // Vérification du type de fichier (extension)
             $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png']; // Ajoutez les extensions autorisées
             $extension = $file->getClientOriginalExtension();
             
             if (!in_array($extension, $allowedExtensions)) {
+                // Redirection avec un message d'erreur si le type de fichier n'est pas autorisé
                 return redirect()->back()->with('error', 'Le type de fichier n\'est pas autorisé.');
             }
     
+            // Enregistrement du fichier dans un dossier spécifique
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('mes_cv'), $fileName);
     
+            // Stockage du nom du fichier dans la base de données
             $enseignant->cv = $fileName;
         }
-        //if ($request->hasFile('cv')) {
-           // $cv = $request->file('cv');
-           // $enseignant->cv = $request->cv;
-            
-        //} else {
-         //   $enseignant->cv = ''; // ou NULL, selon le type de la colonne dans votre base de données
-       // }
-        
+    
         $enseignant->save();
-        return redirect()->route('enseignants.listes')->with('warning', 'Enregistrement effectué');
+        return redirect()->route('enseignants.listes')->with('success', 'Enregistrement effectué avec succès');
     }
     
     public function edit($id)
@@ -95,7 +92,7 @@ class EnseignantController extends Controller
         }
         
         $enseignant->save();
-        return redirect()->route('enseignants.listes')->with('worning', 'modication effectuée'); 
+        return redirect()->route('enseignants.listes')->with('success', 'modification effectuée avec succès'); 
     }
 
     /**
@@ -105,7 +102,7 @@ class EnseignantController extends Controller
     {
         $enseignant = Enseignant::find($id);
         $enseignant->delete();
-        return redirect()->route('enseignants.listes')->with('danger', 'suppression effectuée');
+        return redirect()->route('enseignants.listes')->with('danger', 'suppression effectuée avec succèsx');
     }
     public function telechargerPdf($id)
 {

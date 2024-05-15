@@ -34,14 +34,30 @@ class PersonneladminController extends Controller
         $personneladmin->email = $request->email;
         $personneladmin->telephone = $request->telephone;
         $personneladmin->adresse = $request->adresse;
+        $personneladmin->genre = $request->genre;
+        $personneladmin->poste = $request->poste;
         if ($request->hasFile('cv')) {
             $file = $request->file('cv');
-            // Stocker le contenu du fichier PDF dans la colonne 'cv' comme un flux binaire
-            $personneladmin->cv = file_get_contents($file->getRealPath());
+            
+            // Vérification du type de fichier (extension)
+            $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png']; // Ajoutez les extensions autorisées
+            $extension = $file->getClientOriginalExtension();
+            
+            if (!in_array($extension, $allowedExtensions)) {
+                // Redirection avec un message d'erreur si le type de fichier n'est pas autorisé
+                return redirect()->back()->with('error', 'Le type de fichier n\'est pas autorisé.');
+            }
+    
+            // Enregistrement du fichier dans un dossier spécifique
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('personnel_admin'), $fileName);
+    
+            // Stockage du nom du fichier dans la base de données
+            $personneladmin->cv = $fileName;
         }
-        
+    
         $personneladmin->save();
-        return redirect()->route('personnels.listes')->with('worning', 'enregistrement effectuée'); 
+        return redirect()->route('personnels.listes')->with('success', 'enregistrement effectuée avec succès'); 
     }
     public function edit($id)
     {
@@ -70,13 +86,31 @@ class PersonneladminController extends Controller
         $personneladmin->email = $request->email;
         $personneladmin->telephone = $request->telephone;
         $personneladmin->adresse = $request->adresse;
+        $personneladmin->genre = $request->genre;
+        $personneladmin->poste = $request->poste;
+
         if ($request->hasFile('cv')) {
             $file = $request->file('cv');
-            $personneladmin->cv = file_get_contents($file->getRealPath());
+            
+            // Vérification du type de fichier (extension)
+            $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png']; // Ajoutez les extensions autorisées
+            $extension = $file->getClientOriginalExtension();
+            
+            if (!in_array($extension, $allowedExtensions)) {
+                // Redirection avec un message d'erreur si le type de fichier n'est pas autorisé
+                return redirect()->back()->with('error', 'Le type de fichier n\'est pas autorisé.');
+            }
+    
+            // Enregistrement du fichier dans un dossier spécifique
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('personnel_admin'), $fileName);
+    
+            // Stockage du nom du fichier dans la base de données
+            $personneladmin->cv = $fileName;
         }
         
         $personneladmin->save();
-        return redirect()->route('personnels.listes')->with('worning', 'modication effectuée'); 
+        return redirect()->route('personnels.listes')->with('success', 'modification effectué avec succès'); 
     }
 
     /**
@@ -86,7 +120,7 @@ class PersonneladminController extends Controller
     {
         $personneladmin = Personneladmin::find($id);
         $personneladmin->delete();
-        return redirect()->route('personnels.listes')->with('danger', 'suppression effectuée');
+        return redirect()->route('personnels.listes')->with('danger', 'suppression effectuée avec succès');
     }
     public function telechargerPdf($id)
 {

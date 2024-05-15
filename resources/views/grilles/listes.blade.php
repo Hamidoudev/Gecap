@@ -2,12 +2,14 @@
 @section('content')
 <div class="page-header">
     <div class="page-title">
-    <h4>Listes des Enseignants</h4>
+    <h4>Listes des grilles</h4>
     {{-- <h6>Manage your User</h6> --}}
     </div>
     <div class="page-btn">
-    <a href="{{url('enseignants/ajout')}}" class="btn btn-added"><img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Enseignants</a>
-    </div>
+        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutgrilleModal">
+            <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter grilles
+        </a>
+        </div>
     </div>
     <div class="card">
         <div class="card-body">
@@ -92,20 +94,14 @@
                                 </label>
                             </th> --}}
                             <th>#</th>
-                            <th>Maricule</th>
-                            <th>First name </th>
-                            <th>Last name </th>
-                            <th>Date Naissance </th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Adresse</th>
-                            <th>CV</th>
-                            <th>Status</th>
+                            <th>Statut</th>
+                            <th>Ecole </th>
+                          
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($enseignants as $enseignant)
+                        @foreach ($grilles as $grille)
                             <tr>
                                 {{-- <td>
             <label class="checkboxs">
@@ -122,23 +118,10 @@
                                         <input type="checkbox">
                                         <span class="checkmarks"></span>
                                     </label></td> --}}
-                                <td>{{ $enseignant->id }}</td>
-                                <td>{{ $enseignant->matricule }}</td>
-                                <td>{{ $enseignant->nom }}</td>
-                                <td>{{ $enseignant->prenom }}</td>
-                                <td>{{ $enseignant->date_n }}</td>
-                                <td>{{ $enseignant->email }}</td>
-                                <td>{{ $enseignant->telephone }}</td>
-                                <td>{{ $enseignant->adresse }}</td>
-                                <td>
-                                    @if ($enseignant->cv)
-                                        <a href="{{ route('telecharger_pdf', $enseignant->id) }}">
-                                            <i class="fas fa-file-pdf"></i> Télécharger CV
-                                        </a>
-                                    @else
-                                        Aucun CV disponible
-                                    @endif
-                                </td>
+                                <td>{{ $grille->id }}</td>
+                                <td>{{ $grille->statut }}</td>
+                                <td>{{ $grille->ecole }}</td>
+                                
                                 
                                 
                                 <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
@@ -149,15 +132,17 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="me-3" href="{{ route('enseignants.edit', $enseignant->id) }}">
-                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
-                                            alt="img">
+                                    <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $grille->id }}">
+                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                     </a>
                                     <a class="me-3 confirm-text"
-                                        href="{{ route('enseignants.delete', $enseignant->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $enseignant->nom . '_' . $enseignant->prenom. '?')">
+                                        href="{{ route('grilles.delete', $grille->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $grille->nom . '_' . $grille->prenom. '?')">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}"
                                             alt="img">
                                     </a>
+                                    <form action="{{ route('grilles.pdf') }}" method="GET">
+                                        <button type="submit">Grille </button>
+                                    </form>
                                 </td>
                             </tr>
                             <tr>
@@ -169,4 +154,24 @@
 
         </div>
     </div>
+    {{-- @include('grilles.edit') --}}
+    @include('grilles.ajout')
+    
 @endsection
+
+@foreach($grilles as $grille)
+    <div class="modal fade" id="editModal{{ $grille->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $grille->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel{{ $grille->id }}">Modification grille : {{ $grille->nom }} {{ $grille->prenom }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @include('grilles.edit', ['grille' => $grille])
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+

@@ -1,83 +1,140 @@
-@extends('layouts.interface')
-@section('content')
-    <div class="page-header">
-        <div class="page-title">
-            <h4>Ajouts des enseignants</h4>
-            <p>
+
+<!-- Modal -->
+
+<div class="modal fade" id="ajoutgrilleModal" tabindex="-1" aria-labelledby="ajoutgrilleModalLabel" aria-hidden="true">
+    <div  class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ajoutgrilleModalLabel">Ajouter un grille</h5>
                 @if ($message = Session::get('success'))
-                    <h3> {{ $message }} </h3>
-                @endif
-            </p>
-        </div>
-    </div>
-    <form action="{{ route('enseignants.store') }}" method="POST">
-        @csrf
-        <div class="card">
-            <div class="card-body">
+                <h3> {{ $message }} </h3>
+            @endif
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="{{ route('grilles.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
                 <div class="row">
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label> Matricule</label>
-                            <input type="text" name="matricule">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label> Nom </label>
+                            <label>Nom</label>
                             <input type="text" name="nom">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label> Prénom</label>
+                            <label>Prénom</label>
                             <input type="text" name="prenom">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Date Naissance</label>
-                            <input type="date" name="date_n">
+                            <label>Statut</label>
+                            <input type="text" name="statut">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" name="email">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group">
-                            <label>Téléphone</label>
-                            <input type="text" name="telephone">
+                            <label>École</label>
+                            <input type="text" name="ecole">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Adresse</label>
-                            <input type="text" name="adresse">
+                            <label>Classe tenue</label>
+                            <input type="text" name="classe_tenue">
                         </div>
                     </div>
-
-                    <div class="col-lg-12">
+                    <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label> CV</label>
-                            <div class="image-upload">
-                                <input type="file" name="cv">
-                                <div class="image-uploads">
-                                    <img src="{{ URL::to('admin-template/assets/img/icons/upload.svg') }}" alt="img">
-                                    <h4>ajoutez ici votre cv</h4>
-                                </div>
-                            </div>
+                            <label>Discipline</label>
+                            <input type="text" name="discipline">
                         </div>
                     </div>
-                    <div class="col-lg-12">
-                        <button type="reset" class="btn btn-cancel">Annuler</button>
-                        <button type="submit" class="btn btn-submit me-2">Envoyer</button>
-
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Thème</label>
+                            <input type="text" name="theme">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Durée</label>
+                            <input type="text" name="duree">
+                        </div>
+                    </div>
+                  
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Effectif</label>
+                            <input type="number" name="effectif">
+                        </div>
                     </div>
                 </div>
+            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ITEM</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>La fiche de préparation existe-t-elle ? Est-elle exploitable ?</td>
+                            <td><input type="number" name="fiche_preparation" min="0" max="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Le matériel didactique existe-t-il ? Est-il suffisant ?</td>
+                            <td><input type="number" name="materiel_didactique" min="0" max="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Le matériel didactique a-t-il été bien utilisé ?</td>
+                            <td><input type="number" name="utilisation_materiel" min="0" max="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Les OPO (ou compétences) ont-ils été annoncés ? Ont-ils été atteints ?</td>
+                            <td><input type="number" name="opo_annonces" min="0" max="10"></td>
+                        </tr>
+                        <tr>
+                            <td>La méthodologie utilisée est-elle pertinente ?</td>
+                            <td><input type="number" name="methode_pertinente" min="0" max="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Les élèves ont-ils été mis en activité ?</td>
+                            <td><input type="number" name="eleves_activite" min="0" max="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Le contenu de la leçon est-il conforme au programme officiel ?</td>
+                            <td><input type="number" name="contenu_conforme" min="0" max="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Le contenu de la leçon est-il bien maîtrisé par l'enseignant ?</td>
+                            <td><input type="number" name="contenu_maitrise" min="0" max="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Les techniques d'animation ont-elles été bien appliquées ?</td>
+                            <td><input type="number" name="techniques_animation" min="0" max="10"></td>
+                        </tr>
+                        <tr>
+                            <td>Les exercices d'évaluation ont-ils été effectués ?</td>
+                            <td><input type="number" name="exercices_evaluation" min="0" max="10"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
             </div>
+                </div>
+                </div>
+                <div class="modal-footer justify-content">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
         </div>
-    </form>
-@endsection
+    </div>
+    </div>
+
+

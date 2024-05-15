@@ -2,7 +2,7 @@
 @section('content')
 <div class="page-header">
     <div class="page-title">
-    <h4>Listes des Enseignants</h4>
+    <h4>Listes des Evalautions</h4>
     {{-- <h6>Manage your User</h6> --}}
     </div>
     <div class="page-btn">
@@ -105,7 +105,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($trimestres as $trimestre)
+                        @foreach ($evaluations as $evaluation)
                             <tr>
                                 {{-- <td>
             <label class="checkboxs">
@@ -122,15 +122,15 @@
                                         <input type="checkbox">
                                         <span class="checkmarks"></span>
                                     </label></td> --}}
-                                <td>{{ $trimestre->id }}</td>
-                                <td>{{ $trimestre->matricule }}</td>
-                                <td>{{ $trimestre->nom }}</td>
-                                <td>{{ $trimestre->prenom }}</td>
-                                <td>{{ $enseignant->date_n }}</td>
-                                <td>{{ $enseignant->email }}</td>
-                                <td>{{ $enseignant->telephone }}</td>
-                                <td>{{ $enseignant->adresse }}</td>
-                                <td>
+                                <td>{{ $evaluation->id }}</td>
+                                <td>{{ $evaluation->matricule }}</td>
+                                <td>{{ $evaluation->nom }}</td>
+                                <td>{{ $evaluation->prenom }}</td>
+                                <td>{{ $evaluation->date_n }}</td>
+                                <td>{{ $evaluation->email }}</td>
+                                <td>{{ $evaluation->telephone }}</td>
+                                <td>{{ $evaluation->adresse }}</td>
+                                {{-- <td>
                                     @if ($enseignant->cv)
                                         <a href="{{ route('telecharger_pdf', $enseignant->id) }}">
                                             <i class="fas fa-file-pdf"></i> Télécharger CV
@@ -138,7 +138,7 @@
                                     @else
                                         Aucun CV disponible
                                     @endif
-                                </td>
+                                </td> --}}
                                 
                                 
                                 <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
@@ -149,12 +149,12 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="me-3" href="{{ route('trimestres.edit', $trimestre->id) }}">
+                                    <a class="me-3" href="{{ route('evaluations.edit', $evaluation->id) }}">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
                                             alt="img">
                                     </a>
                                     <a class="me-3 confirm-text"
-                                        href="{{ route('trimestres.delete', $trimestre->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $enseignant->nom . '_' . $enseignant->prenom. '?')">
+                                        href="{{ route('evaluations.delete', $evaluation->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $enseignant->nom . '_' . $enseignant->prenom. '?')">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}"
                                             alt="img">
                                     </a>

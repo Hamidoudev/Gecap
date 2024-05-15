@@ -6,8 +6,9 @@
     {{-- <h6>Manage your User</h6> --}}
     </div>
     <div class="page-btn">
-    <a href="{{url('emplois/ajout')}}" class="btn btn-added"><img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Emplois</a>
-    </div>
+        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEleveModal">
+            <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Emplois
+        </a>    </div>
     </div>
     <div class="card">
         <div class="card-body">
@@ -119,8 +120,8 @@
                                         <span class="checkmarks"></span>
                                     </label></td> --}}
                                 <td>{{ $emploi->id }}</td>
-                                <td>{{ $emploi->ue }}</td>
-                                <td>{{ $emploi->trimestre }}</td>
+                                <td>{{ $emploi->ue_id }}</td>
+                                <td>{{ $emploi->trimestre_id }}</td>
                                 <td>{{ $emploi->date_debut }}</td>
                                 <td>{{ $emploi->date_fin }}</td>
                       
@@ -132,12 +133,11 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="me-3" href="{{ route('emplois.edit', $emploi->id) }}">
-                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
-                                            alt="img">
+                                    <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $emploi->id }}">
+                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                     </a>
                                     <a class="me-3 confirm-text"
-                                        href="{{ route('emplois.delete', $emploi->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $emploi->ue .'?')">
+                                        href="{{ route('emplois.delete', $emploi->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $emploi->ue_id .'?')">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}"
                                             alt="img">
                                     </a>
@@ -152,4 +152,21 @@
 
         </div>
     </div>
+    @include('emplois.ajout')
 @endsection
+
+@foreach($emplois as $emploi)
+    <div class="modal fade" id="editModal{{ $emploi->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $emploi->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel{{ $emploi->id }}">Modification enseignant : {{ $emploi->ue_id }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @include('emplois.edit', ['emploi' => $emploi])
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach

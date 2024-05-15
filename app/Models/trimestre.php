@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class trimestre extends Model
 {
     use HasFactory;
+    protected $table = 'trimestres';
+
+    public function emplois()
+    {
+        return $this->hasMany(Emplois::class, 'trimestre');
+    }
 }

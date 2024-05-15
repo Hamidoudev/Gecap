@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,12 +14,33 @@ return new class extends Migration
     {
         Schema::create('ecoles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('typeecole_id');
+            $table->foreignId('typeecole_id')->constrained('typeecoles')->onDelete('cascade');
             $table->string('nom');
             $table->string('siege');
             $table->string('email');
             $table->timestamps();
         });
+        DB::table('ecoles')->insert([
+            [
+                'typeecole_id' => '1',
+                'nom' => 'Nakani Doucoure',
+                'siege' => 'Kati',
+                'email' => 'nakanid@gmail.com',
+                
+            ],
+            [
+                'typeecole_id' => '2',
+                'nom' => 'LNDN',
+                'siege' => 'quartier fleuve',
+                'email' => 'nakanid@gmail.com',
+            ],
+            [
+                'typeecole_id' => '3',
+                'nom' => 'Mama Thiam',
+                'siege' => 'Hippodrome',
+                'email' => 'nakanid@gmail.com',
+            ],
+        ]);
     }
 
     /**

@@ -6,8 +6,10 @@
     {{-- <h6>Manage your User</h6> --}}
     </div>
     <div class="page-btn">
-    <a href="{{url('eleves/ajout')}}" class="btn btn-added"><img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Eleves</a>
-    </div>
+        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEleveModal">
+            <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Eleve
+        </a>
+        </div>
     </div>
     <div class="card">
         <div class="card-body">
@@ -99,7 +101,7 @@
                             <th>Date Naissance </th>
                             <th>Adresse</th>
                             <th>Genre</th>
-                            <th>CV</th>
+                            <th>Acte De Naissance </th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -123,8 +125,8 @@
                                         <span class="checkmarks"></span>
                                     </label></td> --}}
                                 <td>{{ $eleve->id }}</td>
-                                <td>{{ $eleve->ecole_id }}</td>
-                                <td>{{ $eleve->matricule }}</td>
+                                <td>{{ $eleve->ecole->nom }}</td> 
+                                <td>{{ $eleve->matricule }}</td>                         
                                 <td>{{ $eleve->nom }}</td>
                                 <td>{{ $eleve->prenom }}</td>
                                 <td>{{ $eleve->date_n }}</td>
@@ -133,11 +135,11 @@
                                 
                                 <td>
                                     @if ($eleve->acte_n)
-                                        <a href="{{ route('telecharger_pdf', $eleve->id) }}">
+                                        <a href="{{ url('actes_naissance/'.$eleve->acte_n) }}">
                                             <i class="fas fa-file-pdf"></i> Télécharger Acte_Naissance
                                         </a>
                                     @else
-                                        Aucun CV disponible
+                                        Aucun acte disponible
                                     @endif
                                 </td>
                                 <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
@@ -148,9 +150,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="me-3" href="{{ route('eleves.edit', $eleve->id) }}">
-                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
-                                            alt="img">
+                                    <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $eleve->id }}">
+                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                     </a>
                                     <a class="me-3 confirm-text"
                                         href="{{ route('eleves.delete', $eleve->id) }}"onclick="return confirm('voulez-vous vraiment supprimer ?')">
@@ -168,4 +169,22 @@
 
         </div>
     </div>
+
+    @include('eleves.ajout')
 @endsection
+
+ @foreach($eleves as $eleve)
+    <div class="modal fade" id="editModal{{ $eleve->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $eleve->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel{{ $eleve->id }}">Modification eleve : {{ $eleve->nom }} {{ $eleve->prenom }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @include('eleves.edit', ['eleve' => $eleve])
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach 

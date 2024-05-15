@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Programme extends Model
 {
     use HasFactory;
+    public function ecole()
+    {
+        return $this->belongsTo(Ecole::class);
+    }
 }

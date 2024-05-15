@@ -26,7 +26,12 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $evalaution = new Evaluation();
+        $evalaution->matricule = $request->matricule;
+        $evalaution->nom = $request->nom;
+     
+        $evalaution->save();
+        return redirect()->route('evalautions.listes')->with('warning', 'Enregistrement effectué');
     }
 
     /**

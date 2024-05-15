@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DroitController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\EcoleController;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\EmploisController;
@@ -51,7 +53,7 @@ All Admin Routes List
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::prefix('admin')->name('admin.')->group(function() {
-        Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('home');
+        Route::get('/home', [HomeController::class, 'adminHome'])->name('home');
         Route::resource('user', App\Http\Controllers\Admin\UserController::class);
         Route::get('search', [App\Http\Controllers\Admin\UserController::class, 'search'])->name('user.search');
     });
@@ -137,6 +139,7 @@ Route::get('/programmes/show/{id}', [ProgrammeController::class, 'show'])->name(
 // routes grilles
 Route::get('/grilles/listes', [GrilleController::class, 'index'])->name('grilles.listes');
 Route::get('/grilles/ajout', [GrilleController::class, 'create'])->name('grilles.ajout');
+Route::get('/grilles/pdf', [GrilleController::class, 'generatePDF'])->name('grilles.pdf');
 Route::post('/grilles/store', [GrilleController::class, 'store'])->name('grilles.store');
 Route::get('/grilles/edit/{id}', [GrilleController::class, 'edit'])->name('grilles.edit');
 Route::post('/grilles/update/{id}', [GrilleController::class, 'update'])->name('grilles.update');
@@ -160,3 +163,14 @@ Route::get('/evaluations/edit/{id}', [EvaluationController::class, 'edit'])->nam
 Route::post('/evaluations/update/{id}', [EvaluationController::class, 'update'])->name('evaluations.update');
 Route::get('/evaluations/delete/{id}', [EvaluationController::class, 'destroy'])->name('evaluations.delete');
 Route::get('/evaluations/show/{id}', [EvaluationController::class, 'show'])->name('evaluations.show');
+
+// droits
+Route::get('/Admin/droits/', [DroitController::class, 'index' ])->name('droits.index');
+Route::get('/admin/droit/ajout', [DroitController::class, 'create'])->name('admin.droit.ajout');
+Route::post('/admin/droit/store', [DroitController::class, 'store'])->name('admin.droit.store');
+//role
+Route::get('/Admin/role/', [RoleController::class, 'index' ])->name('roles.index');
+Route::get('/admin/role/ajout', [RoleController::class, 'create'])->name('admin.role.ajout');
+Route::post('/admin/role/store', [RoleController::class, 'store'])->name('admin.role.store');
+Route::get('/admin/role/delete{id}', [RoleController::class, 'destroy'])->name('admin.role.delete');
+Route::post('/admin/role/update/{id}', [RoleController::class, 'update'])->name('admin.role.update');

@@ -9,6 +9,7 @@ class grille extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'nom',
         'prenom',
         'statut',
         'ecole',
@@ -16,7 +17,7 @@ class grille extends Model
         'discipline',
         'theme',
         'duree',
-        'nom',
+        
         'effectif',
         'fiche_preparation', // Ajoutez des champs pour chaque item de la grille
         'materiel_didactique',

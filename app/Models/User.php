@@ -45,6 +45,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
 
     /**
@@ -54,9 +55,26 @@ class User extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
     protected function type(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) =>  ["user", "admin", "manager"][$value],
-        );
-    }
+{
+    return new Attribute(
+        get: function ($value) {
+            $types = ["user", "admin", "manager"];
+            // Assurez-vous que $value est dans la plage de 0 à 2
+            if (array_key_exists($value, $types)) {
+                return $types[$value];
+            } else {
+                return "Indéfini";
+            }
+        }
+    );
+}
+
+  public function role(){
+    return $this->belongsTo(Role::class);
+  }
+
+  public function role_type_user()
+  {
+    return $this->belongsTo(RoleTypeUser::class);
+  }
 }

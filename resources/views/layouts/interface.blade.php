@@ -32,10 +32,10 @@
 <div class="header">
 
 <div class="header-left active">
-<a href="index.html" class="logo">
+<a href="{{url('manager/home')}}" class="logo">
 <img src="{{ URL::to('admin-template/assets/img/logog.png') }}" width="80px" height="80px" alt="">
 </a>
-<a href="index.html" class="logo-small">
+<a href="{{url('manager/home')}}" class="logo-small">
 <img src="{{ URL::to('admin-template/assets/img/logopetit.png') }}" alt="">
 </a>
 <a id="toggle_btn" href="javascript:void(0);">

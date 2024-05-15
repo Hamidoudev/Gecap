@@ -31,7 +31,7 @@ class EquipementController extends Controller
         $equipement->type = $request->type;
         $equipement->quantite = $request->quantite;
         $equipement->save();
-        return redirect()->route('equipements.listes')->with('warning', 'Enregistrement effectué');
+        return redirect()->route('equipements.listes')->with('success', 'Enregistrement effectué');
     }
 
     public function edit($id)
@@ -58,7 +58,7 @@ class EquipementController extends Controller
         $equipement->type = $request->type;
         $equipement->quantite = $request->quantite;
         $equipement->save();
-        return redirect()->route('equipements.listes')->with('worning', 'modication effectuée'); 
+        return redirect()->route('equipements.listes')->with('success', 'modication effectuée'); 
     }
 
     /**

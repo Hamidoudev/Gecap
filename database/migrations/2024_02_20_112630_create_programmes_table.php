@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('ecole_id')->unsigned();
             $table->string('libelle');
             $table->timestamps();
         });

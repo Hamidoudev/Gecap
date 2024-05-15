@@ -13,8 +13,9 @@ class EleveController extends Controller
      */
     public function index()
     {
+        $ecoles = Ecole::all(); 
         $eleves = Eleve::paginate(10);
-        return view('eleves.listes', compact('eleves'));
+        return view('eleves.listes', ['ecoles' => $ecoles], compact('eleves'));
     }
     public function create()
     {
@@ -55,12 +56,13 @@ class EleveController extends Controller
         }
     
         $eleve->save();
-        return redirect()->route('eleves.listes')->with('worning', 'enregistrement effectuée'); 
+        return redirect()->route('eleves.listes')->with('success', 'enregistrement effectuée'); 
     }
     public function edit($id)
     {
+        $ecoles = Ecole::all();
         $eleve = Eleve::find($id);
-        return view('eleves.edit', compact('eleve'));
+        return view('eleves.edit', compact('eleve', 'ecoles'));
     }
 
     /**
@@ -86,12 +88,22 @@ class EleveController extends Controller
         $eleve->genre = $request->genre;
         if ($request->hasFile('acte_n')) {
             $file = $request->file('acte_n');
-            // Stocker le contenu du fichier PDF dans la colonne 'cv' comme un flux binaire
-            $eleve->cv = file_get_contents($file->getRealPath());
+            
+            $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png']; // Ajoutez les extensions autorisées
+            $extension = $file->getClientOriginalExtension();
+            
+            if (!in_array($extension, $allowedExtensions)) {
+                return redirect()->back()->with('error', 'Le type de fichier n\'est pas autorisé.');
+            }
+    
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('actes_naissance'), $fileName);
+    
+            $eleve->acte_n = $fileName;
         }
     
         $eleve->save();
-        return redirect()->route('eleves.listes')->with('worning', 'modication effectuée'); 
+        return redirect()->route('eleves.listes')->with('success', 'modification effectuée avec succès'); 
     }
 
     /**
@@ -101,16 +113,16 @@ class EleveController extends Controller
     {
         $eleve = Eleve::find($id);
         $eleve->delete();
-        return redirect()->route('eleves.listes')->with('danger', 'suppression effectuée');
+        return redirect()->route('eleves.listes')->with('danger', 'suppression effectuée avec succès');
     }
     public function telechargerPdf($id)
     {
         $eleve = Eleve::find($id);
-        if (!$eleve || !$eleve->cv) {
+        if (!$eleve || !$eleve->acte_n) {
             abort(404);
         }
     
-        $pdfContent = $eleve->cv;
+        $pdfContent = $eleve->acte_n;
         $fileName = 'cv_' . $eleve->nom . '_' . $eleve->prenom . '.pdf';
     
         return response()->streamDownload(function () use ($pdfContent) {

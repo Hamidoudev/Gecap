@@ -6,8 +6,10 @@
     {{-- <h6>Manage your User</h6> --}}
     </div>
     <div class="page-btn">
-    <a href="{{url('programmes/ajout')}}" class="btn btn-added"><img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Programmes</a>
-    </div>
+        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal">
+            <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Perogramme
+        </a>
+        </div>
     </div>
     <div class="card">
         <div class="card-body">
@@ -92,6 +94,7 @@
                                 </label>
                             </th> --}}
                             <th>#</th>
+                            <th>Ecole En charge</th>
                             <th>Libelle</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -116,6 +119,7 @@
                                         <span class="checkmarks"></span>
                                     </label></td> --}}
                                 <td>{{ $programme->id }}</td>
+                                <td>{{ $programme->ecole_id }}</td>
                                 <td>{{ $programme->libelle }}</td>
                                 
                                 
@@ -128,9 +132,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="me-3" href="{{ route('programmes.edit', $programme->id) }}">
-                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
-                                            alt="img">
+                                    <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $programme->id }}">
+                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                     </a>
                                     <a class="me-3 confirm-text"
                                         href="{{ route('programmes.delete', $programme->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $programme->nom .'?')">
@@ -148,4 +151,22 @@
 
         </div>
     </div>
-@endsection
+    @include('programmes.ajout')
+    
+    @endsection
+    
+    @foreach($programmes as $programme)
+        <div class="modal fade" id="editModal{{ $programme->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $programme->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel{{ $programme->id }}">Modification Programme : {{ $programme->libelle }} </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @include('programmes.edit', ['programme' => $programme])
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach

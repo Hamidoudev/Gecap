@@ -6,8 +6,10 @@
     {{-- <h6>Manage your User</h6> --}}
     </div>
     <div class="page-btn">
-    <a href="{{url('personnels/ajout')}}" class="btn btn-added"><img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Personnels</a>
-    </div>
+        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal">
+            <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Personnel
+        </a>
+        </div>
     </div>
     <div class="card">
         <div class="card-body">
@@ -99,6 +101,8 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Adresse</th>
+                            <th>Genre</th>
+                            <th>Poste</th>
                             <th>CV</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -130,9 +134,11 @@
                                 <td>{{ $personneladmin->email }}</td>
                                 <td>{{ $personneladmin->telephone }}</td>
                                 <td>{{ $personneladmin->adresse }}</td>
+                                <td>{{ $personneladmin->genre }}</td>
+                                <td>{{ $personneladmin->poste }}</td>
                                 <td>
                                     @if ($personneladmin->cv)
-                                        <a href="{{ route('telecharger_pdf', $personneladmin->id) }}">
+                                        <a href="{{ url('personnel_admin/'.$personneladmin->cv) }}">
                                             <i class="fas fa-file-pdf"></i> Télécharger CV
                                         </a>
                                     @else
@@ -149,16 +155,15 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="me-3" href="{{ route('personnels.edit', $personneladmin->id) }}">
-                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
-                                            alt="img">
+                                    <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $personneladmin->id }}">
+                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                     </a>
-                                    <div class="confirmation-box">
+                                    
                                     <a class="me-3 confirm-text"
                                           href="{{ route('personnels.delete', $personneladmin->id) }}" onclick="return confirmAction('{{ $personneladmin->nom }} {{ $personneladmin->prenom }}')">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}"
                                             alt="img">
-                                    </a></div>
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -172,5 +177,22 @@
     </div>
     @livewireStyles
 @livewireScripts
-
+@include('personnels.ajout')
+    
 @endsection
+
+@foreach($personneladmins as $personneladmin)
+    <div class="modal fade" id="editModal{{ $personneladmin->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $personneladmin->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel{{ $personneladmin->id }}">Modification Personnel : {{ $personneladmin->nom }} {{ $personneladmin->prenom }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @include('personnels.edit', ['personnel' => $personneladmin])
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach

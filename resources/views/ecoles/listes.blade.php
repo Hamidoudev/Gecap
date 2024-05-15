@@ -2,12 +2,14 @@
 @section('content')
 <div class="page-header">
     <div class="page-title">
-    <h4>Listes des Enseignants</h4>
+    <h4>Listes des ecoles</h4>
     {{-- <h6>Manage your User</h6> --}}
     </div>
     <div class="page-btn">
-    <a href="{{url('enseignants/ajout')}}" class="btn btn-added"><img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Enseignants</a>
-    </div>
+        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutecoleModal">
+            <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter ecoles
+        </a>
+        </div>
     </div>
     <div class="card">
         <div class="card-body">
@@ -105,7 +107,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($enseignants as $enseignant)
+                        @foreach ($ecoles as $ecole)
                             <tr>
                                 {{-- <td>
             <label class="checkboxs">
@@ -122,15 +124,25 @@
                                         <input type="checkbox">
                                         <span class="checkmarks"></span>
                                     </label></td> --}}
-                                <td>{{ $enseignant->id }}</td>
-                                <td>{{ $enseignant->matricule }}</td>
-                                <td>{{ $enseignant->nom }}</td>
-                                <td>{{ $enseignant->prenom }}</td>
-                                <td>{{ $enseignant->date_n }}</td>
-                                <td>{{ $enseignant->email }}</td>
-                                <td>{{ $enseignant->telephone }}</td>
-                                <td>{{ $enseignant->adresse }}</td>
-                                <td>{{ $enseignant->cv }}</td>
+                                <td>{{ $ecole->id }}</td>
+                                <td>{{ $ecole->matricule }}</td>
+                                <td>{{ $ecole->nom }}</td>
+                                <td>{{ $ecole->prenom }}</td>
+                                <td>{{ $ecole->date_n }}</td>
+                                <td>{{ $ecole->email }}</td>
+                                <td>{{ $ecole->telephone }}</td>
+                                <td>{{ $ecole->adresse }}</td>
+                                <td>
+                                    @if ($ecole->cv)
+                                        <a href="{{ route('telecharger_pdf', $ecole->id) }}">
+                                            <i class="fas fa-file-pdf"></i> Télécharger CV
+                                        </a>
+                                    @else
+                                        Aucun CV disponible
+                                    @endif
+                                </td>
+                                
+                                
                                 <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
                                 <td>
                                     <div class="status-toggle d-flex justify-content-between align-items-center">
@@ -139,12 +151,11 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="me-3" href="{{ route('enseignants.edit', $enseignant->id) }}">
-                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
-                                            alt="img">
+                                    <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $ecole->id }}">
+                                        <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                     </a>
                                     <a class="me-3 confirm-text"
-                                        href="{{ route('enseignants.delete', $enseignant->id) }}"onclick="return confirm('voulez-vous supprimer ?')">
+                                        href="{{ route('ecoles.delete', $ecole->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $ecole->nom . '_' . $ecole->prenom. '?')">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}"
                                             alt="img">
                                     </a>
@@ -159,4 +170,24 @@
 
         </div>
     </div>
+    {{-- @include('ecoles.edit') --}}
+    @include('ecoles.ajout')
+    
 @endsection
+
+@foreach($ecoles as $ecole)
+    <div class="modal fade" id="editModal{{ $ecole->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $ecole->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel{{ $ecole->id }}">Modification ecole : {{ $ecole->nom }} {{ $ecole->prenom }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @include('ecoles.edit', ['ecole' => $ecole])
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+

@@ -1,19 +1,22 @@
-@extends('layouts.interfacepersonnel')
-@section('content')
-    <div class="page-header">
-        <div class="page-title">
-            <h4>Ajouts ds Personnels</h4>
-            <p>
+
+
+<!-- Modal -->
+
+<div class="modal fade" id="ajoutEnseignantModal" tabindex="-1" aria-labelledby="ajoutEnseignantModalLabel" aria-hidden="true">
+    <div  class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ajoutEnseignantModalLabel">Ajouter un Personnel</h5>
                 @if ($message = Session::get('success'))
-                    <h3> {{ $message }} </h3>
-                @endif
-            </p>
-        </div>
-    </div>
-    <form action="{{ route('personnels.store') }}" method="POST">
-        @csrf
-        <div class="card">
-            <div class="card-body">
+                <h3> {{ $message }} </h3>
+            @endif
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="{{ route('personnels.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
                 <div class="row">
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
@@ -58,6 +61,27 @@
                             <input type="text" name="adresse">
                         </div>
                     </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group-">
+                            
+                            <label>Genre</label>
+                            <div class="genre">
+                            <label>
+                                <input type="radio" name="genre" value="F"> F
+                            </label><label>
+                                <input type="radio" name="genre" value="M"> M
+                            </label>
+                        </div>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Poste</label>
+                            <input type="text" name="poste">
+                        </div>
+                    </div>
 
                     <div class="col-lg-12">
                         <div class="form-group">
@@ -71,13 +95,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12">
-                        <button type="reset" class="btn btn-cancel">Annuler</button>
-                        <button type="submit" class="btn btn-submit me-2">Envoyer</button>
-
-                    </div>
                 </div>
             </div>
+                </div>
+                </div>
+                <div class="modal-footer justify-content">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
         </div>
-    </form>
-@endsection
+    </div>
+    </div>
+
+
+
