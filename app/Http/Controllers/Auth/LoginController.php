@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -62,7 +63,7 @@ class LoginController extends Controller
                 return redirect()->route('user.home');
             }
         }else{
-            return redirect()->route('login')
+            return redirect()->route('auth.login')
                 ->with('error','Email ou mot de passe incorrect.');
         }
 

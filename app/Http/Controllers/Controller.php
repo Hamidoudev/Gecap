@@ -9,10 +9,10 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
-    protected function autorisation($role, $controller){
+    protected function autorisation($role, $controller){ 
         $droits = $role->droits;
         foreach ($droits as $droit) {
-            if ($droit->route == $controller && $droit->access == 1){
+            if ($droit->route == $controller && $droit->acces == 1){  
                     $auth = 'true';
             } else {
                 continue;

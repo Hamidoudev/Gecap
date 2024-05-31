@@ -7,7 +7,7 @@
 <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern,  html5, responsive">
 <meta name="author" content="Dreamguys - Bootstrap Admin Template">
 <meta name="robots" content="noindex, nofollow">
-<title>Manager-Gecap-2024</title>
+<title>Ecole-Gecap-2024</title>
 
 <link rel="shortcut icon" type="image/x-icon" href="{{ URL::to('admin-template/assets/img/gecap.png') }}">
 
@@ -186,7 +186,7 @@
 <span class="user-img"><img src="{{URL::to('admin-template/assets/img/profiles/avator1.jpg') }}" alt="">
 <span class="status online"></span></span>
 <div class="profilesets">
-<h6>Directeur CAP</h6>
+<h6>Directeur </h6>
 @if(Auth::check() && Auth::user()->type)
     <h5>{{ Auth::user()->type }}</h5>
 @endif
@@ -197,8 +197,13 @@
 <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My Profile</a>
 <a class="dropdown-item" href="generalsettings.html"><i class="me-2" data-feather="settings"></i>Settings</a>
 <hr class="m-0">
-<a class="dropdown-item logout pb-0" href="signin.html"><img src="{{ URL::to('admin-template/assets/img/icons/log-out.svg') }}" class="me-2" alt="img">Logout</a>
-</div>
+<a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                         {{ __('') }}
+                            <img
+                                    src="{{ URL::to('admin-template/assets/img/icons/log-out.svg') }}" class="me-2"
+                                    alt="img">Logout</a><form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"></div>
 </div>
 </li>
 </ul>
@@ -209,7 +214,12 @@
 <div class="dropdown-menu dropdown-menu-right">
 <a class="dropdown-item" href="profile.html">My Profile</a>
 <a class="dropdown-item" href="generalsettings.html">Settings</a>
-<a class="dropdown-item" href="signin.html">Logout</a>
+<a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+    Logout
+</a>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
 </div>
 </div>
 
@@ -228,9 +238,9 @@
         <ul>
         <li><a href="{{url('enseignants/listes')}}">Enseignants</a></li>
         <li><a href="{{url('eleves/listes')}}">Eleves</a></li>
-        <li><a href="{{url('personnels/listes')}}"> Personnels </a></li>
+        {{-- <li><a href="{{url('personnels/listes')}}"> Personnels </a></li> --}}
         <li><a href="{{url('emplois/listes')}}">Emplois</a></li>
-        <li><a href="{{url('evaluations/listes')}}">Evaluation  </a></li>
+        {{-- <li><a href="{{url('evaluations/listes')}}">Evaluation  </a></li> --}}
         {{-- <li><a href="subaddcategory.html">Add Sub Category</a></li>
         <li><a href="brandlist.html">Brand List</a></li>
         <li><a href="addbrand.html">Add Brand</a></li>
@@ -252,7 +262,7 @@
         <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/purchase1.svg') }}" alt="img"><span> Pedagogie</span> <span class="menu-arrow"></span></a>
         <ul>
         <li><a href="{{url('programmes/listes')}}"> Programmes</a></li>
-        <li><a href="{{url('grilles/listes')}}"> Grilles</a></li>
+        {{-- <li><a href="{{url('grilles/listes')}}"> Grilles</a></li> --}}
         {{-- <li><a href="addpurchase.html">Add Purchase</a></li>
         <li><a href="importpurchase.html">Import Purchase</a></li> --}}
         </ul>
@@ -260,7 +270,7 @@
         <li class="submenu">
         <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/expense1.svg') }}" alt="img"><span> Ressource</span> <span class="menu-arrow"></span></a>
         <ul>
-        <li><a href="{{url('equipements/listes')}}"> Equipements</a></li>
+        {{-- <li><a href="{{url('equipements/listes')}}"> Equipements</a></li> --}}
         {{-- <li><a href="createexpense.html">Add Expense</a></li>
         <li><a href="expensecategory.html">Expense Category</a></li> --}}
         </ul>

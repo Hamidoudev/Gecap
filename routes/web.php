@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Admin\DroitController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\DiplomeController;
 use App\Http\Controllers\EcoleController;
 use App\Http\Controllers\EleveController;
 use App\Http\Controllers\EmploisController;
 use App\Models\Enseignant;
+
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -13,10 +15,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EnseignantController;
 use App\Http\Controllers\EquipementController;
 use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\ExamenController;
 use App\Http\Controllers\PersonneladminController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\TrimestreController;
 use App\Http\Controllers\GrilleController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +46,9 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:user'])->group(function () {
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+   Route::get('/home', [HomeController::class, 'index'])->name('home');
+  // Route::get('/user/home', [HomeController::class, 'userHome'])->name('user.home');
+
 });
 
 /*------------------------------------------
@@ -70,6 +76,8 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
 });
 Route::get('auth/login', function(){
     return view('auth.login');
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
 
 });
 Route::get('/enseignant/{id}/telecharger-pdf', [EnseignantController::class, 'telechargerPdf'])->name('telecharger_pdf');
@@ -139,7 +147,7 @@ Route::get('/programmes/show/{id}', [ProgrammeController::class, 'show'])->name(
 // routes grilles
 Route::get('/grilles/listes', [GrilleController::class, 'index'])->name('grilles.listes');
 Route::get('/grilles/ajout', [GrilleController::class, 'create'])->name('grilles.ajout');
-Route::get('/grilles/pdf', [GrilleController::class, 'generatePDF'])->name('grilles.pdf');
+Route::get('/grilles/pdf/{id}', [GrilleController::class, 'generatePDF'])->name('grilles.pdf');
 Route::post('/grilles/store', [GrilleController::class, 'store'])->name('grilles.store');
 Route::get('/grilles/edit/{id}', [GrilleController::class, 'edit'])->name('grilles.edit');
 Route::post('/grilles/update/{id}', [GrilleController::class, 'update'])->name('grilles.update');
@@ -154,6 +162,25 @@ Route::get('/equipements/edit/{id}', [EquipementController::class, 'edit'])->nam
 Route::post('/equipements/update/{id}', [EquipementController::class, 'update'])->name('equipements.update');
 Route::get('/equipements/delete/{id}', [EquipementController::class, 'destroy'])->name('equipements.delete');
 Route::get('/equipements/show/{id}', [EquipementController::class, 'show'])->name('equipements.show');
+
+// routes Diplomes
+Route::get('/diplomes/listes', [DiplomeController::class, 'index'])->name('diplomes.listes');
+Route::get('/diplomes/ajout', [DiplomeController::class, 'create'])->name('diplomes.ajout');
+Route::post('/diplomes/store', [DiplomeController::class, 'store'])->name('diplomes.store');
+Route::get('/diplomes/edit/{id}', [DiplomeController::class, 'edit'])->name('diplomes.edit');
+Route::post('/diplomes/update/{id}', [DiplomeController::class, 'update'])->name('diplomes.update');
+Route::get('/diplomes/delete/{id}', [DiplomeController::class, 'destroy'])->name('diplomes.delete');
+Route::get('/diplomes/show/{id}', [DiplomeController::class, 'show'])->name('diplomes.show');
+
+// routes examens
+Route::get('/examens/listes', [ExamenController::class, 'index'])->name('examens.listes');
+Route::get('/examens/ajout', [ExamenController::class, 'create'])->name('examens.ajout');
+Route::post('/examens/store', [ExamenController::class, 'store'])->name('examens.store');
+Route::get('/examens/edit/{id}', [ExamenController::class, 'edit'])->name('examens.edit');
+Route::post('/examens/update/{id}', [ExamenController::class, 'update'])->name('examens.update');
+Route::get('/examens/delete/{id}', [ExamenController::class, 'destroy'])->name('examens.delete');
+Route::get('/examens/show/{id}', [ExamenController::class, 'show'])->name('examens.show');
+
 
 // evaluation
 Route::get('/evaluations/listes', [EvaluationController::class, 'index'])->name('evaluations.listes');
@@ -174,3 +201,9 @@ Route::get('/admin/role/ajout', [RoleController::class, 'create'])->name('admin.
 Route::post('/admin/role/store', [RoleController::class, 'store'])->name('admin.role.store');
 Route::get('/admin/role/delete{id}', [RoleController::class, 'destroy'])->name('admin.role.delete');
 Route::post('/admin/role/update/{id}', [RoleController::class, 'update'])->name('admin.role.update');
+
+
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+

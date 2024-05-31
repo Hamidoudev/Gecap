@@ -20,17 +20,20 @@ return new class extends Migration
 
         DB::table('type_droit')->insert([
             [
-                'nom' => 'ecriture',
+                'nom' => 'Gestion Administrative',
                
                 
                 
             ],
             [
-                'nom' => 'lecture',
+                'nom' => 'Gestion Pedagogie',
                
             ],
             [
-                'nom' => 'edit',
+                'nom' => 'Gestion Ressources',
+            ],
+            [
+                'nom' => 'Gestion Roles',
             ],
         ]);
     }

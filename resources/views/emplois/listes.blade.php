@@ -120,8 +120,21 @@
                                         <span class="checkmarks"></span>
                                     </label></td> --}}
                                 <td>{{ $emploi->id }}</td>
-                                <td>{{ $emploi->ue_id }}</td>
-                                <td>{{ $emploi->trimestre_id }}</td>
+                                <td>
+                                    @foreach($ues as $ue)
+                                        @if($ue->id == $emploi->ue_id)
+                                            {{ $ue->libelle }}
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach($trimestres as $trimestre)
+                                        @if($trimestre->id == $emploi->trimestre_id)
+                                            {{ $trimestre->libelle }}
+                                        @endif
+                                    @endforeach
+                                </td>
+                                
                                 <td>{{ $emploi->date_debut }}</td>
                                 <td>{{ $emploi->date_fin }}</td>
                       

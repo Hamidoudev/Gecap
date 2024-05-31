@@ -232,18 +232,17 @@
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" href="/"> <i class="me-2" data-feather="user"></i> My
+                            <a class="dropdown-item" href="/"> <i class="me-2" data-feather="user"></i> Mon
                                 Profile</a>
                             <a class="dropdown-item" href="/"><i class="me-2"
                                     data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
-
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-              document.getElementById('logout-form').submit();">
-                                {{ __('') }}
-                                <img src="{{ URL::to('admin-template/assets/img/icons/log-out.svg') }}"
-                                    class="me-2" alt="img">Logout</a>
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     </div>
                 </li>
@@ -306,6 +305,8 @@
                             <ul>
                                 <li><a href="{{ url('programmes/listes') }}"> Programmes</a></li>
                                 <li><a href="{{ url('grilles/listes') }}"> Grilles</a></li>
+                                <li><a href="{{ url('grilles/listes') }}"> Dipômes</a></li>
+                                <li><a href="{{ url('grilles/listes') }}"> Examens</a></li>
                                 {{-- <li><a href="addpurchase.html">Add Purchase</a></li>
 <li><a href="importpurchase.html">Import Purchase</a></li> --}}
                             </ul>

@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $autorisation = $this->autorisation(Auth::user()->role, 'role.index');
+        $autorisation = $this->autorisation(Auth::user()->role, 'roles.index');
         if ($autorisation == 'false') {
             toastr()->info('Vous n\'avez pas le droit d\'acceder à ces ressources', 'Tentative échoué');
             return redirect()->route('admin.home');

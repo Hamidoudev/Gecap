@@ -1,88 +1,262 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapport de Grille</title>
+    <title>Rapport de grille</title>
     <style>
-        /* Style pour le tableau */
-        .grille {
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #dddddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .header h2 {
+            font-size: 20px;
+            margin: 5px 0;
+        }
+        .flag {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .flag div {
+            height: 5px;
+        }
+        .flag .green {
+            background-color: #14a34b;
+            width: 100px;
+        }
+        .flag .yellow {
+            background-color: #ffcd00;
+            width: 100px;
+        }
+        .flag .red {
+            background-color: #ce1126;
+            width: 100px;
+        }
+        .emblem {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .emblem img {
+            width: 150px;
+        }
+        .text {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .slogan {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .slogan span {
+            display: block;
+        }
+        .form-section {
+            margin: 20px 0;
+        }
+        .form-section label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-
-        .ligne {
-            border-bottom: 1px solid #000;
+        table th, table td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
         }
-
-        .cellule {
-            border-right: 1px solid #000;
-            padding: 10px;
+        table th {
+            background-color: #f2f2f2;
         }
-
-        /* Style pour l'en-tête */
-        .entete {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
+        .center {
+            text-align: center;
+        }
+        ol {
+            padding-left: 20px;
+        }
+        input[type="date"] {
+            padding: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="entete">Rapport de Grille</div>
-    <table class="grille">
-        <thead>
-            <tr>
-                <th class="cellule">Nom</th>
-                <th class="cellule">Prénom</th>
-                <th class="cellule">Statut</th>
-                <th class="cellule">École</th>
-                <th class="cellule">Classe Tenue</th>
-                <th class="cellule">Discipline</th>
-                <th class="cellule">Thème</th>
-                <th class="cellule">Durée</th>              
-                <th class="cellule">Effectif</th>
-                <th class="cellule">Fiche de Préparation</th>
-                <th class="cellule">Matériel Didactique</th>
-                <th class="cellule">Utilisation du Matériel</th>
-                <th class="cellule">OPO Annoncés</th>
-                <th class="cellule">Méthode Pertinente</th>
-                <th class="cellule">Élèves en Activité</th>
-                <th class="cellule">Contenu Conforme</th>
-                <th class="cellule">Contenu Maîtrisé</th>
-                <th class="cellule">Techniques d'Animation</th>
-                <th class="cellule">Exercices d'Évaluation</th>
-                <th class="cellule">Total Points</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Utilisez une boucle pour afficher chaque enregistrement de la grille -->
-            @foreach($grilles as $grille)
-            <tr class="ligne">
-                <td class="cellule">{{ $grille->prenom }}</td>
-                <td class="cellule">{{ $grille->statut }}</td>
-                <td class="cellule">{{ $grille->ecole }}</td>
-                <td class="cellule">{{ $grille->classe_tenue }}</td>
-                <td class="cellule">{{ $grille->discipline }}</td>
-                <td class="cellule">{{ $grille->theme }}</td>
-                <td class="cellule">{{ $grille->duree }}</td>
-                <td class="cellule">{{ $grille->nom }}</td>
-                <td class="cellule">{{ $grille->effectif }}</td>
-                <td class="cellule">{{ $grille->fiche_preparation }}</td>
-                <td class="cellule">{{ $grille->materiel_didactique }}</td>
-                <td class="cellule">{{ $grille->utilisation_materiel }}</td>
-                <td class="cellule">{{ $grille->opo_annonces }}</td>
-                <td class="cellule">{{ $grille->methode_pertinente }}</td>
-                <td class="cellule">{{ $grille->eleves_activite }}</td>
-                <td class="cellule">{{ $grille->contenu_conforme }}</td>
-                <td class="cellule">{{ $grille->contenu_maitrise }}</td>
-                <td class="cellule">{{ $grille->techniques_animation }}</td>
-                <td class="cellule">{{ $grille->exercices_evaluation }}</td>
-                <td class="cellule">{{ $grille->total_points }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="header">
+            <h1>Ministère de l'Éducation Nationale</h1>
+            <div class="flag">
+                <div class="green"></div>
+                <div class="yellow"></div>
+                <div class="red"></div>
+            </div>
+            <div class="emblem">
+                <div class="text">REPUBLIQUE DU MALI</div>
+                <img src="{{ URL::to('admin-template/assets/img/embleme.jpg') }}" alt="Emblem of Mali">
+                <div class="text">Un Peuple - Un But - Une Foi</div>
+            </div>
+            <div class="slogan">
+                <span>Un Peuple - Un But - Une Foi</span>
+            </div>
+            <h2>Centre d'Animation Pédagogique de Sébénikoro</h2>
+            <h3>Grille de suivi des maîtres 1er Cycle</h3>
+        </div>
+        {{-- <form>
+            <?php
+            ini_set('max_execution_time', 100); // Augmente la limite de temps d'exécution à 5 minutes
+            ?>
+        
+            <div class="form-section">
+                <label>A. Identification du candidat :</label>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Nom :</th>
+                            <td>{{ $grille->nom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prénom :</th>
+                            <td>{{ $grille->prenom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Statut :</th>
+                            <td>{{ $grille->statut }}</td>
+                        </tr>
+                        <tr>
+                            <th>École :</th>
+                            <td>{{ $grille->ecole_id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Classe tenue :</th>
+                            <td>{{ $grille->classe }}</td>
+                        </tr>
+                        <tr>
+                            <th>Effectif :</th>
+                            <td>{{ $grille->effectif }}</td>
+                            <td>F {{ $grille->F }}</td>
+                            <td>G {{ $grille->G }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-section">
+                <label>B. Observations sur la leçon :</label>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Discipline :</th>
+                            <td>{{ $grille->discipline }}</td>
+                        </tr>
+                        <tr>
+                            <th>Thème :</th>
+                            <td>{{ $grille->theme }}</td>
+                        </tr>
+                        <tr>
+                            <th>Durée :</th>
+                            <td>{{ $grille->duree }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ITEM</th>
+                        <th class="center">Notes analytiques</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1. La fiche de préparation existe-t-elle ? est-elle exploitable ?</td>
+                        <td class="center">{{ $grille->fiche_preparation }}</td>
+                    </tr>
+                    <tr>
+                        <td>2. Le matériel didactique existe-t-il ? est-il suffisant ?</td>
+                        <td class="center">{{ $grille->materiel_didactique }}</td>
+                    </tr>
+                    <tr>
+                        <td>3. Le matériel didactique a-t-il bien été utilisé ?</td>
+                        <td class="center">{{ $grille->utilisation_materiel }}</td>
+                    </tr>
+                    <tr>
+                        <td>4. Les OPO (objectif pédagogique opérationnel) sont-ils bien annoncés ? ont-ils été atteints ?</td>
+                        <td class="center">{{ $grille->opo_annonces }}</td>
+                    </tr>
+                    <tr>
+                        <td>5. La méthodologie utilisée est-elle pertinente ?</td>
+                        <td class="center">{{ $grille->methode_pertinente }}</td>
+                    </tr>
+                    <tr>
+                        <td>6. Les élèves ont-ils été mis en activité ?</td>
+                        <td class="center">{{ $grille->eleves_activite }}</td>
+                    </tr>
+                    <tr>
+                        <td>7. Le contenu de la leçon est-il conforme au programme officiel ?</td>
+                        <td class="center">{{ $grille->contenu_conforme }}</td>
+                    </tr>
+                    <tr>
+                        <td>8. Le contenu de la leçon est-il bien maîtrisé par l’enseignant ?</td>
+                        <td class="center">{{ $grille->contenu_maitrise }}</td>
+                    </tr>
+                    <tr>
+                        <td>9. Les techniques d'animation ont-elles été bien appliquées ?</td>
+                        <td class="center">{{ $grille->techniques_animation }}</td>
+                    </tr>
+                    <tr>
+                        <td>10. Les exercices d'évaluation ont-ils été effectués ?</td>
+                        <td class="center">{{ $grille->exercices_evaluation }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="form-section">
+                <label>Total des points :</label>
+                <div class="center"></div>
+            </div>
+
+            <div class="form-section">
+                <label>Les Conseillers Pédagogiques :</label>
+                <ol>
+                    <li>{{ $grille->conseille1 }}</li>
+                    <li>{{ $grille->conseille2 }}</li>
+                    <li>{{ $grille->conseille3 }}</li>
+                    <li>{{ $grille->conseille4 }}</li>
+                    <li>{{ $grille->conseille5 }}</li>
+                </ol>
+            </div>
+            
+            <div class="form-section">
+                <label for="date">Bamako le :</label>
+                <td>{{ $grille->date }}</td>
+            </div>
+            
+        </form> --}}
+    </div>
 </body>
 </html>

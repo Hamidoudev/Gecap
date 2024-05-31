@@ -23,7 +23,7 @@ return new class extends Migration
 
         DB::table('droits')->insert([
             [
-                'nom' => 'administrative',
+                'nom' => 'Emplois',
                 'acces' => 1,
                 'route' => 'emplois.listes',
                 'type_droit_id' => 1,
@@ -31,17 +31,71 @@ return new class extends Migration
                 
             ],
             [
-                'nom' => 'pedagogie',
-                'acces' => 2,
-                'route' => 'emplois.edit',
-                'type_droit_id' => 2,
+                'nom' => 'Enseignants',
+                'acces' => 1,
+                'route' => 'enseignant.listes',
+                'type_droit_id' => 1,
                
             ],
             [
-                'nom' => 'ressource',
+                'nom' => 'Eleves',
                 'acces' => 1,
-                'route' => 'emplois.delete',
+                'route' => 'eleves.listes',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Equipements',
+                'acces' => 1,
+                'route' => 'equipements.listes',
+                'type_droit_id' => 3,
+            ],
+            [
+                'nom' => 'Personnels',
+                'acces' => 1,
+                'route' => 'personnels.listes',
+                'type_droit_id' => 1,
+            ],
+            [
+                'nom' => 'Programmes',
+                'acces' => 1,
+                'route' => 'programmes.listes',
                 'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Grilles',
+                'acces' => 1,
+                'route' => 'grilles.listes',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Droits',
+                'acces' => 1,
+                'route' => 'droits.index',
+                'type_droit_id' => 4,
+            ],
+            [
+                'nom' => 'Role',
+                'acces' => 1,
+                'route' => 'roles.index',
+                'type_droit_id' => 4,
+            ],
+            [
+                'nom' => 'Diplome',
+                'acces' => 1,
+                'route' => 'diplomes.listes',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Examen',
+                'acces' => 1,
+                'route' => 'examens.listes',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Evaluation',
+                'acces' => 1,
+                'route' => 'evaluation.listes',
+                'type_droit_id' => 1,
             ],
         ]);
     }

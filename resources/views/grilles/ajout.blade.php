@@ -5,7 +5,7 @@
     <div  class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ajoutgrilleModalLabel">Ajouter un grille</h5>
+                <h5 class="modal-title" id="ajoutgrilleModalLabel">Ajouter une grille</h5>
                 @if ($message = Session::get('success'))
                 <h3> {{ $message }} </h3>
             @endif
@@ -31,14 +31,24 @@
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Statut</label>
-                            <input type="text" name="statut">
+                            <label for="statut">Statut</label>
+                            <select name="statut" id="statut" class="form-control">
+                                <option value="active">Active</option>
+                                <option value="non-active">Non-active</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
                             <label>École</label>
-                            <input type="text" name="ecole">
+                            <div class="input-with-dropdown">
+                                <select id="ecoles_list" wire:model="selectedEcole" name="ecole_id">
+                                    <option value="">Sélectionner une école</option>
+                                    @foreach($ecoles as $ecole)
+                                        <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
+                                    @endforeach
+                                </select>
+                            </div>  
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
@@ -70,6 +80,14 @@
                         <div class="form-group">
                             <label>Effectif</label>
                             <input type="number" name="effectif">
+                        </div>
+                        <div class="form-group">
+                            <label>File</label>
+                            <input type="number" name="F">
+                        </div>
+                        <div class="form-group">
+                            <label>Garçon</label>
+                            <input type="number" name="G">
                         </div>
                     </div>
                 </div>
@@ -124,14 +142,52 @@
                         </tr>
                     </tbody>
                 </table>
+                
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>1. Conseiller</label>
+                        <input type="text" name="conseille1">
+                    </div>
                 </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>2. Conseiller</label>
+                        <input type="text" name="conseille2">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>3. Conseiller</label>
+                        <input type="text" name="conseille3">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>4. Conseiller</label>
+                        <input type="text" name="conseille4">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>5. Conseiller</label>
+                        <input type="text" name="conseille5">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" name="date">
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
             </div>
                 </div>
                 </div>
-                <div class="modal-footer justify-content">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
-                </div>
+               
             </form>
         </div>
     </div>

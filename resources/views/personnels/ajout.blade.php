@@ -62,18 +62,12 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="form-group-">
-                            
-                            <label>Genre</label>
-                            <div class="genre">
-                            <label>
-                                <input type="radio" name="genre" value="F"> F
-                            </label><label>
-                                <input type="radio" name="genre" value="M"> M
-                            </label>
-                        </div>
-                            
-                            
+                        <div class="form-group">
+                            <label for="genre">Genre</label>
+                            <select name="genre" id="genre" class="form-control">
+                                <option value="F">Femme</option>
+                                <option value="M">Homme</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">

@@ -225,7 +225,7 @@
                                         alt="">
                                     <span class="status online"></span></span>
                                 <div class="profilesets">
-                                    <h6>D</h6>
+                                    <h6>{{ Auth::user()->name }}</h6>
                                     @if (Auth::check() && Auth::user()->type)
                                         <h5>{{ Auth::user()->type }}</h5>
                                     @endif
@@ -233,25 +233,17 @@
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i>
-                                My Profile</a>
+                            <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#profileModal" href="{{ url('profile/edit') }}"> <i class="me-2" data-feather="user"></i>
+                                Mon Profile</a>
                             <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                     data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
-
-                                
-                                 
-                                
-
-                                
-
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                         {{ __('') }}
-                            <img
-                                    src="{{ URL::to('admin-template/assets/img/icons/log-out.svg') }}" class="me-2"
-                                    alt="img">Logout</a><form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                                         @csrf
                                     </form>
                         </div>
@@ -264,9 +256,14 @@
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
+                    <a class="dropdown-item" href="{{ url('profile/edit') }}">Mon Profile</a>
                     <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
 
@@ -822,6 +819,8 @@
     <script src="{{ URL::to('admin-template/assets/plugins/apexchart/chart-data.js') }} "></script>
 
     <script src="{{ URL::to('admin-template/assets/js/script.js') }} "></script>
+
+    {{-- @include('profile.edit') --}}
 </body>
 
 </html>

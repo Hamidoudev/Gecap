@@ -1,4 +1,4 @@
-@extends('layouts.interface')
+@extends('layouts.interfaceecole')
 @section('content')
 <div class="page-header">
     <div class="page-title">

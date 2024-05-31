@@ -8,16 +8,35 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> UE</label>
-                        <input type="text" name="ue_id" value="{{ $emploi->ue_id }}">
+                        <label>UE</label>
+                        <div class="input-with-dropdown">
+                            <select id="ues_list" name="ue_id" class="form-control">
+                                <option value="">Sélectionner une UE</option>
+                                @foreach($ues as $ue)
+                                    <option value="{{ $ue->id }}" {{ $ue->ue_id == $ue->id ? 'selected' : '' }}>
+                                        {{ $ue->libelle }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> Trimestre </label>
-                        <input type="text" name="trimestre_id" value="{{ $emploi->trimestre_id }}">
+                        <label>Trimestre</label>
+                        <div class="input-with-dropdown">
+                            <select id="trimestres_list" name="trimestre_id" class="form-control">
+                                <option value="">Sélectionner un trimestre</option>
+                                @foreach($trimestres as $trimestre)
+                                    <option value="{{ $trimestre->id }}" {{ $trimestre->trimestre_id == $trimestre->id ? 'selected' : '' }}>
+                                        {{ $trimestre->libelle }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
                         <label> Date Debut</label>

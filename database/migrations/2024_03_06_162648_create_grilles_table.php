@@ -15,13 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
-            $table->string('statut');
-            $table->string('ecole');
+            $table->enum('statut', ['active', 'non-active'])->default('active');
+            $table->bigInteger('ecole_id')->unsigned();
             $table->string('classe_tenue');
             $table->string('discipline');
             $table->string('theme');
             $table->string('duree');          
             $table->integer('effectif');
+            $table->integer('F');
+            $table->integer('G');
             $table->integer('fiche_preparation')->nullable();
             $table->integer('materiel_didactique')->nullable();
             $table->integer('utilisation_materiel')->nullable();
@@ -33,6 +35,12 @@ return new class extends Migration
             $table->integer('techniques_animation')->nullable();
             $table->integer('exercices_evaluation')->nullable();
             $table->integer('total_points')->nullable();
+            $table->string('conseille1');
+            $table->string('conseille2');
+            $table->string('conseille3');
+            $table->string('conseille4');
+            $table->string('conseille5');
+            $table->date('date');
             $table->timestamps();
         });
        

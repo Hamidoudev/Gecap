@@ -224,7 +224,7 @@
                                         alt="">
                                     <span class="status online"></span></span>
                                 <div class="profilesets">
-                                    <h6>D</h6>
+                                    <h6>{{ Auth::user()->name }}</h6>
                                     @if (Auth::check() && Auth::user()->type)
                                         <h5>{{ Auth::user()->type }}</h5>
                                     @endif
@@ -237,9 +237,13 @@
                             <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                     data-feather="settings"></i>Settings</a>
                             <hr class="m-0">
-                            <a class="dropdown-item logout pb-0" href="signin.html"><img
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                         {{ __('') }}
+                            <img
                                     src="{{ URL::to('admin-template/assets/img/icons/log-out.svg') }}" class="me-2"
-                                    alt="img">Logout</a>
+                                    alt="img">Logout</a><form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         </div>
                     </div>
                 </li>
@@ -252,7 +256,12 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="signin.html">Logout</a>
+                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
 
