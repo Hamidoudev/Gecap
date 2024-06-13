@@ -46,7 +46,7 @@
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-0">
+                <a href="/" class="navbar-brand p-0">
                     <h1 class="m-0">GECAP</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
@@ -67,7 +67,7 @@
                                 <a href="404.html" class="dropdown-item">404 Page</a>
                             </div>
                         </div> --}}
-                        <a href="/" class="nav-item nav-link">Contact</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal" class="nav-item nav-link">Contact</a>
                     </div>
                     <a href="auth/login" class="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Se Connecter</a>
                 </div>
@@ -592,6 +592,7 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-secondary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+    @include('contact')
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

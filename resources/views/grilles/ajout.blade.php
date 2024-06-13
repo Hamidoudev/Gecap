@@ -150,10 +150,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label>2. Conseiller</label>
-                        <input type="text" name="conseille2">
-                    </div>
+                  
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">

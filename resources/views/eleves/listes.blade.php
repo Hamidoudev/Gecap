@@ -50,24 +50,21 @@
                 <div class="row">
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
-                            <input type="text" placeholder="Enter User Name">
+                            <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
+                                <option value="">Sélectionner un cycle</option>
+                                @foreach($classes as $classe)
+                                    <option value="{{ $classe->id }}">{{ $classe->cycle }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
-                            <input type="text" placeholder="Enter Phone">
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 col-12">
-                        <div class="form-group">
-                            <input type="text" placeholder="Enter Email">
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 col-12">
-                        <div class="form-group">
-                            <select class="select">
-                                <option>Disable</option>
-                                <option>Enable</option>
+                            <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
+                                <option value="">Sélectionner une classe</option>
+                                @foreach($classes as $classe)
+                                    <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -79,6 +76,8 @@
                         </div>
                     </div>
                 </div>
+                   
+                </div>
             </div>
         </div> 
 
@@ -87,11 +86,9 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Ecole</th>
-                        <th>Maricule</th>
+                        <th>Classe</th>
+                        <th>Matricule</th>
                         <th>Nom </th>
-                        <th>Prénom </th>
-                        <th>Date Naissance </th>
                         <th>Adresse</th>
                         <th>Genre</th>
                         <th>Acte De Naissance </th>
@@ -104,16 +101,14 @@
                         <tr>
                             <td>{{ $eleve->id }}</td>
                             <td>
-                                @foreach($ecoles as $ecole)
-                                    @if($ecole->id == $eleve->ecole_id)
-                                        {{ $ecole->nom }}
+                                @foreach($classes as $classe)
+                                    @if($classe->id == $eleve->classe_id)
+                                        {{ $classe->libelle }}
                                     @endif
                                 @endforeach
                             </td> 
                             <td>{{ $eleve->matricule }}</td>                         
-                            <td>{{ $eleve->nom }}</td>
-                            <td>{{ $eleve->prenom }}</td>
-                            <td>{{ $eleve->date_n }}</td>
+                            <td>{{ $eleve->nom  }}</td>
                             <td>{{ $eleve->adresse }}</td>
                             <td>{{ $eleve->genre }}</td>
                             <td>

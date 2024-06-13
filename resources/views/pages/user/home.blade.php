@@ -1,4 +1,4 @@
-@extends('pages.manager.interface')
+@extends('pages.user.interface')
 @section('content')
 {{-- <div class="sidebar" id="sidebar"> --}}
     <div class="sidebar-inner slimscroll">

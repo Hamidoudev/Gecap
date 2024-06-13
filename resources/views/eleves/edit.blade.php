@@ -6,12 +6,12 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>École</label>
+                        <label>Classe</label>
                         <div class="input-with-dropdown">
                             <select id="ecoles_list" name="ecole_id" class="form-control">
-                                @foreach($ecoles as $ecole)
-                                    <option value="{{ $ecole->id }}" {{ $eleve->ecole_id == $ecole->id ? 'selected' : '' }}>
-                                        {{ $ecole->nom }}
+                                @foreach($classes as $classe)
+                                    <option value="{{ $classe->id }}" {{ $eleve->classe_id == $classe->id ? 'selected' : '' }}>
+                                        {{ $classe->libelle }}
                                     </option>
                                 @endforeach
                             </select>
@@ -70,8 +70,8 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <button type="reset" class="btn btn-cancel">Annuler</button>
-                    <button type="submit" class="btn btn-submit me-2">Modifier</button>
+                    <button type="reset" data-bs-dismiss="modal" class="btn btn-secondary">Annuler</button>
+        <button type="submit" class="btn btn-primary me-2">Modifier</button>
                 </div>
             </div>
         </div>

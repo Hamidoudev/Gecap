@@ -12,7 +12,11 @@ class ProfileController extends Controller
 {
     public function edit()
     {
+        
         $user = Auth::user();
+        if(!$user) {
+            abort(404,'user not found');
+        }
         return view('profile.edit', compact('user'));
     }
 
@@ -28,6 +32,7 @@ class ProfileController extends Controller
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+       
         $user = User::find(Auth::user()->id);
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
@@ -35,9 +40,9 @@ class ProfileController extends Controller
         $user->phone = $request->input('phone');
         $user->username = $request->input('username');
 
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->input('password'));
-        }
+       // if ($request->filled('password')) {
+       //     $user->password = Hash::make($request->input('password'));
+       // }
 
         if ($request->hasFile('profile_picture')) {
             $imageName = time().'.'.$request->profile_picture->extension();
@@ -47,6 +52,6 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Profile updated successfully.');
+        return redirect()->back()->with('success', 'Profile Modifier avec success.');
     }
 }

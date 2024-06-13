@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Admin\DroitController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DiplomeController;
 use App\Http\Controllers\EcoleController;
 use App\Http\Controllers\EleveController;
@@ -46,7 +49,7 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:user'])->group(function () {
 
-   Route::get('/home', [HomeController::class, 'index'])->name('home');
+   Route::get('/user/home', [HomeController::class, 'index'])->name('user.home');
   // Route::get('/user/home', [HomeController::class, 'userHome'])->name('user.home');
 
 });
@@ -76,12 +79,11 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
 });
 Route::get('auth/login', function(){
     return view('auth.login');
-    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+    })->name("auth.login");
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
-});
-Route::get('/enseignant/{id}/telecharger-pdf', [EnseignantController::class, 'telechargerPdf'])->name('telecharger_pdf');
 // routes enseignants
+Route::get('/enseignant/{id}/telecharger-pdf', [EnseignantController::class, 'telechargerPdf'])->name('telecharger_pdf');
 Route::get('/enseignants/listes', [EnseignantController::class, 'index'])->name('enseignants.listes');
 Route::get('/enseignants/ajout', [EnseignantController::class, 'create'])->name('enseignants.ajout');
 Route::post('/enseignants/store', [EnseignantController::class, 'store'])->name('enseignants.store');
@@ -129,6 +131,7 @@ Route::get('/trimestres/show/{id}', [TrimestreController::class, 'show'])->name(
 // routes emplois
 Route::get('/emplois/listes', [EmploisController::class, 'index'])->name('emplois.listes');
 Route::get('/emplois/ajout', [EmploisController::class, 'create'])->name('emplois.ajout');
+Route::get('/emplois/pdf/{id}', [EmploisController::class, 'generatePDF'])->name('emplois.pdf');
 Route::post('/emplois/store', [EmploisController::class, 'store'])->name('emplois.store');
 Route::get('/emplois/edit/{id}', [EmploisController::class, 'edit'])->name('emplois.edit');
 Route::post('/emplois/update/{id}', [EmploisController::class, 'update'])->name('emplois.update');
@@ -202,8 +205,20 @@ Route::post('/admin/role/store', [RoleController::class, 'store'])->name('admin.
 Route::get('/admin/role/delete{id}', [RoleController::class, 'destroy'])->name('admin.role.delete');
 Route::post('/admin/role/update/{id}', [RoleController::class, 'update'])->name('admin.role.update');
 
+//users
+Route::get('/Admin/user/', [UserController::class, 'index' ])->name('users.index');
+Route::get('/admin/users/ajout', [UserController::class, 'create'])->name('admin.users.ajout');
+Route::post('/admin/users/store', [UserController::class, 'store'])->name('admin.users.store');
+Route::get('/admin/users/delete{id}', [UserController::class, 'destroy'])->name('admin.users.delete');
+Route::post('/admin/users/update/{id}', [UserController::class, 'update'])->name('admin.users.update');
+
 
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+
+Route::get('contact', [ContactController::class, 'create'])->name('contact');
+Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+
 

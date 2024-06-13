@@ -1,73 +1,80 @@
-
-
-
 <div class="modal fade" id="ajoutEleveModal" tabindex="-1" aria-labelledby="ajoutEleveModalLabel" aria-hidden="true">
-    <div  class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ajoutEleveModalLabel">Ajouter un Emplois</h5>
                 @if ($message = Session::get('success'))
-                <h3> {{ $message }} </h3>
-            @endif
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3> {{ $message }} </h3>
+                @endif
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <form action="{{ route('emplois.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                    <div class="modal-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label> UE</label>
-                                            <div class="input-with-dropdown">
-                                                <select id="ecoles_list" wire:model="selectedEcole" name="ue_id">
-                                                    <option value="">Sélectionner une UE</option>
-                                                    @foreach($ues as $ue)
-                                                        <option value="{{ $ue->id }}">{{ $ue->libelle }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label> Trimestre </label>
-                                            <div class="input-with-dropdown">
-                                                <select id="ecoles_list" wire:model="selectedEcole" name="trimestre_id">
-                                                    <option value="">Sélectionner un trimestre</option>
-                                                    @foreach($trimestres as $trimestre)
-                                                        <option value="{{ $trimestre->id }}">{{ $trimestre->libelle }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label> Date Debut </label>
-                                            <input type="date" name="date_debut">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <label>Date Fin</label>
-                                            <input type="date" name="date_fin">
-                                        </div>
-                                    </div>
-                                    
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="classe_id">Classe:</label>
+                        <select name="classe_id" class="form-control" required>
+                            <option value="">Sélectionner une classe</option>
+                            @foreach($classes as $classe)
+                                <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
+                            @endforeach
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label for="classe_id">Ecole:</label>
+                        <select name="ecole_id" class="form-control" required>
+                            <option value="">Sélectionner une ecole</option>
+                            @foreach($ecoles as $ecole)
+                                <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="classe_id">Cycle:</label>
+                        <select name="cycle_id" class="form-control" required>
+                            <option value="">Sélectionner un cycle</option>
+                            @foreach($cycles as $cycle)
+                                <option value="{{ $cycle->id }}">{{ $cycle->libelle }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                   
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Heures/Jours</th>
+                                <th>Lundi</th>
+                                <th>Mardi</th>
+                                <th>Mercredi</th>
+                                <th>Jeudi</th>
+                                <th>Vendredi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(['7h:45-10h:00', '7h:45-8h:45', '8h:45-9h:45', '10h:00-12h:00', '12h:00-13h:00', '13h:00-14h:00', '14h:00-15h:00', '15h:00-16h:00', '16h:00-17h:00', '17h:00-18h:00','15h:00-17h:00'] as $heure)
+                                <tr>
+                                    <td>{{ $heure }}</td>
+                                    @foreach(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'] as $jour)
+                                        <td>
+                                            <select name="emplois[{{ $jour }}][{{ $heure }}][matiere_id]" class="form-control">
+                                                <option value="">Sélectionner une matière</option>
+                                                @foreach($matieres as $matiere)
+                                                    <option value="{{ $matiere->id }}">{{ $matiere->libelle }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-                
-                </div>
-                <div class="modal-footer justify-content">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="submit" class="btn btn-primary">Ajouter</button>
                 </div>
-            </div>
             </form>
-        </div>
     </div>
-    </div>
-
+</div>
+</div>

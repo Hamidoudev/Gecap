@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nom');
             $table->boolean('acces');
             $table->string('route', 50);
-            $table->foreignId('type_droit_id')->constrained('type_droit')->onDelete('cascade');
+            $table->foreignId('type_droit_id')->constrained('type_droits')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -31,9 +31,17 @@ return new class extends Migration
                 
             ],
             [
+                'nom' => 'Utilisateurs',
+                'acces' => 1,
+                'route' => 'users.index',
+                'type_droit_id' => 4,
+                
+                
+            ],
+            [
                 'nom' => 'Enseignants',
                 'acces' => 1,
-                'route' => 'enseignant.listes',
+                'route' => 'enseignants.listes',
                 'type_droit_id' => 1,
                
             ],
@@ -59,6 +67,12 @@ return new class extends Migration
                 'nom' => 'Programmes',
                 'acces' => 1,
                 'route' => 'programmes.listes',
+                'type_droit_id' => 2,
+            ],
+            [
+                'nom' => 'Ecoles',
+                'acces' => 1,
+                'route' => 'ecoles.listes',
                 'type_droit_id' => 2,
             ],
             [

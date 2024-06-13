@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Type;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -23,7 +24,7 @@ return new class extends Migration
             $table->string('profile_picture')->nullable();
             $table->foreignId('role_id')->constrained();
             $table->foreignId('role_type_user_id')->constrained('role_type_users')->onDelete('cascade');
-            $table->tinyInteger('type')->default(0);
+            $table->foreignIdFor(Type::class)->onDelete('cascade');;
             /* Users: 0=>User, 1=>Admin, 2=>Manager */
             $table->rememberToken();
             $table->timestamps();
@@ -35,10 +36,10 @@ return new class extends Migration
                 'last_name' => 'Dembélé',
                 'email' => 'admin@pdi.com',
                 'phone' => '77777777',
-                'username' => 'hamidou',
+                'username' => 'Hamidou Dembélé ',
                 'role_id' => 1,
                 'role_type_user_id' => 1,
-                'type' => 1,
+                'type_id' => 1,
                 'password' => bcrypt('@@@@@@@@'),
                 'profile_picture' => 'HD',
             ],
@@ -47,10 +48,10 @@ return new class extends Migration
                 'last_name' => 'Coulibaly',
                 'email' => 'admin@cap.com',
                 'phone' => '77777777',
-                'username' => 'eve',
+                'username' => 'Eve Coulibaly',
                 'role_id' => 2,
                 'role_type_user_id' => 2,
-                'type' => 2,
+                'type_id' => 2,
                 'password' => bcrypt('123456'),
                 'profile_picture' => 'EC',
             ],
@@ -59,22 +60,22 @@ return new class extends Migration
                 'last_name' => 'DN',
                 'email' => 'lndn@ecole.com',
                 'phone' => '77777777',
-                'username' => 'lndn',
+                'username' => 'LN DN',
                 'role_id' => 3,
                 'role_type_user_id' => 3,
-                'type' => 3,
+                'type_id' => 3,
                 'password' => bcrypt('123456'),
                 'profile_picture' => 'LNDN',
             ],
             [
                 'first_name' => 'Mama',
-                'last_name' => 'Tiam',
+                'last_name' => 'Thiam',
                 'email' => 'mamatiam@ecole.com',
                 'phone' => '77777777',
-                'username' => 'mamathiam',
+                'username' => 'Mama Thiam',
                 'role_id' => 3,
                 'role_type_user_id' => 3,
-                'type' => 3,
+                'type_id' => 3,
                 'password' => bcrypt('123456'),
                 'profile_picture' => 'MAMATHIAM',
             ],

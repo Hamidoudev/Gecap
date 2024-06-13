@@ -1,30 +1,4 @@
-{{-- @extends('layouts.interface')
-@section('content')
-    <div class="page-header">
-        <div class="page-title">
-            <h4>Ajouts des enseignants</h4>
-            <p>
-                @if ($message = Session::get('success'))
-                    <h3> {{ $message }} </h3>
-                @endif
-            </p>
-        </div>
-    </div>
-    <form action="{{ route('enseignants.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    
-                    <div class="col-lg-12">
-                        <button type="reset" class="btn btn-cancel">Annuler</button>
-                        <button type="submit" class="btn btn-submit me-2">Envoyer</button>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form> --}}
 
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapport de grille</title>
+    <title>Rapport de grille {{ $grille->ecole_id }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -116,8 +116,6 @@
             </div>
             <div class="emblem">
                 <div class="text">REPUBLIQUE DU MALI</div>
-                <img src="{{ URL::to('admin-template/assets/img/embleme.jpg') }}" alt="Emblem of Mali">
-                <div class="text">Un Peuple - Un But - Une Foi</div>
             </div>
             <div class="slogan">
                 <span>Un Peuple - Un But - Une Foi</span>
@@ -125,11 +123,10 @@
             <h2>Centre d'Animation Pédagogique de Sébénikoro</h2>
             <h3>Grille de suivi des maîtres 1er Cycle</h3>
         </div>
-        {{-- <form>
+        <form>
             <?php
             ini_set('max_execution_time', 100); // Augmente la limite de temps d'exécution à 5 minutes
             ?>
-        
             <div class="form-section">
                 <label>A. Identification du candidat :</label>
                 <table>
@@ -237,7 +234,7 @@
 
             <div class="form-section">
                 <label>Total des points :</label>
-                <div class="center"></div>
+                <div class="center">{{ $grille->total_points }}</div>
             </div>
 
             <div class="form-section">
@@ -250,13 +247,12 @@
                     <li>{{ $grille->conseille5 }}</li>
                 </ol>
             </div>
-            
+
             <div class="form-section">
-                <label for="date">Bamako le :</label>
-                <td>{{ $grille->date }}</td>
+                <label for="date">Bamako le : <span>{{ $grille->date }}</span></label>
+                
             </div>
-            
-        </form> --}}
+        </form>
     </div>
 </body>
 </html>

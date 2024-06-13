@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Ecole extends Model
 {
     
-    protected $fillable = ['nom']; 
+    public function typeecole()
+    {
+        return $this->belongsTo(typeEcole::class);
+    }
 }

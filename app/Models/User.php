@@ -55,19 +55,10 @@ class User extends Authenticatable
      * @param  string  $value
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    protected function type(): Attribute
+    protected function type()
 {
-    return new Attribute(
-        get: function ($value) {
-            $types = ["user", "admin", "manager"];
-            // Assurez-vous que $value est dans la plage de 0 à 2
-            if (array_key_exists($value, $types)) {
-                return $types[$value];
-            } else {
-                return "Indéfini";
-            }
-        }
-    );
+    return $this->belongsTo(Type::class);
+
 }
 
   public function role(){

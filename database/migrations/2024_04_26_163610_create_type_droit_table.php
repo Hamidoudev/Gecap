@@ -12,28 +12,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('type_droit', function (Blueprint $table) {
+        Schema::create('type_droits', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
             $table->timestamps();
         });
 
-        DB::table('type_droit')->insert([
+        DB::table('type_droits')->insert([
             [
-                'nom' => 'Gestion Administrative',
+                'nom' => ' Administrative',
                
                 
                 
             ],
             [
-                'nom' => 'Gestion Pedagogie',
+                'nom' => ' Pedagogie',
                
             ],
             [
-                'nom' => 'Gestion Ressources',
+                'nom' => ' Ressources',
             ],
             [
-                'nom' => 'Gestion Roles',
+                'nom' => ' Roles',
             ],
         ]);
     }
@@ -43,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('type_droit');
+        Schema::dropIfExists('type_droits');
     }
 };

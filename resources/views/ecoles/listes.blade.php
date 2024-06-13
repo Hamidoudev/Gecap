@@ -94,15 +94,12 @@
                                 </label>
                             </th> --}}
                             <th>#</th>
-                            <th>Maricule</th>
-                            <th>First name </th>
-                            <th>Last name </th>
-                            <th>Date Naissance </th>
+                            <th> Type </th>
+                            <th>Nom</th>
+                            <th> Siège </th>
+                            
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>Adresse</th>
-                            <th>CV</th>
-                            <th>Status</th>
+                            
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -125,37 +122,26 @@
                                         <span class="checkmarks"></span>
                                     </label></td> --}}
                                 <td>{{ $ecole->id }}</td>
-                                <td>{{ $ecole->matricule }}</td>
-                                <td>{{ $ecole->nom }}</td>
-                                <td>{{ $ecole->prenom }}</td>
-                                <td>{{ $ecole->date_n }}</td>
-                                <td>{{ $ecole->email }}</td>
-                                <td>{{ $ecole->telephone }}</td>
-                                <td>{{ $ecole->adresse }}</td>
-                                <td>
-                                    @if ($ecole->cv)
-                                        <a href="{{ route('telecharger_pdf', $ecole->id) }}">
-                                            <i class="fas fa-file-pdf"></i> Télécharger CV
-                                        </a>
-                                    @else
-                                        Aucun CV disponible
+                                <td> @foreach($typeecoles as $typeecole)
+                                    @if($typeecole->id == $ecole->typeecole_id)
+                                        {{ $typeecole->libelle }}
                                     @endif
-                                </td>
+                                @endforeach</td>
+                                <td>{{ $ecole->nom }}</td>
+                                <td>{{ $ecole->siege }}</td>
+                                <td>{{ $ecole->email }}</td>
+                               
+                              
                                 
                                 
                                 <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
-                                <td>
-                                    <div class="status-toggle d-flex justify-content-between align-items-center">
-                                        <input type="checkbox" id="user1" class="check">
-                                        <label for="user1" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
+                               
                                 <td>
                                     <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $ecole->id }}">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                     </a>
                                     <a class="me-3 confirm-text"
-                                        href="{{ route('ecoles.delete', $ecole->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $ecole->nom . '_' . $ecole->prenom. '?')">
+                                        href="{{ route('ecoles.delete', $ecole->id) }}"onclick="return confirm('voulez-vous vraiment supprimer'. $ecole->nom .'?')">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}"
                                             alt="img">
                                     </a>
@@ -180,8 +166,8 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel{{ $ecole->id }}">Modification ecole : {{ $ecole->nom }} {{ $ecole->prenom }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="editModalLabel{{ $ecole->id }}">Modification ecole : {{ $ecole->nom }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     @include('ecoles.edit', ['ecole' => $ecole])

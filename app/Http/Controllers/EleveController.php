@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
 use App\Models\Ecole;
 use App\Models\Eleve;
 use Illuminate\Http\Request;
@@ -13,14 +14,14 @@ class EleveController extends Controller
      */
     public function index()
     {
-        $ecoles = Ecole::all(); 
+        $classes = Classe::all(); 
         $eleves = Eleve::paginate(10);
-        return view('eleves.listes', ['ecoles' => $ecoles], compact('eleves'));
+        return view('eleves.listes', ['classes' => $classes], compact('eleves'));
     }
     public function create()
     {
-        $ecoles = Ecole::all();
-        return view('eleves.ajout', compact('ecoles'));
+        $classes = Classe::all();
+        return view('eleves.ajout', compact('classes'));
     }
       
 
@@ -30,7 +31,7 @@ class EleveController extends Controller
     public function store(Request $request)
     {
         $eleve = new Eleve;
-        $eleve->ecole_id = $request->ecole_id; 
+        $eleve->classe_id = $request->classe_id; 
         $eleve->matricule = $request->matricule;
         $eleve->nom = $request->nom;
         $eleve->prenom = $request->prenom;
@@ -60,9 +61,9 @@ class EleveController extends Controller
     }
     public function edit($id)
     {
-        $ecoles = Ecole::all();
+        $classes = Classe::all();
         $eleve = Eleve::find($id);
-        return view('eleves.edit', compact('eleve', 'ecoles'));
+        return view('eleves.edit', compact('eleve', 'classes'));
     }
 
     /**
@@ -79,7 +80,7 @@ class EleveController extends Controller
     public function update(Request $request, string $id)
     {
         $eleve = Eleve::find($id);
-        $eleve->ecole_id = $request->ecole_id;
+        $eleve->classe_id = $request->classe_id;
         $eleve->matricule = $request->matricule;
         $eleve->nom = $request->nom;
         $eleve->prenom = $request->prenom;

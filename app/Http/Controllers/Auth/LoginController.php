@@ -42,6 +42,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+       
         $input = $request->all();
 
         $this->validate($request, [
@@ -53,17 +54,20 @@ class LoginController extends Controller
             "password.required" => 'Champ obligatoire'
         ]);
 
+      
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
-            if (auth()->user()->type == 'admin') {
+            
+            if (auth()->user()->type->name == 'admin') {
                 return redirect()->route('admin.home');
-            }else if (auth()->user()->type == 'manager') {
+            }else if (auth()->user()->type->name == 'manager') {
                 return redirect()->route('manager.home');
-            }else{
+            }else if (auth()->user()->type->name == "user")
+            {
                 return redirect()->route('user.home');
             }
         }else{
-            return redirect()->route('auth.login')
+            return Redirect()->route('auth.login')
                 ->with('error','Email ou mot de passe incorrect.');
         }
 

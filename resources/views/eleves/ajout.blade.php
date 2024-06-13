@@ -19,17 +19,13 @@
                                 <div class="row">
                                     <div class="col-lg-3 col-sm-6 col-12">
                                         <div class="form-group">
-                                 <label for="ecole"> Ecole</label>
-                                {{-- <select id="ecole_id" name="ecole_id">
-                                    @foreach($ecoles as $ecole)
-                                        <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
-                                    @endforeach
-                                </select> --}}
+                                 <label for="ecole"> Classe</label>
+                               
                                 <div class="input-with-dropdown">
-                                    <select id="ecoles_list" wire:model="selectedEcole" name="ecole_id">
-                                        <option value="">Sélectionner une école</option>
-                                        @foreach($ecoles as $ecole)
-                                            <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
+                                    <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
+                                        <option value="">Sélectionner une classe</option>
+                                        @foreach($classes as $classe)
+                                            <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
                                         @endforeach
                                     </select>
                                 </div>  

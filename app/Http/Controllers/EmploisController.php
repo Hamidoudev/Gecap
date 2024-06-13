@@ -2,78 +2,145 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
+use App\Models\Cycle;
+use App\Models\Ecole;
 use App\Models\Emplois;
-use App\Models\trimestre;
-use App\Models\ue;
+use App\Models\Matiere;
+use Barryvdh\DomPDF\Facade\pdf;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
+
 
 class EmploisController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $ues = ue::all();
-        $trimestres = trimestre::all();
-        $emplois = Emplois::with('ue', 'trimestre')->get();
-        return view('emplois.listes', compact('emplois','ues','trimestres'));
+        $classes = Classe::all();
+        $matieres = Matiere::all();
+        $ecoles = Ecole::all();
+        $cycles = Cycle::all();
+        $emplois = Emplois::paginate(10);
+        return view('emplois.listes', compact('cycles','classes','ecoles', 'matieres', 'emplois'));
     }
+
+    public function generatePdf(Request $request)
+    {
+       $id = decrypt($request->id);
+       
+       try {
+            $emploi = Emplois::find($id);
+            $pdf = PDF::loadView('emplois.pdf', compact('emploi'));
+    
+            Log::info('PDF généré avec succès');
+    
+            return $pdf->download('emplois.pdf');
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la génération du PDF :', [
+                'message' => $e->getMessage(),
+                'stack' => $e->getTraceAsString()
+            ]);
+    
+            return response()->json(['error' => 'Échec de la génération du PDF'], 500);
+        }
+    }
+    
     public function create()
     {
-        $ues = ue::all();
-        $trimestres = trimestre::all();
-        return view('emplois.ajout', compact('ues','trimestres'));
+        $classes = Classe::all();
+        $ecoles = Ecole::all();
+        $matieres = Matiere::all();
+        $cycles = Cycle::all();
+        return view('emplois.ajout', compact('cycles','classes','ecoles', 'matieres'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $emploi = new Emplois();
-        $emploi->ue_id = $request->ue_id;
-        $emploi->trimestre_id = $request->trimestre_id;
-        $emploi->date_debut = $request->date_debut;
-        $emploi->date_fin = $request->date_fin;
-        $emploi->save();
-        return redirect()->route('emplois.listes')->with('success', 'enregistrement effectuée'); 
+        $validated = $request->validate([
+            'classe_id' => 'required|integer',
+            'cycle_id' => 'required|integer',
+            'ecole_id' => 'required|integer',
+            'emplois' => 'required|array',
+        ]);
+    
+        foreach ($validated['emplois'] as $jour => $heures) {
+            foreach ($heures as $heure => $details) {
+                if (isset($details['matiere_id']) && $details['matiere_id']) {
+                    Emplois::create([
+                        'classe_id' => $validated['classe_id'],
+                        'matiere_id' => $details['matiere_id'],
+                        'jour' => $jour,
+                        'heure' => $heure,
+                    ]);
+                }
+            }
+        }
+    
+        return redirect()->route('emplois.listes')->with('success', 'Enregistrement effectué.');
     }
+    
+
     public function edit($id)
     {
-        $enseignant = Emplois::find($id);
-        return view('emplois.edit', compact('emploi'));
+        $emploi = Emplois::find($id);
+        $ecoles = Ecole::find($id);
+        $classes = Classe::all();
+        $matieres = Matiere::all();
+        return view('emplois.edit', compact('emploi', 'classes','ecoles',  'matieres'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-         $emploi = Emplois::find($id);
+        $emploi = Emplois::find($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        $emploi = Emplois::find($id);
-        $emploi->ue_id = $request->ue_id;
-        $emploi->trimestre_id = $request->trimestre_id;
-        $emploi->date_debut = $request->date_debut;
-        $emploi->date_fin = $request->date_fin;
-        $emploi->save();
-        return redirect()->route('emplois.listes')->with('success', 'modication effectuée');
+        $validated = $request->validate([
+            'classe_id' => 'required|integer',
+            'cycle_id' => 'required|integer',
+            'ecole_id' => 'required|integer',
+            'emplois' => 'required|array',
+        ]);
+    
+        Emplois::where('classe_id', $validated['classe_id'])->delete();
+    
+        foreach ($validated['emplois'] as $jour => $heures) {
+            foreach ($heures as $heure => $details) {
+                if (isset($details['matiere_id']) && $details['matiere_id']) {
+                    Emplois::create([
+                        'classe_id' => $validated['classe_id'],
+                        'matiere_id' => $details['matiere_id'],
+                        'jour' => $jour,
+                        'heure' => $heure,
+                    ]);
+                }
+            }
+        }
+    
+        return redirect()->route('emplois.listes')->with('success', 'Mise à jour effectuée.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $emploi = Emplois::find($id);
         $emploi->delete();
-        return redirect()->route('emplois.listes')->with('danger', 'suppression effectuée');
+        return redirect()->route('emplois.listes')->with('danger', 'Suppression effectuée.');
     }
+    public function showSchedule($jour, $heure)
+{
+    // Exemple de récupération de la matière sélectionnée
+    $selectedMatiere = Emplois::where('jour', $jour)
+                            ->where('heure', $heure)
+                            ->with('matiere')
+                            ->first();
+
+    return view('emplois.pdf', [
+        'jour' => $jour,
+        'heure' => $heure,
+        'selectedMatiere' => $selectedMatiere ? $selectedMatiere->matiere : null,
+        'matieres' => Matiere::all(),
+    ]);
+}
+
 }

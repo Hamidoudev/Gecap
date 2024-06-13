@@ -24,8 +24,8 @@
         <div class="login-wrapper">
         <div class="container">
         <div class="loginbox">
-        <div class="login-left">
-        <img class="img-fluid" src="assets/img/login.png" alt="Logo">
+        <div class="login-left col-md-6">
+        <img class="img-fluid" src="{{ URL:: to('Arsha/assets/img/boy.png') }}" alt="Logo">
         </div>
         <div class="login-right">
         <div class="login-right-wrap">

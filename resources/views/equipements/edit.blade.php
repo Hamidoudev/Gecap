@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <button type="reset" class="btn btn-cancel">Annuler</button>
-                    <button type="submit" class="btn btn-submit me-2">Modifier</button>
+                    <button type="reset" data-bs-dismiss="modal" class="btn btn-secondary">Annuler</button>
+                    <button type="submit" class="btn btn-primary me-2">Modifier</button>
 
                 </div>
             </div>

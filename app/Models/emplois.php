@@ -8,15 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class Emplois extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'classe_id',
+        'matiere_id',
+        'jour',
+        'heure',
+    ];
     protected $table = 'emplois';
 
-    public function ue()
+    public function classe()
     {
-        return $this->belongsTo(ue::class, 'ue_id');
+        return $this->belongsTo(Classe::class);
+    }
+    public function cycle()
+    {
+        return $this->belongsTo(Cycle::class);
     }
 
-    public function trimestre()
+    public function matiere()
     {
-        return $this->belongsTo(trimestre::class, 'trimestre_id');
+        return $this->belongsTo(matiere::class);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ecole;
+use App\Models\typeEcole;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\User;
@@ -14,15 +16,31 @@ class EcoleController extends Controller
      */
     public function index()
     {
-        //
+        $typeecoles = typeEcole::all(); 
+        $ecoles = Ecole::paginate(10);
+        return view('ecoles.listes', ['typeecoles' => $typeecoles], compact('ecoles'));
     }
+    public function create()
+    {
+        $typeecoles = typeEcole::all();
+        return view('ecoles.ajout', compact('typeecoles'));
+    }
+      
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $ecole = new Ecole;
+        $ecole->typeecole_id = $request->typeecole_id; 
+        $ecole->nom = $request->nom;
+        $ecole->siege = $request->siege;
+        $ecole->email = $request->email;
+    
+        $ecole->save();
+        return redirect()->route('ecoles.listes')->with('success', 'enregistrement effectuée'); 
     }
     
     public function sendNotification()
@@ -52,7 +70,14 @@ class EcoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $ecole = Ecole::find($id);
+        $ecole->typeecole_id = $request->typeecole_id; 
+        $ecole->nom = $request->nom;
+        $ecole->siege = $request->siege;
+        $ecole->email = $request->email;
+    
+        $ecole->save();
+        return redirect()->route('ecoles.listes')->with('success', 'modification effectuée avec succès'); 
     }
 
     /**
@@ -60,6 +85,8 @@ class EcoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $ecole = Ecole::find($id);
+        $ecole->delete();
+        return redirect()->route('ecoles.listes')->with('danger', 'suppression effectuée avec succès');
     }
 }

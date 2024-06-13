@@ -6,8 +6,16 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> Matricule</label>
-                        <input type="text" name="matricule" value="{{ $ecole->matricule }}">
+                        <div class="input-with-dropdown">
+                            <select id="ecoles_list" name="typeecole_id" class="form-control">
+                                @foreach ($typeecoles as $typeecole)
+                                    <option value="{{ $typeecole->id }}"
+                                        {{ $ecole->typeecole_id == $typeecole->id ? 'selected' : '' }}>
+                                        {{ $typeecole->libelle }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
@@ -18,16 +26,11 @@
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> Prénom</label>
-                        <input type="text" name="prenom" value="{{ $ecole->prenom }}">
+                        <label> Siege </label>
+                        <input type="text" name="siege" value="{{ $ecole->siege }}">
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label>Date Naissance</label>
-                        <input type="date" name="date_n"value="{{ $ecole->date_n }}">
-                    </div>
-                </div>
+
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
                         <label>Email</label>
@@ -35,40 +38,18 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label>Téléphone</label>
-                        <input type="text" name="telephone"value="{{ $ecole->telephone }}">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <label>Adresse</label>
-                        <input type="text" name="adresse"value="{{ $ecole->adresse }}">
-                    </div>
-                </div>
 
-                <div class="col-lg-12">
-                    <div class="form-group">
-                        <label> CV</label>
-                        <div class="image-upload">
-                            <input type="file" name="cv" value="{{ $ecole->cv }}">
-                            <div class="image-uploads">
-                                <img src="{{ URL::to('admin-template/assets/img/icons/upload.svg') }}" alt="img">
-                                <h4>ajoutez ici votre cv</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <button type="reset" class="btn btn-cancel">Annuler</button>
-                    <button type="submit" class="btn btn-submit me-2">Modifier</button>
 
-                </div>
+
+                
             </div>
+           
         </div>
+       
+    </div>
+    <div class="col-lg-12">
+        <button type="reset" data-bs-dismiss="modal" class="btn btn-secondary">Annuler</button>
+        <button type="submit" class="btn btn-primary me-2">Modifier</button>
+
     </div>
 </form>
-
-
-

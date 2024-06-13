@@ -15,9 +15,9 @@ class UserController extends Controller
     public function index()
     {
         return view(
-            'pages.admin.comptes.index',
+            'admin.users.index',
             [
-                'users' => User::paginate(2),
+                'users' => User::paginate(10),
                 'rows' => User::count(),
             ]
         );
@@ -36,7 +36,7 @@ class UserController extends Controller
             'type' => ''
         ]);
 
-        return view('pages.admin.comptes.form',[
+        return view('admin.users.form',[
             'user' => $user
         ]);
     }
