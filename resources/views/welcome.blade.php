@@ -76,13 +76,12 @@
             <div class="container-xxl bg-primary hero-header">
                 <div class="container px-lg-5">
                     <div class="row g-5 align-items-end">
-                        <div class="col-lg-6 text-center text-lg-start">
+                        <div class="col-lg-6 text-center text-lg-start" style="font-family: 'Times New Roman', Times, serif" >
                             <h1 class="text-white mb-4 animated slideInDown">Bienvenue sur GeCAP</h1>
-                            <p class="text-white pb-3 animated slideInDown">l'outil indispensable pour le Centre d'Animation Pédagogique de Sebenicoro !
-                                 Nous sommes ravis de vous accueillir dans notre plateforme conçue sur mesure pour simplifier et optimiser vos processus.
+                            <p class="text-white pb-3 animated slideInDown">L'outil indispensable pour le Centre d'Animation Pédagogique de Sebenicoro !
+                                 Nous sommes ravis de vous accueillir sur notre plateforme conçue sur mesure pour simplifier et optimiser vos processus.
                                  Facilitez votre gestion administrative, 
                                  optimisez vos programmes pédagogiques et donnez une nouvelle dimension à votre efficacité organisationnelle</p>
-                            <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Veuillez Cliquez sur se Connecter pour continuer</a>
                         </div>
                         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
                           <img src="{{ URL:: to('Arsha/assets/img/login.png') }}" class="img-fluid animated" alt="">

@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -17,6 +18,89 @@ return new class extends Migration
             $table->foreignId('droit_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
+        DB::table('droit_role')->insert([
+            [
+               
+                'role_id' => 1,
+                'droit_id' => 1,
+               
+               
+                
+                
+            ],
+            [
+               
+                'role_id' => 1,
+                'droit_id' => 2,
+               
+               
+                
+                
+            ],
+             [
+               
+                'role_id' => 1,
+                'droit_id' => 3,
+               
+               
+                
+                
+            ],
+             [
+               
+                'role_id' => 1,
+                'droit_id' => 4,
+               
+               
+                
+                
+            ],
+             [
+               
+                'role_id' => 1,
+                'droit_id' => 5,
+               
+               
+                
+                
+            ],
+             [
+               
+                'role_id' => 1,
+                'droit_id' => 10,
+               
+               
+                
+                
+            ],
+             [
+               
+                'role_id' => 2,
+                'droit_id' => 1,
+               
+               
+                
+                
+            ],
+             [
+               
+                'role_id' => 2,
+                'droit_id' => 3,
+               
+               
+                
+                
+            ],
+             [
+               
+                'role_id' => 3,
+                'droit_id' => 1,
+               
+               
+                
+                
+            ],
+        ]);
     }
 
     /**

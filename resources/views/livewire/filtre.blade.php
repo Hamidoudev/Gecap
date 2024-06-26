@@ -1,5 +1,5 @@
 <div>
-    
+    @include('livewire.modal')
     <div class="page-header">
         <div class="page-title">
         <h4>Emplois Du Temps</h4>
@@ -7,7 +7,7 @@
         </div>
         <div class="page-btn">
             <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEleveModal">
-                <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Affecter Emplois
+                <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2"> Emplois du temps
             </a>    </div>
         </div>
         <div class="card">
@@ -121,8 +121,9 @@
                                         @endif
                                     @endforeach</td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{route('emplois.pdf', encrypt("$emploi->id"))}}" type="submit">Emplois</a>
-                               
+                                        <a class="me-3" data-bs-toggle="modal" data-bs-target="#vueModal{{ $emploi->id }}">
+                                            <img src="{{ URL::to('admin-template/assets/img/icons/eye.svg') }}" alt="img">
+                                        </a>                               
                                     </td>
                                   
                           
@@ -148,7 +149,6 @@
     
             </div>
         </div>
-        @include('emplois.ajout')
  
     @foreach($emplois as $emploi)
         <div class="modal fade" id="editModal{{ $emploi->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $emploi->id }}" aria-hidden="true">
@@ -164,6 +164,26 @@
                     </div>
                     <div class="modal-body">
                         @include('emplois.edit', ['emploi' => $emploi])
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+    @foreach($emplois as $emploi)
+        <div class="modal fade" id="vueModal{{ $emploi->id }}" tabindex="-1" aria-labelledby="vueModalLabel{{ $emploi->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="vueModalLabel{{ $emploi->id }}">Vue de l'emplois :   @foreach($classes as $classe)
+                            @if($classe->id == $emploi->classe_id)
+                                {{ $classe->libelle }}
+                            @endif
+                        @endforeach</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @include('emplois.vue', ['emploi' => $emploi])
                     </div>
                 </div>
             </div>

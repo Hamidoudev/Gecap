@@ -6,13 +6,15 @@ use App\Models\Classe;
 use App\Models\Cycle;
 use App\Models\Ecole;
 use App\Models\Emplois;
+use App\Models\Enseignant;
 use App\Models\Matiere;
 use Livewire\Component;
 
 class Filtre extends Component
 {
-    public $ecoles,$classes,$cycles,$emplois,$selectedClasse,$selectedCycle,$selectedEcole,$matieres;
-    
+    public  $enseignants,$ecoles,$classes,$cycles,$emplois,$selectedClasse,$selectedCycle,$selectedEcole,$matieres = [];
+    public $showInput = false;
+    public $enseignant_id;
     public function selectChanged()
     {
        
@@ -56,13 +58,29 @@ class Filtre extends Component
          }
 
     }
+
+
+    public function changeCycle()
+    {
+        // dd($this->selectedCycle);
+        if($this->selectedCycle == 1)
+        {
+            $this->showInput = true;
+            $this->matieres = Matiere::all();
+            // dd($this->matieres);
+        }
+        else{
+            $this->showInput = false;
+        }
+    }
+
     public function __construct()
     {
         $this->emplois = Emplois::all();
         $this->classes = Classe::all();
         $this->cycles = Cycle::all();
-        $this->matieres = Matiere::all();
         $this->ecoles = Ecole::all();
+        $this->enseignants = Enseignant::all();
     }
 
     public function render()

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\RoleTypeUser;
+use App\Models\Type;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -17,7 +20,7 @@ class UserController extends Controller
         return view(
             'admin.users.index',
             [
-                'users' => User::paginate(10),
+                'users' => User::paginate(100),
                 'rows' => User::count(),
             ]
         );
@@ -28,46 +31,46 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = new User();
-        $user->fill([
-            'name' => '',
-            'email' => '',
-            'password' => '',
-            'type' => ''
-        ]);
-
-        return view('admin.users.form',[
-            'user' => $user
-        ]);
+        $roles = Role::all();
+        $roleTypeUsers = RoleTypeUser::all();
+        $types = Type::all();
+        return view('admin.users.form', compact('roles', 'roleTypeUsers', 'types'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            /* 'password' => 'required', */
-            'type' => 'required'
-        ],[
-            'name.required' => 'Champ obligatoire',
-            'email.required' => 'Champ obligatoire',
-            'email.email' => 'Format invalide',
-/*             'password.required' => 'Champ obligatoire', */
-            'type.required' => 'Champ obligatoire'
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'nullable|string|max:15',
+            'username' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'role_id' => 'required|exists:roles,id',
+            'role_type_user_id' => 'required|exists:role_type_users,id',
+            'type_id' => 'required|exists:types,id',
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make('bonjour10'),
-            'type' => $request->type,
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->username = $request->username;
+        $user->password = Hash::make($request->password);
+        $user->role_id = $request->role_id;
+        $user->role_type_user_id = $request->role_type_user_id;
+        $user->type_id = $request->type_id;
 
+        if ($request->hasFile('profile_picture')) {
+            $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $imagePath;
+        }
 
-        ]);
-        return to_route('admin.user.create')->with('message', 'Utilisateur a bien été ajouter');
+        $user->save();
+
+        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
     }
 
     /**
@@ -83,35 +86,47 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('pages.admin.comptes.form',[
-            'user' => $user
-        ]);
+        $roles = Role::all();
+        $roleTypeUsers = RoleTypeUser::all();
+        $types = Type::all();
+        return view('users.edit', compact('users', 'roles', 'roleTypeUsers', 'types'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            /* 'password' => 'required', */
-            'type' => 'required'
-        ],[
-            'name.required' => 'Champ obligatoire',
-            'email.required' => 'Champ obligatoire',
-            'email.email' => 'Format invalide',
-/*             'password.required' => 'Champ obligatoire', */
-            'type.required' => 'Champ obligatoire'
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'phone' => 'nullable|string|max:15',
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'role_id' => 'required|exists:roles,id',
+            'role_type_user_id' => 'required|exists:role_type_users,id',
+            'type_id' => 'required|exists:types,id',
         ]);
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make('bonjour10'),
-            'type' => $request->type,
-        ]);
-        return to_route('admin.user.edit', $user->id)->with('message', 'Utilisateur a bien été modifié');
+
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->username = $request->username;
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->role_id = $request->role_id;
+        $user->role_type_user_id = $request->role_type_user_id;
+        $user->type_id = $request->type_id;
+
+        if ($request->hasFile('profile_picture')) {
+            $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $imagePath;
+        }
+
+        $user->save();
+
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
     }
 
     /**
@@ -120,7 +135,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return to_route('admin.user.index')->with('message', 'Utilisateur a bien été supprimé');
+        return to_route('admin.users.index')->with('message', 'Utilisateur a bien été supprimé');
     }
 
     public function search(Request $request){

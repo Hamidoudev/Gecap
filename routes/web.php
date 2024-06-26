@@ -23,7 +23,10 @@ use App\Http\Controllers\PersonneladminController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\TrimestreController;
 use App\Http\Controllers\GrilleController;
+use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SujetController;
+use App\Models\Matiere;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,6 +140,7 @@ Route::get('/emplois/edit/{id}', [EmploisController::class, 'edit'])->name('empl
 Route::post('/emplois/update/{id}', [EmploisController::class, 'update'])->name('emplois.update');
 Route::get('/emplois/delete/{id}', [EmploisController::class, 'destroy'])->name('emplois.delete');
 Route::get('/emplois/show/{id}', [EmploisController::class, 'show'])->name('emplois.show');
+Route::get('/emplois/vue/{id}', [EmploisController::class, 'vue'])->name('emplois.vue');
 
 // routes programmes
 Route::get('/programmes/listes', [ProgrammeController::class, 'index'])->name('programmes.listes');
@@ -146,6 +150,15 @@ Route::get('/programmes/edit/{id}', [ProgrammeController::class, 'edit'])->name(
 Route::post('/programmes/update/{id}', [ProgrammeController::class, 'update'])->name('programmes.update');
 Route::get('/programmes/delete/{id}', [ProgrammeController::class, 'destroy'])->name('programmes.delete');
 Route::get('/programmes/show/{id}', [ProgrammeController::class, 'show'])->name('programmes.show');
+
+// routes matieres
+Route::get('/matieres/listes', [MatiereController::class, 'index'])->name('matieres.listes');
+Route::get('/matieres/ajout', [MatiereController::class, 'create'])->name('matieres.ajout');
+Route::post('/matieres/store', [MatiereController::class, 'store'])->name('matieres.store');
+Route::get('/matieres/edit/{id}', [MatiereController::class, 'edit'])->name('matieres.edit');
+Route::post('/matieres/update/{id}', [MatiereController::class, 'update'])->name('matieres.update');
+Route::get('/matieres/delete/{id}', [MatiereController::class, 'destroy'])->name('matieres.delete');
+Route::get('/matieres/show/{id}', [MatiereController::class, 'show'])->name('matieres.show');
 
 // routes grilles
 Route::get('/grilles/listes', [GrilleController::class, 'index'])->name('grilles.listes');
@@ -193,6 +206,15 @@ Route::get('/evaluations/edit/{id}', [EvaluationController::class, 'edit'])->nam
 Route::post('/evaluations/update/{id}', [EvaluationController::class, 'update'])->name('evaluations.update');
 Route::get('/evaluations/delete/{id}', [EvaluationController::class, 'destroy'])->name('evaluations.delete');
 Route::get('/evaluations/show/{id}', [EvaluationController::class, 'show'])->name('evaluations.show');
+
+// sujet
+Route::get('/sujets/listes', [SujetController::class, 'index'])->name('sujets.listes');
+Route::get('/sujets/ajout', [SujetController::class, 'create'])->name('sujets.ajout');
+Route::post('/sujets/store', [SujetController::class, 'store'])->name('sujets.store');
+Route::get('/sujets/edit/{id}', [SujetController::class, 'edit'])->name('sujets.edit');
+Route::post('/sujets/update/{id}', [SujetController::class, 'update'])->name('sujets.update');
+Route::get('/sujets/delete/{id}', [SujetController::class, 'destroy'])->name('sujets.delete');
+Route::get('/sujets/show/{id}', [SujetController::class, 'show'])->name('sujets.show');
 
 // droits
 Route::get('/Admin/droits/', [DroitController::class, 'index' ])->name('droits.index');

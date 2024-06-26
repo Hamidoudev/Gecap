@@ -82,9 +82,9 @@
                             <input type="number" name="effectif">
                         </div>
                         <div class="form-group">
-                            <label>File</label>
+                            <label>Fille</label>
                             <input type="number" name="F">
-                        </div>
+                        </div> 
                         <div class="form-group">
                             <label>Garçon</label>
                             <input type="number" name="G">
@@ -150,7 +150,8 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
-                  
+                    <label>2. Conseiller</label>
+                    <input type="text" name="conseille2">
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">

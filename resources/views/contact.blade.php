@@ -15,18 +15,18 @@
             <div class="row g-4">
                 <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="feature-item bg-light rounded text-center p-4">
-                        <i class="bi bi-map text-primary mb-4"></i>
+                        <i class="bi bi-map text-primary mb-2"></i>
                         <h6>Adresse</h6>
                         <p>BAMAKO</p>
-                        <p>KATI</p>
+                        <p>SEBENICORO</p>
                     </div>
                 </div>
                 <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="feature-item bg-light rounded text-center p-4">
                         <i class="bi bi-telephone text-primary mb-4"></i>
-                        <h6>Nos Email</h6>
-                        <p>hamidoudem69@gmail.com</p>
-                        <p>evecoulibaly329@gmail.com</p>
+                        <h6> Email</h6>
+                        <p>gecap@gmail.com</p>
+                        
                       
                     </div>
                 </div>
@@ -34,8 +34,8 @@
                     <div class="feature-item bg-light rounded text-center p-4">
                         <i class="bi bi-envelope text-primary mb-4"></i>
                            <h6>Téléphone</h6>
-                        <p>+223 75 20 29 38</p>
-                        <p>+223 83 56 06 90</p>
+                        <p>+223 20 20 20 20</p>
+                        <p>+223 44 20 02 02</p>
                     </div>
                 </div>
             </div>

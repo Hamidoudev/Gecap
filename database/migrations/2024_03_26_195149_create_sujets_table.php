@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('sujets', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('classe_id')->unsigned();
+            $table->bigInteger('examen_id')->unsigned();
+            $table->bigInteger('matiere_id')->unsigned();
             $table->timestamps();
         });
     }

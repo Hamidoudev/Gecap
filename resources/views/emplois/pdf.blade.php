@@ -45,18 +45,19 @@
         <h1>Emploi du Temps</h1>
         <div class="form-group">
             <label for="classe_id">Classe:</label>
-            {{ isset($selectedClasse) ? $selectedClasse->libelle : 'Aucune classe sélectionné' }}
-            
+            {{ isset($emploi->classe->libelle) ? $emploi->classe->libelle : 'Aucune classe sélectionnée' }}
         </div>
         <div class="form-group">
-            <label for="classe_id">Cycle:</label>
-            {{ isset($selectedCycle) ? $selectedCycle->libelle : 'Aucun cycle sélectionné' }}
-            
+            <label for="cycle_id">Cycle:</label>
+            {{ isset($emploi->cycle->libelle) ? $emploi->cycle->libelle : 'Aucun cycle sélectionné' }}
         </div>
         <div class="form-group">
             <label for="ecole_id">Ecole:</label>
-            {{ isset($selectedEcole) ? $selectedEcole->nom :{{ $ecole->nom }} }}
-            
+            {{ isset($emploi->ecole->nom) ? $emploi->ecole->nom : 'Aucune école sélectionnée' }}
+        </div>
+        <div class="form-group">
+            <label for="ecole_id">Enseignant:</label>
+            {{ isset($emploi->enseignant->nom) ? $emploi->enseignant->nom : 'Aucun enseignant sélectionnée' }}
         </div>
         <table>
             <thead>
@@ -67,22 +68,22 @@
                     <th>Mercredi</th>
                     <th>Jeudi</th>
                     <th>Vendredi</th>
-                    
                 </tr>
             </thead>
             <tbody>
                 @foreach(['7h:45-10h:00', '7h:45-8h:45', '8h:45-9h:45', '10h:00-12h:00', '12h:00-13h:00', '13h:00-14h:00', '14h:00-15h:00', '15h:00-16h:00', '16h:00-17h:00', '17h:00-18h:00','15h:00-17h:00'] as $heure)
-                <tr>
-                    <td>{{ $heure }}</td>
-                    @foreach(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'] as $jour)
-                        <td>
-                            {{ isset($selectedMatiere) ? $selectedMatiere->libelle : 'Aucune matière sélectionnée' }}
-                        </td>
-                    @endforeach
-                </tr>
-            @endforeach
+                    <tr>
+                        <td>{{ $heure }}</td>
+                        @foreach(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'] as $jour)
+                            <td>
+                                {{ isset($emploi->matiere_id[$jour][$heure]) ? $emploi->matiere_id[$jour][$heure]->libelle : 'Aucune matière sélectionnée' }}
+                            </td>
+                        @endforeach
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
+    
 </body>
 </html>

@@ -29,20 +29,7 @@
                     </div>
                 </div>
                 <div class="wordset">
-                    <ul>
-                        <li>
-                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                    src="{{ URL::to('admin-template/assets/img/icons/pdf.svg') }}" alt="img"></a>
-                        </li>
-                        <li>
-                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
-                                    src="{{ URL::to('admin-template/assets/img/icons/excel.svg') }}" alt="img"></a>
-                        </li>
-                        <li>
-                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                    src="{{ URL::to('admin-template/assets/img/icons/printer.svg') }}" alt="img"></a>
-                        </li>
-                    </ul>
+                    
                 </div>
             </div>
 
@@ -87,12 +74,7 @@
                 <table class="table  datanew">
                     <thead>
                         <tr>
-                            {{-- <th>
-                                <label class="checkboxs">
-                                    <input type="checkbox">
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </th> --}}
+                          
                             <th>#</th>
                             <th> Type </th>
                             <th>Nom</th>
@@ -106,21 +88,7 @@
                     <tbody>
                         @foreach ($ecoles as $ecole)
                             <tr>
-                                {{-- <td>
-            <label class="checkboxs">
-            <input type="checkbox">
-            <span class="checkmarks"></span>
-            </label>
-            </td>  --}}
-                                 {{-- <td class="productimgname">
-            <a href="javascript:void(0);" class="product-img">
-            <img src="{{ URL::to('admin-template/assets/img/customer/customer1.jpg') }}" alt="product">
-            </a>
-            </td>  --}}
-                                {{-- <td><label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label></td> --}}
+                     
                                 <td>{{ $ecole->id }}</td>
                                 <td> @foreach($typeecoles as $typeecole)
                                     @if($typeecole->id == $ecole->typeecole_id)

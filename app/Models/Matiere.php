@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Matiere extends Model
 {
+
     use HasFactory;
+
+    public function enseignant()
+    {
+        return $this->belongsTo(Enseignant::class);
+    }
 }

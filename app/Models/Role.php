@@ -9,6 +9,7 @@ class Role extends Model
 {
     protected $guarded =[];
     use HasFactory;
+    protected $fillable = ['nom'];
 
     public function droits(){
         return $this->belongsToMany(Droit::class);

@@ -36,7 +36,10 @@
                             </select>
                         </div>
                     </div>
+                    <h6>Affectation des droits</h6>
+                    <hr>
                     <div class="row">
+                        
                     @foreach ($droits as $droit)
                         <div class="form-check col-md-4">
                             <input class="form-check-input" type="checkbox" id="id{{ $droit->id }}"

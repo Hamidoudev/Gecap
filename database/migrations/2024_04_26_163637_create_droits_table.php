@@ -94,9 +94,9 @@ return new class extends Migration
                 'type_droit_id' => 4,
             ],
             [
-                'nom' => 'Diplome',
+                'nom' => 'Matieres',
                 'acces' => 1,
-                'route' => 'diplomes.listes',
+                'route' => 'matieres.listes',
                 'type_droit_id' => 2,
             ],
             [

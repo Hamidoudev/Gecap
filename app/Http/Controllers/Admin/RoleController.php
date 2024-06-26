@@ -42,12 +42,12 @@ class RoleController extends Controller
             $role->droits()->toggle($request->role_droits);
 
             DB::commit();
-            toastr()->success('Role créer avec succes:-)', 'Felicitation');
-            return redirect('admin/roles');
+           // toastr()->success('Role créer avec succes:-)', 'Felicitation');
+            return redirect()->route('roles.index')->with('success', 'Role créer avec succes');
         } catch (\Exception $e) {
             DB::rollback();
             //Toastr::error('Creation du role échec veuillez réessayer :-(', 'Erreur');
-            return redirect('admin/roles')->with('error', $e->getMessage());
+            return redirect()->route('roles.index')->with('error', $e->getMessage());
         }
     }
 
@@ -94,10 +94,10 @@ class RoleController extends Controller
 
             DB::commit();
             toastr()->success('Role modifier avec succes:-)', 'Felicitation');
-            return redirect('admin/roles');
+            return redirect()->route('roles.index');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect('admin/roles')->with('error', $e->getMessage());
+            return redirect()->route('roles.index')->with('error', $e->getMessage());
         }
     }
 
@@ -112,10 +112,12 @@ class RoleController extends Controller
             $role->delete();
             DB::commit();
             //Toastr::success('Role supprimer avec succes :-)', 'Felicitation');
-            return redirect('admin.role.index')->with('message', 'Role supprimer avec succes :-)');
+            return redirect()->route('roles.index')->with('success', 'Role supprimer avec succes :-)');
+           // return redirect('role.index')->with('message', 'Role supprimer avec succes :-)');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect('admin.role.index')->with('error', 'Attention tu peux pas supprimer un role s\'il contient des Utilisateurs');
+            return redirect()->route('roles.index')->with('error', 'Attention tu peux pas supprimer un role s\'il contient des Utilisateurs');
+          //  return redirect('role.index')->with('error', 'Attention tu peux pas supprimer un role s\'il contient des Utilisateurs');
             return redirect()->back(); }
         }
 }

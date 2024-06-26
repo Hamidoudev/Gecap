@@ -11,6 +11,8 @@ class Emplois extends Model
     protected $fillable = [
         'classe_id',
         'matiere_id',
+        'cycle_id',
+        'enseignant_id',
         'jour',
         'heure',
     ];
@@ -28,5 +30,9 @@ class Emplois extends Model
     public function matiere()
     {
         return $this->belongsTo(matiere::class);
+    }
+    public function enseignant()
+    {
+        return $this->belongsTo(Enseignant::class);
     }
 }

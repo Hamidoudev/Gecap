@@ -219,10 +219,10 @@
                         <div class="row">
 
                             <div class="col-lg-4 col-md-6">
-                                <div class="footer-info ">
+                                <div class="footer-info " style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
                                     <h4 class="">Bienvenue, <br> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h4>
                                     <p>
-                                        sur votre espace Super Administrateur
+                                        sur votre espace de travail. 
                                     </p>
                                 </div>
                                     <div class="social-links d-flex mt-3">

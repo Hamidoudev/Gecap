@@ -89,12 +89,7 @@
                     <table class="table  datanew">
                         <thead>
                             <tr>
-                                {{-- <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th> --}}
+                            
                                 <th>#</th>
                                 <th>Nom</th>
                                 <th> Etat </th>
@@ -109,7 +104,7 @@
                 
                                     <td>{{ $role->id }}</td>
                                     <td>{{ $role->nom }}</td>
-                                    {{-- <td>{{ $role->type }}</td>  --}}
+                                  
                                     <td>      @if ($role->type == 1)
                                         <span class="btn btn-success btn-sm">Activer</span>
                                     @else
@@ -126,7 +121,7 @@
                                     <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
                                   
                                     <td>
-                                        <a class="me-3" href="{{ route('admin.role.update', $role->id) }}">
+                                        <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ ($role->id) }}">
                                             <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
                                                 alt="img">
                                         </a>
@@ -149,6 +144,23 @@
 </div>
 @include('admin.role.ajout')
 @endsection
+
+@foreach($roles as $role)
+    <div class="modal fade" id="editModal{{ $role->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $role->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel{{ $role->id }}">Modification role : {{ $role->nom }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    @include('admin.role.edit', ['role' => $role])
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
 @section('script')
     <script>
         $(document).on('click', '.update_modal', function() {

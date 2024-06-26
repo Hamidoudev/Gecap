@@ -5,7 +5,7 @@
     <h4>Listes des Utilisateurs</h4> 
     </div>
     <div class="page-btn">
-        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEleveModal">
+        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutecoleModal">
             <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter 
         </a>
     </div>
@@ -58,4 +58,6 @@
             </div>
         </div>
     </div>
+    @include('admin.users.form')
 @endsection
+

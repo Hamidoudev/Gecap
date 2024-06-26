@@ -241,7 +241,7 @@
                                 <div class="footer-info ">
                                     <h4 class="">Bienvenue, <br> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h4>
                                     <p>
-                                        sur votre espace Ecole
+                                        sur votre espace de travail.
                                     </p>
                                 </div>
                                     <div class="social-links d-flex mt-3">
@@ -291,8 +291,8 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count">
                             <div class="dash-counts">
-                                <h4>100</h4>
-                                <h5>Customers</h5>
+                                <h4>0</h4>
+                                <h5>Enseignants</h5>
                             </div>
                             <div class="dash-imgs">
                                 <i data-feather="user"></i>
@@ -302,8 +302,8 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das1">
                             <div class="dash-counts">
-                                <h4>100</h4>
-                                <h5>Suppliers</h5>
+                                <h4>0</h4>
+                                <h5>Elèves</h5>
                             </div>
                             <div class="dash-imgs">
                                 <i data-feather="user-check"></i>
@@ -313,8 +313,8 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das2">
                             <div class="dash-counts">
-                                <h4>100</h4>
-                                <h5>Purchase Invoice</h5>
+                                <h4>0</h4>
+                                <h5>Programmes</h5>
                             </div>
                             <div class="dash-imgs">
                                 <i data-feather="file-text"></i>
@@ -324,8 +324,8 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das3">
                             <div class="dash-counts">
-                                <h4>105</h4>
-                                <h5>Sales Invoice</h5>
+                                <h4>0</h4>
+                                <h5>Emplois du Temps</h5>
                             </div>
                             <div class="dash-imgs">
                                 <i data-feather="file"></i>
