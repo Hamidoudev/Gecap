@@ -12,9 +12,52 @@ use Livewire\Component;
 
 class Filtre extends Component
 {
-    public  $enseignants,$ecoles,$classes,$cycles,$emplois,$selectedClasse,$selectedCycle,$selectedEcole,$matieres = [];
+    public  $ecoles,$classes,$cycles,$emplois,$selectedClasse,$selectedCycle,$selectedEcole,$matieres = [];
     public $showInput = false;
-    public $enseignant_id;
+    public $matiere_id=[];
+    public $enseignants=[];
+    public $enseignant_id=[];
+    public  $schedules= [];
+    public $afficherliste = true;
+    public $afficherform = false;
+
+    public function mount()
+    {
+        $this->matieres = Matiere::all();
+        $this->enseignants = collect();
+        $this->addSchedule();
+    }
+
+    public function active() 
+    {
+        $this->afficherform = true; 
+        $this->afficherliste = false;
+    }
+
+    public function retour() 
+    {
+        $this->afficherliste = true;
+        $this->afficherform = false; 
+    }
+
+
+
+    public function removeSchedule($index)
+    {
+        unset($this->schedules[$index]);
+        $this->schedules = array_values($this->schedules);
+    }
+
+    public function updatedSchedules($value, $name)
+    {
+        list($index, $field) = explode('.', $name);
+        if ($field == 'matiere_id') {
+            $this->schedules[$index]['enseignant_id'] = '';
+            $this->enseignants[$index] = Enseignant::where('matiere_id', $value)->get();
+        }
+    }
+  
+
     public function selectChanged()
     {
        
@@ -58,7 +101,17 @@ class Filtre extends Component
          }
 
     }
-
+    public function addSchedule()
+    {
+        $this->schedules[] = [
+            'heure_debut' => '',
+            'heure_fin' => '',
+            'jour' => '',
+            'matiere_id' => '',
+            'enseignant_id' => ''
+        ];
+        $this->enseignants[] = collect();
+    }
 
     public function changeCycle()
     {
@@ -66,11 +119,24 @@ class Filtre extends Component
         if($this->selectedCycle == 1)
         {
             $this->showInput = true;
-            $this->matieres = Matiere::all();
-            // dd($this->matieres);
+            $cycle = Cycle::find($this->selectedCycle);
+            $this->matieres = $cycle->matieres;
+             
         }
         else{
+            $cycle = Cycle::find($this->selectedCycle);
+            $this->matieres = $cycle->matieres;
             $this->showInput = false;
+        }
+    }
+    public function chargeEnseignant($id)
+    {
+         dd(($this->matiere_i));
+
+         $matiere = Matiere::find($id);
+
+        if ($matiere) {
+            $this->enseignants = $matiere->enseignants;
         }
     }
 
@@ -81,6 +147,19 @@ class Filtre extends Component
         $this->cycles = Cycle::all();
         $this->ecoles = Ecole::all();
         $this->enseignants = Enseignant::all();
+    }
+    
+    public function save()
+    {
+        $this->validate([
+            'schedules.*.heure_debut' => 'required',
+            'schedules.*.heure_fin' => 'required',
+            'schedules.*.jour' => 'required',
+            'schedules.*.matiere_id' => 'required',
+            'schedules.*.enseignant_id' => 'required_if:selectedCycle,2',
+        ]);
+
+        // Logic to save the data
     }
 
     public function render()

@@ -50,38 +50,58 @@
                     @endif
 
                     <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Heures/Jours</th>
-                                <th>Lundi</th>
-                                <th>Mardi</th>
-                                <th>Mercredi</th>
-                                <th>Jeudi</th>
-                                <th>Vendredi</th>
-                            </tr>
-                        </thead>
+                       
                         <tbody>
-                            @foreach(['7h:45-10h:00', '7h:45-8h:45', '8h:45-9h:45', '10h:00-12h:00', '12h:00-13h:00', '13h:00-14h:00', '14h:00-15h:00', '15h:00-16h:00', '16h:00-17h:00', '17h:00-18h:00','15h:00-17h:00'] as $heure)
+                            {{-- @php
+                                $heurepremiercycle = ['7h:45-10h:00', '10h:00-12h:00', '15h:00-16h:00', '16h:00-17h:00', '15h:00-17h:00'];
+                                $heuresecondcycle = ['7h:45-8h:45', '8h:45-9h:45', '10h:00-12h:00', '15h:00-16h:00', '16h:00-17h:00', '15h:00-17h:00'];
+                                $heures = $selectedCycle == 1 ? $heurepremiercycle : $heuresecondcycle;
+                            @endphp --}}
+                          
                                 <tr>
-                                    <td>{{ $heure }}</td>
-                                    @foreach(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'] as $jour)
+                                    <td>
+                                        <label for="">Heure-Début</label>
+                                         <input type="time" name="heure_debut"> 
+                                    </td>
+                                    <td> 
+                                        <label for="">Heure-Fin</label>
+                                        <input type="time" name="heure_fin"> 
+                                    </td>
+                                    <td> <label for="jour">Jour</label>
+                                        <select name="jour" id="jour" class="form-control">
+                                            <option value="lundi">Lundi</option>
+                                            <option value="mardi">Mardi</option>
+                                            <option value="mercredi">Mercredi</option>
+                                            <option value="jeudi">Jeudi</option>
+                                            <option value="vendredi">Vendredi</option>
+                                            <option value="samedi">Samedi</option>
+                                        </select></td>
                                         <td>
-                                            <select name="emplois[{{ $jour }}][{{ $heure }}][matiere_id]" class="form-control">
-                                                <option value="">Sélectionner une matière</option>
+                                            <select wire:model="matiere_id" wire:change="chargeEnseignant($event.target.value)" class="form-control">
+                                                <option value="">Matières</option>
                                                 @foreach($matieres as $matiere)
                                                     <option value="{{ $matiere->id }}">
                                                         {{ $matiere->libelle }}
-                                                        @if($selectedCycle == 2)
-                                                            ({{ $enseignants->firstWhere('id', $matiere->enseignant_id)->nom ?? 'Aucun enseignant' }})
-                                                        @endif
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            
+                                            @if ($selectedCycle == 2)
+                                                <select wire:model="enseignant_id" class="form-control">
+                                                    <option value="">Enseignants</option>
+                                                    @foreach($enseignants as $enseignant)
+                                                        <option value="{{ $enseignant->id }}">
+                                                            {{ $enseignant->nom }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            @endif
                                         </td>
-                                    @endforeach
+                                   
                                 </tr>
-                            @endforeach
+                            
                         </tbody>
+                        
                     </table>
                 </div>
                 <div class="modal-footer">

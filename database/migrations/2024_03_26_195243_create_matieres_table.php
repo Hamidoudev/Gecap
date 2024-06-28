@@ -15,39 +15,11 @@ return new class extends Migration
         Schema::create('matieres', function (Blueprint $table) {
             $table->id();
             $table->string('libelle');
-            $table->enum('type', ['premier cycle', 'second cycle']);
-            $table->bigInteger('enseignant_id')->unsigned();
+            $table->unsignedBigInteger('cycle_id'); 
+            $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');
             $table->timestamps();
         });
-        DB::table('matieres')->insert([
-            [
-               
-                'libelle' => 'science naturelles',
-                'enseignant_id' => 1,
-                'type'=> 'premier cycle',
-               
-                
-                
-            ],
-            [
-               
-                'libelle' => 'mathématiques',
-                'enseignant_id' => 2,
-                'type'=> 'second cycle',
-               
-                
-                
-            ],
-            [
-               
-                'libelle' => 'science physiques',
-                'enseignant_id' => 3,
-                'type'=> 'premier cycle',
-               
-                
-                
-            ],
-        ]);
+       
     }
 
     /**

@@ -17,20 +17,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="form-group">
-                                 <label for="ecole"> Enseignant</label>
-                               
-                                <div class="input-with-dropdown">
-                                    <select id="ecoles_list" wire:model="selectedEcole" name="enseignant_id">
-                                        <option value="">Sélectionner un enseignant</option>
-                                        @foreach($enseignants as $enseignant)
-                                            <option value="{{ $enseignant->id }}">{{ $enseignant->nom }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>  
-                            </div>
-                        </div>
+                                 
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                 <label> Libelle</label>

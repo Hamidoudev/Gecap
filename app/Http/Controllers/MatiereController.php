@@ -13,9 +13,9 @@ class MatiereController extends Controller
      */
     public function index()
     {
-        $enseignants = Enseignant::all();
+        
         $matieres = Matiere::all();
-        return view('matieres.listes', compact('matieres', 'enseignants'));
+        return view('matieres.listes', compact('matieres'));
     }
     public function create()
     {
@@ -32,16 +32,15 @@ class MatiereController extends Controller
         $matiere = new Matiere();
         $matiere->libelle = $request->libelle;
         $matiere->type = $request->type;
-        $matiere->enseignant_id = $request->enseignant_id;
         $matiere->save();
         return redirect()->route('matieres.listes')->with('success', 'Enregistrement effectué avec succès');
     }
     
     public function edit($id)
     {
-        $enseignants = Enseignant::find($id);
+        
         $matiere = Matiere::find($id);
-        return view('enseignants.edit', compact('matiere','enseignant'));
+        return view('enseignants.edit', compact('matiere'));
     }
 
     /**
@@ -60,7 +59,7 @@ class MatiereController extends Controller
         $matiere = Matiere::find($id);
         $matiere->libelle = $request->libelle;
         $matiere->type = $request->type;
-        $matiere->enseignant_id = $request->enseignant_id;
+       
         $matiere->save();
         return redirect()->route('matieres.listes')->with('success', 'modification effectuée avec succès'); 
     }

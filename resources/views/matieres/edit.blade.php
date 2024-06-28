@@ -21,26 +21,6 @@
                     
                     </div>
                 </div>
-
-                <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="form-group">
-                        <div class="input-with-dropdown">
-                            <select id="ecoles_list" name="enseignant_id" class="form-control">
-                                @foreach($enseignants as $enseignant)
-                                <option value="{{ $enseignant->id }}" {{ $matiere->enseignant_id == $enseignant->id ? 'selected' : '' }}>
-                                    {{ $enseignant->nom }}
-                                </option>
-                            @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-
-
-
                 
             </div>
            

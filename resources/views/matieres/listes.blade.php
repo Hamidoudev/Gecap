@@ -73,7 +73,6 @@
                         <th>#</th>
                         <th>Libelle</th>
                         <th>Type</th>
-                        <th>Enseignant </th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -83,14 +82,6 @@
                             <td>{{ $matiere->id }}</td>
                             <td>{{ $matiere->libelle }}</td>
                             <td>{{ $matiere->type }}</td>                         
-                            <td>
-                                @foreach($enseignants as $enseignant)
-                                    @if($enseignant->id == $matiere->enseignant_id)
-                                        {{ $enseignant->nom }}
-                                    @endif
-                                @endforeach
-                            </td> 
-                           
                             <td>
                                 <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $matiere->id }}">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">

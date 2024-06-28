@@ -10,8 +10,12 @@ class Matiere extends Model
 
     use HasFactory;
 
-    public function enseignant()
+    public function enseignants()
     {
-        return $this->belongsTo(Enseignant::class);
+        return $this->belongsToMany(Enseignant::class);
+    }
+    public function cycles()
+    {
+        return $this->belongsTo(Cycle::class);
     }
 }

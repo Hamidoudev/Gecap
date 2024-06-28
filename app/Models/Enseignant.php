@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Enseignant extends Model
 {
     use HasFactory;
-   // protected $table = 'enseignant';
+    protected $table = 'enseignants';
+    public function matieres()
+    {
+        return $this->belongsToMany(Matiere::class);
+    }
     //protected $primaryKey = 'id';
   //  protected $foreignKey = '';
    // protected $fillable = ['nom','prenom','date_n','email','telephone','adresse','cv'];

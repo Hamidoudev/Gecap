@@ -59,12 +59,13 @@ class LoginController extends Controller
         {
             
             if (auth()->user()->type->name == 'admin') {
-                return redirect()->route('admin.home');
+                return redirect()->route('admin.home')->with('success', 'Bienvenue L\'espace Administrateur du GECAP');
             }else if (auth()->user()->type->name == 'manager') {
-                return redirect()->route('manager.home');
+                return redirect()->route('manager.home')->with('success', 'Bienvenue L\'espace CAP du GECAP'); 
+
             }else if (auth()->user()->type->name == "user")
             {
-                return redirect()->route('user.home');
+                return redirect()->route('user.home')->with('success', 'Bienvenue L\'espace Ecole du GECAP');
             }
         }else{
             return Redirect()->route('auth.login')

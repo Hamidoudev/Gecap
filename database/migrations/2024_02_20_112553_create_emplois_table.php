@@ -20,8 +20,9 @@ return new class extends Migration
             $table->bigInteger('ecole_id')->unsigned();
             $table->bigInteger('matiere_id')->unsigned();
             $table->bigInteger('cycle_id')->unsigned();
-            $table->enum('jour', ['lundi', ' mardi', 'mercredi','jeudi', 'vendredi']);
-            $table->time('heure', ['7h:45-10h:00', '7h:45-8h:45', '8h:45-9h:45', '10h:00-12h:00', '12h:00-13h:00', '13h:00-14h:00', '14h:00-15h:00', '15h:00-16h:00', '16h:00-17h:00', '17h:00-18h:00','15h:00-17h:00']);
+            $table->enum('jour', ['lundi', ' mardi', 'mercredi','jeudi', 'vendredi','samedi']);
+            $table->time('heure_debut');
+            $table->time('heure_fin');
             $table->timestamps();
         });
     }
