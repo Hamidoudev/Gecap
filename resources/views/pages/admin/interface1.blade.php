@@ -35,11 +35,11 @@
         <div class="header">
 
             <div class="header-left active">
-                <a href="index.html" class="logo">
+                <a href="" class="logo">
                     <img src="{{ URL::to('admin-template/assets/img/logog.png') }}" width="80px" height="80px"
                         alt="">
                 </a>
-                <a href="index.html" class="logo-small">
+                <a href="" class="logo-small">
                     <img src="{{ URL::to('admin-template/assets/img/logopetit.png') }}" alt="">
                 </a>
                 <a id="toggle_btn" href="javascript:void(0);">
@@ -92,10 +92,10 @@
                     <div class="dropdown-menu menu-drop-user">
                         <div class="profilename">
                             <div class="profileset">
-                                <span class="user-img"><img
-                                        src="{{ URL::to('admin-template/assets/img/profiles/avator1.jpg') }}"
-                                        alt="">
-                                    <span class="status online"></span></span>
+                                <span class="user-img">
+                                    <img src="{{ URL::to('admin-template/assets/img/profiles/avator1.jpg') }}" alt="" id="profilePic">
+                                    <span class="status online"></span>
+                                </span>
                                 <div class="profilesets">
                                     @if (Auth::check() && Auth::user()->type)
                                         <h6> {{ Auth::user()->last_name }}</h6>
@@ -105,15 +105,12 @@
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal"
-                                href="{{ url('profile/edit') }}"> <i class="me-2" data-feather="user"></i>
+                            <a class="dropdown-item"  href="{{ url('profile/vue') }}"> <i class="me-2" data-feather="user"></i>
                                 Mon Profile</a>
-                            <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a>
-                            <hr class="m-0">
+                           
                             <a class="dropdown-item" href="#"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Logout
+                                Déconnexion
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                 style="display: none;">
@@ -131,12 +128,11 @@
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ajoutgrilleModal"
-                        href="{{ url('profile/edit') }}">Mon Profile</a>
-                    <a class="dropdown-item" href="generalsettings.html">Settings</a>
+                    <a class="dropdown-item" href="{{ url('profile/vue') }}">Mon Profile</a>
+
                     <a class="dropdown-item" href="#"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Logout
+                        Déconnexion
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
@@ -155,9 +151,21 @@
                             $types = \App\Models\Droit::all()->groupBy('type_droit_id');
                         @endphp
 
+                        @php
+                            $user = Auth::user();
+                            $dashboardUrl = '';
+
+                            if ($user->type->name == 'admin') {
+                                $dashboardUrl = url('/admin/home');
+                            } elseif ($user->type->name == 'user') {
+                                $dashboardUrl = url('/user/home');
+                            } elseif ($user->type->name == 'manager') {
+                                $dashboardUrl = url('/manager/home');
+                            }
+                        @endphp
 
                         <li class="active">
-                            <a href="{{ url('/admin/home') }}"><img
+                            <a href="{{ $dashboardUrl }}"><img
                                     src="{{ URL::to('admin-template/assets/img/icons/dashboard.svg') }}"
                                     alt="img"><span> Dashboard</span> </a>
                         </li>
@@ -351,7 +359,7 @@
 
     <script src="{{ URL::to('admin-template/assets/js/script.js') }} "></script>
 
-    {{-- @include('profile.edit') --}}
+   
 </body>
 
 </html>

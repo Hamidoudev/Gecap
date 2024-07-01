@@ -9,7 +9,7 @@
         content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern,  html5, responsive">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>Gecap-UE-2024</title>
+    <title>Gecap-Profile-2024</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::to('admin-template/assets/img/gecap.png') }}">
 

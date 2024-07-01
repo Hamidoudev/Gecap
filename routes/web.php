@@ -235,10 +235,10 @@ Route::get('/admin/users/delete{id}', [UserController::class, 'destroy'])->name(
 Route::post('/admin/users/update/{id}', [UserController::class, 'update'])->name('admin.users.update');
 
 
-
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/profile/vue', [ProfileController::class, 'index'])->name('profile.vue');
+Route::get('/profile/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update/', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/profile/show/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
 Route::get('contact', [ContactController::class, 'create'])->name('contact');
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');

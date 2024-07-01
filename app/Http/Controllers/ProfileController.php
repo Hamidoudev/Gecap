@@ -10,13 +10,19 @@ use App\Models\User;
 
 class ProfileController extends Controller
 {
-    public function edit()
+    public function index()
     {
-        
+     
         $user = Auth::user();
         if(!$user) {
             abort(404,'user not found');
         }
+        return view('profile.vue',compact('user'));
+    }
+
+    public function edit($id)
+    {
+        $eleve = User::find($id);
         return view('profile.edit', compact('user'));
     }
 
@@ -28,10 +34,14 @@ class ProfileController extends Controller
             'email' => 'required|string|email|max:255',
             'phone' => 'nullable|string|max:15',
             'username' => 'required|string|max:255',
-            'password' => 'nullable|string|min:8|confirmed',
+            'password' => 'sometimes|nullable|string|min:8|confirmed',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        $user = User::find(Auth::user()->id);
+        if (!$user) {
+            abort(404, 'User not found');
+        }
        
         $user = User::find(Auth::user()->id);
         $user->first_name = $request->input('first_name');
@@ -40,9 +50,9 @@ class ProfileController extends Controller
         $user->phone = $request->input('phone');
         $user->username = $request->input('username');
 
-       // if ($request->filled('password')) {
-       //     $user->password = Hash::make($request->input('password'));
-       // }
+        if ($request->filled('password')) {
+           $user->password = Hash::make($request->input('password'));
+             }
 
         if ($request->hasFile('profile_picture')) {
             $imageName = time().'.'.$request->profile_picture->extension();
@@ -53,5 +63,11 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Profile Modifier avec success.');
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+        
     }
 }

@@ -35,11 +35,11 @@
         <div class="header">
 
             <div class="header-left active">
-                <a href="index.html" class="logo">
+                <a href="" class="logo">
                     <img src="{{ URL::to('admin-template/assets/img/logog.png') }}" width="80px" height="80px"
                         alt="">
                 </a>
-                <a href="index.html" class="logo-small">
+                <a href="" class="logo-small">
                     <img src="{{ URL::to('admin-template/assets/img/logopetit.png') }}" alt="">
                 </a>
                 <a id="toggle_btn" href="javascript:void(0);">
@@ -77,34 +77,11 @@
                 </li>
 
 
-                {{-- <li class="nav-item dropdown has-arrow flag-nav">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);"
-                        role="button">
-                        <img src="{{ URL::to('admin-template/assets/img/flags/us1.png') }}" alt=""
-                            height="20">
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="{{ URL::to('admin-template/assets/img/flags/us.png') }}" alt=""
-                                height="16"> English
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="{{ URL::to('admin-template/assets/img/flags/fr.png') }}" alt=""
-                                height="16"> French
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="{{ URL::to('admin-template/assets/img/flags/es.png') }}" alt=""
-                                height="16"> Spanish
-                        </a>
-                        <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="{{ URL::to('admin-template/assets/img/flags/de.png') }}" alt=""
-                                height="16"> German
-                        </a>
-                    </div>
-                </li> --}}
+
+                </li>
 
 
-               
+
 
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
@@ -115,28 +92,27 @@
                     <div class="dropdown-menu menu-drop-user">
                         <div class="profilename">
                             <div class="profileset">
-                                <span class="user-img"><img
-                                        src="{{ URL::to('admin-template/assets/img/profiles/avator1.jpg') }}"
-                                        alt="">
-                                    <span class="status online"></span></span>
+                                <span class="user-img">
+                                    <img src="{{ URL::to('admin-template/assets/img/profiles/avator1.jpg') }}"
+                                        alt="" id="profilePic">
+                                    <span class="status online"></span>
+                                </span>
                                 <div class="profilesets">
                                     @if (Auth::check() && Auth::user()->type)
-                                        <h6>{{ Auth::user()->username }} </h6>
+                                        <h6> {{ Auth::user()->last_name }}</h6>
                                         <h5>{{ Auth::user()->type->name }}</h5>
                                     @endif
 
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal"
-                                href="{{ url('profile/edit') }}"> <i class="me-2" data-feather="user"></i>
+                            <a class="dropdown-item" href="{{ url('profile/vue') }}"> <i class="me-2"
+                                    data-feather="user"></i>
                                 Mon Profile</a>
-                            <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a>
-                            <hr class="m-0">
+
                             <a class="dropdown-item" href="#"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Logout
+                                Déconnexion
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                 style="display: none;">
@@ -154,11 +130,11 @@
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="generalsettings.html">Settings</a>
+                    <a class="dropdown-item" href="{{ url('profile/vue') }}">Mon Profile</a>
+
                     <a class="dropdown-item" href="#"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Logout
+                        Déconnexion
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
@@ -176,49 +152,60 @@
                         @php
                             $types = \App\Models\Droit::all()->groupBy('type_droit_id');
                         @endphp
+                        @php
+                            $user = Auth::user();
+                            $dashboardUrl = '';
 
+                            if ($user->type->name == 'admin') {
+                                $dashboardUrl = url('/admin/home');
+                            } elseif ($user->type->name == 'user') {
+                                $dashboardUrl = url('/user/home');
+                            } elseif ($user->type->name == 'manager') {
+                                $dashboardUrl = url('/manager/home');
+                            }
+                        @endphp
 
                         <li class="active">
-                            <a href="{{ url('/user/home') }}"><img
+                            <a href="{{ $dashboardUrl }}"><img
                                     src="{{ URL::to('admin-template/assets/img/icons/dashboard.svg') }}"
                                     alt="img"><span> Dashboard</span> </a>
                         </li>
                         @foreach ($types as $key => $type)
                             @php
                                 $elements = 0;
-                                $droitAutorises =[] ;
+                                $droitAutorises = [];
                                 foreach ($type as $id => $droit) {
                                     $droitAutorises = DB::table('droit_role')
-                                                                ->where('role_id', '=',Auth::user()->role->id)
-                                                                ->where('droit_id', '=',$droit->id)
-                                                                ->get("id");
+                                        ->where('role_id', '=', Auth::user()->role->id)
+                                        ->where('droit_id', '=', $droit->id)
+                                        ->get('id');
                                     if (count($droitAutorises)) {
                                         $elements += 1;
-                                    }                              
+                                    }
                                 }
 
                             @endphp
-                            @if($elements > 0)                 
+                            @if ($elements > 0)
                                 <li class="submenu">
                                     <a href="javascript:void(0);"><img
                                             src="{{ URL::to('admin-template/assets/img/icons/product.svg') }}"
-                                            alt="img"><span>{{\App\Models\TypeDroit::find($key)->nom}}</span> <span class="menu-arrow"></span></a>
+                                            alt="img"><span>{{ \App\Models\TypeDroit::find($key)->nom }}</span>
+                                        <span class="menu-arrow"></span></a>
                                     <ul>
                                         @forelse ($type as $droit)
                                             @php
                                                 $droitAutorises = DB::table('droit_role')
-                                                                    ->where('role_id', '=',Auth::user()->role->id)
-                                                                    ->where('droit_id', '=',$droit->id)
-                                                                    ->get("id");
+                                                    ->where('role_id', '=', Auth::user()->role->id)
+                                                    ->where('droit_id', '=', $droit->id)
+                                                    ->get('id');
 
-                                            @endphp 
-                                            @if(count($droitAutorises))                                      
-                                                <li><a href="{{ route($droit->route) }}">{{$droit->nom}}</a></li>
+                                            @endphp
+                                            @if (count($droitAutorises))
+                                                <li><a href="{{ route($droit->route) }}">{{ $droit->nom }}</a></li>
                                             @endif
                                         @empty
-                                            
                                         @endforelse
-                                    
+
 
                                     </ul>
                                 </li>
@@ -239,28 +226,29 @@
 
                             <div class="col-lg-4 col-md-6">
                                 <div class="footer-info ">
-                                    <h4 class="">Bienvenue, <br> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h4>
+                                    <h4 class="">Bienvenue, <br> {{ Auth::user()->first_name }}
+                                        {{ Auth::user()->last_name }}</h4>
                                     <p>
                                         sur votre espace de travail.
                                     </p>
                                 </div>
-                                    <div class="social-links d-flex mt-3">
+                                <div class="social-links d-flex mt-3">
 
-                                    </div>
-                               
+                                </div>
+
                             </div><!-- End footer info column-->
 
                             <div class="col-lg-2 col-md-3 footer-links">
-                               
-                                    <h4></h4>
-                                    <ul>
-                                      <li><a href="#"></a></li>
-                                      <li><a href="#"></a></li>
-                                      <li><a href="#"></a></li>
-                                      <li><a href="#"></a></li>
-                                      <li><a href="#"></a></li>
-                                    </ul>
-                                  
+
+                                <h4></h4>
+                                <ul>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                </ul>
+
 
                             </div><!-- End footer links column-->
 
@@ -279,7 +267,7 @@
                         </div>
                     </div>
                 </div>
-               
+
 
             </footer>
             <div class="content">

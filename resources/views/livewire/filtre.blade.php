@@ -1,5 +1,5 @@
 <div>
-
+   
     <div class="page-header">
         <div class="page-title">
             <h4>Emplois Du Temps</h4>
@@ -211,7 +211,7 @@
                         </div>
                         <div class="form-group">
                             <label for="cycle_id">Cycle:</label>
-                            <select class="form-control" wire:change='changeCycle' required
+                            <select name="cycle_id" class="form-control" wire:change='changeCycle' required
                                 wire:model="selectedCycle">
                                 <option value="">Sélectionner un cycle</option>
                                 @foreach ($cycles as $cycle)
@@ -220,11 +220,10 @@
                             </select>
                         </div>
                         @if ($showInput == 1)
-
                             <div class="form-group">
                                 <label for="enseignant_id">Enseignant:</label>
-                                <select name="enseignant_id" class="form-control" required wire:ignore.self
-                                    wire:model="enseignant_id.{{1}}">
+                                <select name="enseignant_id" class="form-control" required
+                                    wire:model="selectedEnseignant">
                                     <option value="">Sélectionner un Enseignant</option>
                                     @foreach ($enseignants as $enseignant)
                                         <option value="{{ $enseignant->id }}">{{ $enseignant->nom }}</option>
@@ -236,59 +235,54 @@
                         <table class="table">
 
                             <tbody>
-                                @foreach($schedules as $index => $schedule)
-                                    <tr>
-                                        <td>
-                                            <label for="">Heure-Début</label>
-                                            <input type="time" wire:model="schedules.{{ $index }}.heure_debut" name="schedules[{{ $index }}][heure_debut]">
-                                            @error('schedules.'.$index.'.heure_debut') <span class="error">{{ $message }}</span> @enderror
-                                        </td>
-                                        <td>
-                                            <label for="">Heure-Fin</label>
-                                            <input type="time" wire:model="schedules.{{ $index }}.heure_fin" name="schedules[{{ $index }}][heure_fin]">
-                                            @error('schedules.'.$index.'.heure_fin') <span class="error">{{ $message }}</span> @enderror
-                                        </td>
-                                        <td>
-                                            <label for="jour">Jour</label>
-                                            <select wire:model="schedules.{{ $index }}.jour" name="schedules[{{ $index }}][jour]" id="jour" class="form-control">
-                                                <option value="">Choisir un jour</option>
-                                                <option value="lundi">Lundi</option>
-                                                <option value="mardi">Mardi</option>
-                                                <option value="mercredi">Mercredi</option>
-                                                <option value="jeudi">Jeudi</option>
-                                                <option value="vendredi">Vendredi</option>
-                                                <option value="samedi">Samedi</option>
-                                            </select>
-                                            @error('schedules.'.$index.'.jour') <span class="error">{{ $message }}</span> @enderror
-                                        </td>
-                                        <td>
-                                            <select wire:model="schedules.{{ $index }}.matiere_id" wire:change="updatedSchedules($event.target.value, 'schedules.{{ $index }}.matiere_id')" class="form-control">
-                                                <option value="">Choisir une matière</option>
-                                                @foreach ($matieres as $matiere)
-                                                    <option value="{{ $matiere->id }}">{{ $matiere->libelle }}</option>
+                                   
+                                <tr>
+                                    <td>
+                                        <label for="">Heure-Début</label>
+                                        <input type="time" name="heure_debut">
+                                    </td>
+                                    <td>
+                                        <label for="">Heure-Fin</label>
+                                        <input type="time" name="heure_fin">
+                                    </td>
+                                    <td> <label for="jour">Jour</label>
+                                        <select name="jour" id="jour" class="form-control">
+                                            <option value="lundi">Lundi</option>
+                                            <option value="mardi">Mardi</option>
+                                            <option value="mercredi">Mercredi</option>
+                                            <option value="jeudi">Jeudi</option>
+                                            <option value="vendredi">Vendredi</option>
+                                            <option value="samedi">Samedi</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select wire:model="matiere_id"
+                                            wire:change="chargeEnseignant($event.target.value)" class="form-control">
+                                            <option value="">Matières</option>
+                                            @foreach ($matieres as $matiere)
+                                                <option value="{{ $matiere->id }}">
+                                                    {{ $matiere->libelle }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                        @if ($selectedCycle == 2)
+                                            <select wire:model="enseignant_id" class="form-control">
+                                                <option value="">Enseignants</option>
+                                                @foreach ($enseignants as $enseignant)
+                                                    <option value="{{ $enseignant->id }}">
+                                                        {{ $enseignant->nom }}
+                                                    </option>
                                                 @endforeach
                                             </select>
-                                            @error('schedules.'.$index.'.matiere_id') <span class="error">{{ $message }}</span> @enderror
-                    
-                                            @if ($selectedCycle == 2)
-                                                <select wire:model="schedules.{{ $index }}.enseignant_id" class="form-control">
-                                                    <option value="">Choisir un enseignant</option>
-                                                    @foreach ($enseignants[$index] ?? [] as $enseignant)
-                                                        <option value="{{ $enseignant->id }}">{{ $enseignant->nom }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('schedules.'.$index.'.enseignant_id') <span class="error">{{ $message }}</span> @enderror
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger" wire:click="removeSchedule({{ $index }})">Supprimer</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                        @endif
+                                    </td>
+
+                                </tr>
+                                
                             </tbody>
 
                         </table>
-                        <button type="button" class="btn btn-primary" wire:click="addSchedule">Ajouter Champs</button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>

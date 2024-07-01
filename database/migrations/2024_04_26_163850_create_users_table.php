@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('profile_picture')->nullable();
             $table->foreignId('role_id')->constrained();
             $table->foreignId('role_type_user_id')->constrained('role_type_users')->onDelete('cascade');
-            $table->foreignIdFor(Type::class)->onDelete('cascade');;
+            $table->foreignIdFor(Type::class)->onDelete('cascade');
             /* Users: 0=>User, 1=>Admin, 2=>Manager */
             $table->rememberToken();
             $table->timestamps();

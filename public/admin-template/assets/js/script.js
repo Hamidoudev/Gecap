@@ -105,3 +105,15 @@ $('ul.tabs li').click(function(){var $this=$(this);var $theTab=$(this).attr('id'
 function confirmAction(nomPrenom) {
     return confirm('Voulez-vous vraiment supprimer ' + nomPrenom + '?');
 }
+
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output1 = document.getElementById('blah');
+            var output2 = document.getElementById('profilePic');
+            output1.src = reader.result;
+            output2.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+

@@ -11,11 +11,9 @@
                 </div>
             @endif
 
-            {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profileModal">
-                Edit Profile
-            </button> --}}
+           
 
-            <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+            <div class="modal fade"  tabindex="-1"  aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

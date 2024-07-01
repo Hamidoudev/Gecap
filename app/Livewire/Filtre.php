@@ -25,7 +25,7 @@ class Filtre extends Component
     {
         $this->matieres = Matiere::all();
         $this->enseignants = collect();
-        $this->addSchedule();
+        
     }
 
     public function active() 
@@ -42,20 +42,7 @@ class Filtre extends Component
 
 
 
-    public function removeSchedule($index)
-    {
-        unset($this->schedules[$index]);
-        $this->schedules = array_values($this->schedules);
-    }
-
-    public function updatedSchedules($value, $name)
-    {
-        list($index, $field) = explode('.', $name);
-        if ($field == 'matiere_id') {
-            $this->schedules[$index]['enseignant_id'] = '';
-            $this->enseignants[$index] = Enseignant::where('matiere_id', $value)->get();
-        }
-    }
+   
   
 
     public function selectChanged()
@@ -101,17 +88,7 @@ class Filtre extends Component
          }
 
     }
-    public function addSchedule()
-    {
-        $this->schedules[] = [
-            'heure_debut' => '',
-            'heure_fin' => '',
-            'jour' => '',
-            'matiere_id' => '',
-            'enseignant_id' => ''
-        ];
-        $this->enseignants[] = collect();
-    }
+    
 
     public function changeCycle()
     {
@@ -131,7 +108,7 @@ class Filtre extends Component
     }
     public function chargeEnseignant($id)
     {
-         dd(($this->matiere_i));
+         
 
          $matiere = Matiere::find($id);
 
