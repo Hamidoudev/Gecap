@@ -4,12 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Ecole extends Model
+class Ecole extends Authenticatable
 {
+    protected $guard = [];
     
     public function typeecole()
     {
         return $this->belongsTo(typeEcole::class);
+    }
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
     }
 }

@@ -30,41 +30,7 @@
          
         </div>
 
-        {{-- <div class="card" id="filter_inputs">
-            <div class="card-body pb-0">
-                <div class="row">
-                    <div class="col-lg-2 col-sm-6 col-12">
-                        <div class="form-group">
-                            <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
-                                <option value="">Sélectionner un cycle</option>
-                                @foreach($classes as $classe)
-                                    <option value="{{ $classe->id }}">{{ $classe->cycle }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 col-12">
-                        <div class="form-group">
-                            <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
-                                <option value="">Sélectionner une classe</option>
-                                @foreach($classes as $classe)
-                                    <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                        <div class="form-group">
-                            <a class="btn btn-filters ms-auto"><img
-                                    src="{{ URL::to('admin-template/assets/img/icons/search-whites.svg') }}"
-                                    alt="img"></a>
-                        </div>
-                    </div>
-                </div>
-                   
-                </div>
-            </div>
-        </div>  --}}
+        
 
         <div class="table-responsive">
             <table class="table datanew">
@@ -72,7 +38,7 @@
                     <tr>
                         <th>#</th>
                         <th>Libelle</th>
-                        <th>Type</th>
+                        <th>Cycle</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -81,14 +47,18 @@
                         <tr>
                             <td>{{ $matiere->id }}</td>
                             <td>{{ $matiere->libelle }}</td>
-                            <td>{{ $matiere->type }}</td>                         
+                            <td>@foreach($cycles as $cycle)
+                                @if($cycle->id == $matiere->cycle_id)
+                                    {{ $cycle->libelle }}
+                                @endif
+                            @endforeach</td>                         
                             <td>
                                 <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $matiere->id }}">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                 </a>
-                                <a class="me-3 confirm-text" href="#" onclick="showDeleteModal('{{ route('eleves.delete', $matiere->id) }}')">
+                                {{-- <a class="me-3 confirm-text" href="#" onclick="showDeleteModal('{{ route('eleves.delete', $matiere->id) }}')">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}" alt="img">
-                                </a>
+                                </a> --}}
                             </td>
                         </tr>
                     @endforeach

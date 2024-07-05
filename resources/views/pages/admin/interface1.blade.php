@@ -277,47 +277,56 @@
 
                 <div class="row">
 
+                    @php
+                    use App\Models\Personneladmin;
+                    use App\Models\Enseignant;
+                    use App\Models\grille;
+                    use App\Models\Programme;
+                    @endphp
+                    
+                    
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                        <div class="dash-count">
+                        <div class="dash-count bg-secondary">
                             <div class="dash-counts">
-                                <h4>0</h4>
+                                <h4>{{ Personneladmin::count() }}</h4>
                                 <h5>Personnels</h5>
                             </div>
                             <div class="dash-imgs">
-                                <i data-feather="user"></i>
+                                <a href="{{route('personnels.listes')}}">
+                                 <i data-feather="user"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das1">
                             <div class="dash-counts">
-                                <h4>0</h4>
+                                <h4>{{ Enseignant::count() }}</h4>
                                 <h5>Enseignants</h5>
                             </div>
                             <div class="dash-imgs">
-                                <i data-feather="user-check"></i>
+                                <a href="{{route('enseignants.listes')}}"><i data-feather="user-check"> </i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das2">
                             <div class="dash-counts">
-                                <h4>0</h4>
+                                <h4>{{ grille::count() }}</h4>
                                 <h5>Grilles</h5>
                             </div>
                             <div class="dash-imgs">
-                                <i data-feather="file-text"></i>
+                                <a href="{{route('grilles.listes')}}"> <i data-feather="file-text"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das3">
                             <div class="dash-counts">
-                                <h4>0</h4>
+                                <h4>{{ Programme::count() }}</h4>
                                 <h5>Programmes</h5>
                             </div>
                             <div class="dash-imgs">
-                                <i data-feather="file"></i>
+                                <a href="{{route('programmes.listes')}}"><i data-feather="file"></i></a>
                             </div>
                         </div>
                     </div>

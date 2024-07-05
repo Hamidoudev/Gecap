@@ -5,7 +5,7 @@
         <h4>Listes d'Equipement</h4>
     </div>
     <div class="page-btn">
-        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEquipementModal">
+        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal">
             <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Equipement
         </a>
     </div>

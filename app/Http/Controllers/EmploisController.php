@@ -23,8 +23,9 @@ class EmploisController extends Controller
         $ecoles = Ecole::all();
         $cycles = Cycle::all();
         $enseignants = Enseignant::all();
-        $emplois = Emplois::paginate(10);
-        return view('emplois.listes', compact('cycles','enseignants','classes','ecoles', 'matieres', 'emplois'));
+       // $emplois = Emplois::distinct()->pluck('id')
+        //->paginate(10);
+        return view('pages.ecole.emplois.listes', compact('cycles','enseignants','classes','ecoles', 'matieres'));
     }
 
     public function generatePdf(Request $request)
@@ -55,7 +56,7 @@ class EmploisController extends Controller
         $matieres = Matiere::all();
         $cycles = Cycle::all();
         $enseignants = Enseignant::all();
-        return view('emplois.ajout', compact('cycles','enseignants','classes','ecoles', 'matieres'));
+        return view('pages.ecole.emplois.ajout', compact('cycles','enseignants','classes','ecoles', 'matieres'));
     }
 
     public function store(Request $request)
@@ -84,7 +85,7 @@ class EmploisController extends Controller
             }
         }
     
-        return redirect()->route('emplois.listes')->with('success', 'Enregistrement effectué.');
+        return redirect()->route('pages.ecole.emplois.listes')->with('success', 'Enregistrement effectué.');
     }
     
 
@@ -95,7 +96,7 @@ class EmploisController extends Controller
         $classes = Classe::find($id);
         $matieres = Matiere::find($id);
         $enseignants = Enseignant::find($id);
-        return view('emplois.edit', compact('emploi','enseignants', 'classes','ecoles',  'matieres'));
+        return view('pages.ecole.emplois.edit', compact('emploi','enseignants', 'classes','ecoles',  'matieres'));
     }
 
     public function show(string $id)
@@ -155,13 +156,13 @@ class EmploisController extends Controller
             }
         }
     
-        return redirect()->route('emplois.listes')->with('success', 'Mise à jour effectuée.');
+        return redirect()->route('pages.ecole.emplois.listes')->with('success', 'Mise à jour effectuée.');
     }
     public function destroy(string $id)
     {
         $emploi = Emplois::find($id);
         $emploi->delete();
-        return redirect()->route('emplois.listes')->with('danger', 'Suppression effectuée.');
+        return redirect()->route('pages.ecole.emplois.listes')->with('danger', 'Suppression effectuée avec succes.');
     }
     public function showSchedule($jour, $heure)
 {
@@ -171,7 +172,7 @@ class EmploisController extends Controller
                             ->with('matiere')
                             ->first();
 
-    return view('emplois.pdf', [
+    return view('pages.ecole.emplois.pdf', [
         'jour' => $jour,
         'heure' => $heure,
         'selectedMatiere' => $selectedMatiere ? $selectedMatiere->matiere : null,

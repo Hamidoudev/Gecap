@@ -22,7 +22,10 @@ class UserAccess
             return $next($request);
         }
 
-        return response()->json(['You do not have permission to access for this page.']);
+        toastr()->info('Vous n\'avez pas le droit d\'accéder à ces ressources!!');
+        return redirect('/');
+
+        // return response()->json(['Vous n\'êtes pas permis à accéder à cette.']);
         /* return response()->view('errors.check-permission'); */
     }
 }

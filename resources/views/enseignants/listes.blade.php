@@ -4,11 +4,11 @@
     <div class="page-title">
         <h4>Listes des Enseignants</h4>
     </div>
-    <div class="page-btn">
+    {{-- <div class="page-btn">
         <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal">
             <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Enseignants
         </a>
-    </div>
+    </div> --}}
 </div>
 <div class="card">
     <div class="card-body">
@@ -81,26 +81,26 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Maricule</th>
+                        <th>Ecole</th>
+                        
                         <th>First name</th>
                         <th>Last name</th>
-                        <th>Date Naissance</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Adresse</th>
                         <th>CV</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($enseignants as $enseignant)
                         <tr>
                             <td>{{ $enseignant->id }}</td>
-                            <td>{{ $enseignant->matricule }}</td>
+                            <td>{{ $enseignant->ecole->nom }}</td>
+                            
                             <td>{{ $enseignant->nom }}</td>
                             <td>{{ $enseignant->prenom }}</td>
-                            <td>{{ $enseignant->date_n }}</td>
+                            
                             <td>{{ $enseignant->email }}</td>
                             <td>{{ $enseignant->telephone }}</td>
                             <td>{{ $enseignant->adresse }}</td>
@@ -113,7 +113,7 @@
                                     Aucun CV disponible
                                 @endif
                             </td>
-                            <td>
+                            {{-- <td>
                                 <div class="status-toggle d-flex justify-content-between align-items-center">
                                     <input type="checkbox" id="status{{ $enseignant->id }}" class="check">
                                     <label for="status{{ $enseignant->id }}" class="checktoggle">checkbox</label>
@@ -126,7 +126,7 @@
                                 <a class="me-3 confirm-text" href="#" onclick="showDeleteModal('{{ route('enseignants.delete', $enseignant->id) }}')">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}" alt="img">
                                 </a>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>

@@ -48,6 +48,14 @@
                     </div>
                 </div>
 
+                
+                <label for="matieres">Sélectionnez les matières :</label>
+    <select name="matieres[]" id="matieres" multiple>
+        @foreach($matieres as $matiere)
+            <option value="{{ $matiere->id }}" {{ in_array($matiere->id, $enseignant->matieres->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $matiere->libelle }}</option>
+        @endforeach
+    </select>
+
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label> CV</label>

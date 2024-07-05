@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cycle;
 use App\Models\Enseignant;
 use App\Models\Matiere;
 use Illuminate\Http\Request;
@@ -13,13 +14,13 @@ class MatiereController extends Controller
      */
     public function index()
     {
-        
-        $matieres = Matiere::all();
-        return view('matieres.listes', compact('matieres'));
+        $cycles = Cycle::all();
+        $matieres = Matiere::where('ecole_id',session()->get('id'))->get();
+        return view('pages.ecole.matieres.listes', compact('matieres', 'cycles'));
     }
     public function create()
     {
-        return view('matieres.ajout');
+        return view('pages.ecole.matieres.ajout');
     }
       
 
@@ -31,16 +32,17 @@ class MatiereController extends Controller
         
         $matiere = new Matiere();
         $matiere->libelle = $request->libelle;
-        $matiere->type = $request->type;
+        $matiere->cycle_id = $request->cycle_id;
+        $matiere->ecole_id = session()->get('id');
         $matiere->save();
-        return redirect()->route('matieres.listes')->with('success', 'Enregistrement effectué avec succès');
+        return redirect()->route('pages.ecole.matieres.listes')->with('success', 'Enregistrement effectué avec succès');
     }
     
     public function edit($id)
     {
-        
+        $cycles = Cycle::find($id);
         $matiere = Matiere::find($id);
-        return view('enseignants.edit', compact('matiere'));
+        return view('pages.ecole.matieres.edit', compact('matiere', 'cycle'));
     }
 
     /**
@@ -56,12 +58,14 @@ class MatiereController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $cycles = Cycle::find($id);
         $matiere = Matiere::find($id);
         $matiere->libelle = $request->libelle;
-        $matiere->type = $request->type;
+        $matiere->cycle_id = $request->cycle_id;
+        $matiere->ecole_id = session()->get('id');
        
         $matiere->save();
-        return redirect()->route('matieres.listes')->with('success', 'modification effectuée avec succès'); 
+        return redirect()->route('pages.ecole.matieres.listes')->with('success', 'modification effectuée avec succès'); 
     }
 
     /**
@@ -71,6 +75,6 @@ class MatiereController extends Controller
     {
         $matiere = Matiere::find($id);
         $matiere->delete();
-        return redirect()->route('matieres.listes')->with('danger', 'suppression effectuée avec succèsx');
+        return redirect()->route('pages.ecole.matieres.listes')->with('danger', 'suppression effectuée avec succèsx');
     }
 }

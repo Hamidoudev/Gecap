@@ -11,7 +11,7 @@
             @endif
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
-            <form action="{{ route('matieres.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('pages.ecole.matieres.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                     <div class="modal-body">
                         <div class="card">
@@ -26,11 +26,15 @@
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
-                                <label> Type </label>
-                                <select name="type" id="type" class="form-control">
-                                    <option value="premier cycle">Premier Cycle</option>
-                                    <option value="second cycle">Second Cycle</option>
-                                </select>
+                                <label> Cycle </label>
+                                <div class="input-with-dropdown">
+                                    <select id="ecoles_list" wire:model="selectedEcole" name="cycle_id">
+                                        <option value="">Cycle</option>
+                                        @foreach($cycles as $cycle)
+                                            <option value="{{ $cycle->id }}">{{ $cycle->libelle }}</option>
+                                        @endforeach
+                                    </select>
+                                </div> 
                             </div>
                         </div>
                        

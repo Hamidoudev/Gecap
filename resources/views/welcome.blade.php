@@ -55,21 +55,27 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
-                        <a href="/" class="nav-item nav-link active">Home</a>
+                        <a href="/" class="nav-item nav-link active">Accueil</a>
                         <a href="/" class="nav-item nav-link">A-propos</a>
-                        {{-- <a href="/" class="nav-item nav-link">Service</a>
-                        <a href="/" class="nav-item nav-link">Project</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                       
+                        {{-- <div class="nav-item dropdown">
+                            <a href="auth/loginEcole" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Se Connecter</a>
                             <div class="dropdown-menu m-0">
-                                <a href="team.html" class="dropdown-item">Our Team</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
+                                <a href="auth/loginEcole" class="dropdown-item">Ecole</a>
+                                <a href="auth/loginEnseignant" class="dropdown-item">Enseignant</a>
+                                
                             </div>
                         </div> --}}
                         <a href="#" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="auth/login" class="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Se Connecter</a>
+                    <div class="nav-item dropdown">
+                    <a href="#" class="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block dropdown-toggle" data-bs-toggle="dropdown">Se Connecter</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="auth/ecole/login" class="dropdown-item">Ecole</a>
+                        <a href="auth/enseignant/login" class="dropdown-item">Enseignant</a>
+                        
+                    </div>
+                    </div>
                 </div>
             </nav>
 
@@ -571,7 +577,7 @@
                             &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
 							
 							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+							Designed By <a class="border-bottom" href="auth/login">AdminHome</a>
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">

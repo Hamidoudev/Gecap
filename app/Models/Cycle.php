@@ -12,6 +12,7 @@ class Cycle extends Model
 
         return $this->BelongsToMany(Emplois::class);
     }
+    
     public function matieres()
     {
         return $this->hasMany(Matiere::class);

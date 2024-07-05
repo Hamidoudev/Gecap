@@ -273,15 +273,22 @@
             </footer>
             <div class="content">
 
-
+                
 
                 <div class="row">
 
+                    @php
+                    use App\Models\Personneladmin;
+                    use App\Models\Enseignant;
+                    use App\Models\grille;
+                    use App\Models\Programme;
+                    @endphp
+                    
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count">
                             <div class="dash-counts">
-                                <h4>100</h4>
-                                <h5>Customers</h5>
+                                <h4>{{ Personneladmin::count() }}</h4>
+                                <h5>Personnels</h5>
                             </div>
                             <div class="dash-imgs">
                                 <i data-feather="user"></i>
@@ -291,8 +298,8 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das1">
                             <div class="dash-counts">
-                                <h4>100</h4>
-                                <h5>Suppliers</h5>
+                                <h4>{{ Enseignant::count() }}</h4>
+                                <h5>Enseignants</h5>
                             </div>
                             <div class="dash-imgs">
                                 <i data-feather="user-check"></i>
@@ -302,8 +309,8 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das2">
                             <div class="dash-counts">
-                                <h4>100</h4>
-                                <h5>Purchase Invoice</h5>
+                                <h4>{{ grille::count() }}</h4>
+                                <h5>Grilles</h5>
                             </div>
                             <div class="dash-imgs">
                                 <i data-feather="file-text"></i>
@@ -313,8 +320,8 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das3">
                             <div class="dash-counts">
-                                <h4>105</h4>
-                                <h5>Sales Invoice</h5>
+                                <h4>{{ Programme::count() }}</h4>
+                                <h5>Programmes</h5>
                             </div>
                             <div class="dash-imgs">
                                 <i data-feather="file"></i>

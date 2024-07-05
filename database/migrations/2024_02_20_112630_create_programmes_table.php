@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('ecole_id')->unsigned();
+            $table->foreignId('ecole_id')->constrained('ecoles')->onDelete('cascade');
             $table->string('libelle');
             $table->timestamps();
         });

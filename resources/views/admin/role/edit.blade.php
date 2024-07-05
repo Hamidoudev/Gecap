@@ -14,10 +14,10 @@
                     <div class="col-lg-6 col-sm-6 col-6">
                         <div class="mb-3">
                             <label class="form-label mb-3" for="a7">État<span class="text-danger">*</span></label>
-                            <select class="form-select" id="a7" name="etat">
+                            <select class="form-select" id="a7" name="type">
                                 <option value="" disabled>Choisir</option>
-                                <option value="1" {{ $role->etat == 1 ? 'selected' : '' }}>Active</option>
-                                <option value="0" {{ $role->etat == 0 ? 'selected' : '' }}>Inactive</option>
+                                <option value="1" {{ $role->type == 1 ? 'selected' : '' }}>Active</option>
+                                <option value="0" {{ $role->type == 0 ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
                     </div>

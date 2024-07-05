@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('matieres', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ecole_id')->constrained('ecoles')->onDelete('cascade');
             $table->string('libelle');
             $table->unsignedBigInteger('cycle_id'); 
             $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');

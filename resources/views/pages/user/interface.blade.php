@@ -275,11 +275,17 @@
 
 
                 <div class="row">
-
+                    @php
+                    use App\Models\Eleve;
+                    use App\Models\Enseignant;
+                    use App\Models\Emplois;
+                    use App\Models\Programme;
+                    @endphp
+                    
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count">
                             <div class="dash-counts">
-                                <h4>0</h4>
+                                <h4>{{ Enseignant::count() }}</h4>
                                 <h5>Enseignants</h5>
                             </div>
                             <div class="dash-imgs">
@@ -290,7 +296,7 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das1">
                             <div class="dash-counts">
-                                <h4>0</h4>
+                                <h4>{{ Eleve::count() }}</h4>
                                 <h5>Elèves</h5>
                             </div>
                             <div class="dash-imgs">
@@ -301,7 +307,7 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das2">
                             <div class="dash-counts">
-                                <h4>0</h4>
+                                <h4>{{ Programme::count() }}</h4>
                                 <h5>Programmes</h5>
                             </div>
                             <div class="dash-imgs">
@@ -312,7 +318,7 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das3">
                             <div class="dash-counts">
-                                <h4>0</h4>
+                                <h4>{{ Emplois::count() }}</h4>
                                 <h5>Emplois du Temps</h5>
                             </div>
                             <div class="dash-imgs">

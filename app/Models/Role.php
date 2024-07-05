@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    protected $guarded =[];
     use HasFactory;
-    protected $fillable = ['nom'];
+    protected $guarded = [];
 
     public function droits(){
         return $this->belongsToMany(Droit::class);

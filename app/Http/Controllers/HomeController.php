@@ -46,4 +46,13 @@ class HomeController extends Controller
     {
         return view('pages.manager.home');
     }
+    public function ecoleHome()
+    {
+        return view('pages.ecole.home');
+    }
+
+    public function enseignantHome()
+    {
+        return view('pages.enseignant.home');
+    }
 }

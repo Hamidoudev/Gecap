@@ -91,32 +91,32 @@
                     <div class="dropdown-menu menu-drop-user">
                         <div class="profilename">
                             <div class="profileset">
-                                <span class="user-img"><img
-                                        src="{{ URL::to('admin-template/assets/img/profiles/avator1.jpg') }}"
-                                        alt="">
-                                    <span class="status online"></span></span>
+                                <span class="user-img">
+                                    <img src="{{ URL::to('admin-template/assets/img/profiles/avator1.jpg') }}" alt="" id="profilePic">
+                                    <span class="status online"></span>
+                                </span>
                                 <div class="profilesets">
                                     @if (Auth::check() && Auth::user()->type)
-                                    <h6>{{ Auth::user()->first_name }}</h6>
+                                        <h6> {{ Auth::user()->last_name }}</h6>
                                         <h5>{{ Auth::user()->type->name }}</h5>
                                     @endif
 
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i>
-                                My Profile</a>
-                            <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
-                                    data-feather="settings"></i>Settings</a>
-                            <hr class="m-0">
+                            <a class="dropdown-item"  href="{{ url('profile/vue') }}"> <i class="me-2" data-feather="user"></i>
+                                Mon Profile</a>
+                           
                             <a class="dropdown-item" href="#"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                            style="display: none;">
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Déconnexion
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
                             @csrf
-                        </form>
+                            </form>
                         </div>
                     </div>
                 </li>
@@ -127,10 +127,11 @@
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Logout
+                    <a class="dropdown-item" href="{{ url('profile/vue') }}">Mon Profile</a>
+
+                    <a class="dropdown-item" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Déconnexion
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf

@@ -14,14 +14,16 @@ class EleveController extends Controller
      */
     public function index()
     {
+        $ecoles = Ecole::all();
         $classes = Classe::all(); 
-        $eleves = Eleve::paginate(10);
-        return view('eleves.listes', ['classes' => $classes], compact('eleves'));
+        $eleves = eleve::where('ecole_id',session()->get('id'))->get();
+        return view('pages.ecole.eleves.listes', compact('eleves','classes','ecoles'));
     }
     public function create()
     {
+        $ecoles = Ecole::all();
         $classes = Classe::all();
-        return view('eleves.ajout', compact('classes'));
+        return view('pages.ecole.eleves.ajout', compact('classes', 'ecoles'));
     }
       
 
@@ -30,8 +32,9 @@ class EleveController extends Controller
      */
     public function store(Request $request)
     {
-        $eleve = new Eleve;
+        $eleve = new eleve;
         $eleve->classe_id = $request->classe_id; 
+        $eleve->ecole_id = session()->get('id');
         $eleve->matricule = $request->matricule;
         $eleve->nom = $request->nom;
         $eleve->prenom = $request->prenom;
@@ -57,13 +60,14 @@ class EleveController extends Controller
         }
     
         $eleve->save();
-        return redirect()->route('eleves.listes')->with('success', 'enregistrement effectuée'); 
+        return redirect()->route('pages.ecole.eleves.listes')->with('success', 'enregistrement effectuée'); 
     }
     public function edit($id)
     {
+        $ecoles = Ecole::all();
         $classes = Classe::all();
-        $eleve = Eleve::find($id);
-        return view('eleves.edit', compact('eleve', 'classes'));
+        $eleve = eleve::find($id);
+        return view('pages.ecole.eleves.edit', compact('eleve', 'classes','ecoles'));
     }
 
     /**
@@ -79,8 +83,9 @@ class EleveController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $eleve = Eleve::find($id);
+        $eleve = eleve::find($id);
         $eleve->classe_id = $request->classe_id;
+        $eleve->ecole_id = session()->get('id');
         $eleve->matricule = $request->matricule;
         $eleve->nom = $request->nom;
         $eleve->prenom = $request->prenom;
@@ -104,7 +109,7 @@ class EleveController extends Controller
         }
     
         $eleve->save();
-        return redirect()->route('eleves.listes')->with('success', 'modification effectuée avec succès'); 
+        return redirect()->route('pages.ecole.eleves.listes')->with('success', 'modification effectuée avec succès'); 
     }
 
     /**
@@ -114,7 +119,7 @@ class EleveController extends Controller
     {
         $eleve = Eleve::find($id);
         $eleve->delete();
-        return redirect()->route('eleves.listes')->with('danger', 'suppression effectuée avec succès');
+        return redirect()->route('pages.ecole.eleves.listes')->with('danger', 'suppression effectuée avec succès');
     }
     public function telechargerPdf($id)
     {

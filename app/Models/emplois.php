@@ -8,14 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Emplois extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'classe_id',
-        'matiere_id',
-        'cycle_id',
-        'enseignant_id',
-        'jour',
-        'heure',
-    ];
+    protected $guarded = [];
     protected $table = 'emplois';
 
     public function classe()
@@ -29,7 +22,7 @@ class Emplois extends Model
 
     public function matiere()
     {
-        return $this->belongsTo(matiere::class);
+        return $this->BelongsToMany(Matiere::class);
     }
     public function enseignant()
     {

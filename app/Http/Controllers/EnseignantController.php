@@ -3,31 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enseignant;
+use App\Models\Matiere;
 use Illuminate\Http\Request;
 
 class EnseignantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $enseignants = Enseignant::paginate(10);
-        return view('enseignants.listes', compact('enseignants'));
+        $matieres = Matiere::all();
+        $enseignants = Enseignant::where('ecole_id',session()->get('id'))->get();
+        return view('pages.ecole.enseignants.listes', compact('enseignants','matieres'));
     }
+
     public function create()
     {
-        return view('enseignants.ajout');
+        $matieres = Matiere::all();
+        return view('pages.ecole.enseignants.ajout', compact('matieres'));
     }
-      
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        
         $enseignant = new Enseignant();
+        $enseignant->ecole_id = session()->get('id');
         $enseignant->matricule = $request->matricule;
         $enseignant->nom = $request->nom;
         $enseignant->prenom = $request->prenom;
@@ -35,51 +32,40 @@ class EnseignantController extends Controller
         $enseignant->email = $request->email;
         $enseignant->telephone = $request->telephone;
         $enseignant->adresse = $request->adresse;
-        
+
         if ($request->hasFile('cv')) {
             $file = $request->file('cv');
-            
-            // Vérification du type de fichier (extension)
-            $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png']; // Ajoutez les extensions autorisées
+            $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
             $extension = $file->getClientOriginalExtension();
-            
+
             if (!in_array($extension, $allowedExtensions)) {
-                // Redirection avec un message d'erreur si le type de fichier n'est pas autorisé
                 return redirect()->back()->with('error', 'Le type de fichier n\'est pas autorisé.');
             }
-    
-            // Enregistrement du fichier dans un dossier spécifique
+
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('mes_cv'), $fileName);
-    
-            // Stockage du nom du fichier dans la base de données
             $enseignant->cv = $fileName;
         }
-    
+
         $enseignant->save();
-        return redirect()->route('enseignants.listes')->with('success', 'Enregistrement effectué avec succès');
+
+        // Associer les matières
+        $enseignant->matieres()->attach($request->matieres);
+
+        return redirect()->route('pages.ecole.enseignants.listes')->with('success', 'Enregistrement effectué avec succès');
     }
-    
+
     public function edit($id)
     {
         $enseignant = Enseignant::find($id);
-        return view('enseignants.edit', compact('enseignant'));
+        $matieres = Matiere::all();
+        return view('pages.ecole.enseignants.edit', compact('enseignant', 'matieres'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
+    public function update(Request $request, $id)
     {
         $enseignant = Enseignant::find($id);
-        
-    }
-    /**s
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $enseignant = Enseignant::find($id);
+        $enseignant->ecole_id = session()->get('id');
         $enseignant->matricule = $request->matricule;
         $enseignant->nom = $request->nom;
         $enseignant->prenom = $request->prenom;
@@ -87,36 +73,48 @@ class EnseignantController extends Controller
         $enseignant->email = $request->email;
         $enseignant->telephone = $request->telephone;
         $enseignant->adresse = $request->adresse;
+
         if ($request->hasFile('cv')) {
             $file = $request->file('cv');
-            $enseignant->cv = file_get_contents($file->getRealPath());
+            $allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+            $extension = $file->getClientOriginalExtension();
+
+            if (!in_array($extension, $allowedExtensions)) {
+                return redirect()->back()->with('error', 'Le type de fichier n\'est pas autorisé.');
+            }
+
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('mes_cv'), $fileName);
+            $enseignant->cv = $fileName;
         }
-        
+
         $enseignant->save();
-        return redirect()->route('enseignants.listes')->with('success', 'modification effectuée avec succès'); 
+
+        // Mettre à jour les matières associées
+        $enseignant->matieres()->sync($request->matieres);
+
+        return redirect()->route('pages.ecole.enseignants.listes')->with('success', 'Modification effectuée avec succès');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $enseignant = Enseignant::find($id);
         $enseignant->delete();
-        return redirect()->route('enseignants.listes')->with('danger', 'suppression effectuée avec succèsx');
+        return redirect()->route('pages.ecole.enseignants.listes')->with('danger', 'Suppression effectuée avec succès');
     }
+
     public function telechargerPdf($id)
-{
-    $enseignant = Enseignant::find($id);
-    if (!$enseignant || !$enseignant->cv) {
-        abort(404);
+    {
+        $enseignant = Enseignant::find($id);
+        if (!$enseignant || !$enseignant->cv) {
+            abort(404);
+        }
+
+        $pdfContent = $enseignant->cv;
+        $fileName = 'cv_' . $enseignant->nom . '_' . $enseignant->prenom . '.pdf';
+
+        return response()->streamDownload(function () use ($pdfContent) {
+            echo $pdfContent;
+        }, $fileName);
     }
-
-    $pdfContent = $enseignant->cv;
-    $fileName = 'cv_' . $enseignant->nom . '_' . $enseignant->prenom . '.pdf';
-
-    return response()->streamDownload(function () use ($pdfContent) {
-        echo $pdfContent;
-    }, $fileName);
-}
 }

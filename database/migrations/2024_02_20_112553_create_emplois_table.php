@@ -18,11 +18,7 @@ return new class extends Migration
             $table->bigInteger('classe_id')->unsigned();
             $table->bigInteger('enseignant_id')->unsigned();
             $table->bigInteger('ecole_id')->unsigned();
-            $table->bigInteger('matiere_id')->unsigned();
             $table->bigInteger('cycle_id')->unsigned();
-            $table->enum('jour', ['lundi', ' mardi', 'mercredi','jeudi', 'vendredi','samedi']);
-            $table->time('heure_debut');
-            $table->time('heure_fin');
             $table->timestamps();
         });
     }

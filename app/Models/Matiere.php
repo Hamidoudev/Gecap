@@ -18,4 +18,8 @@ class Matiere extends Model
     {
         return $this->belongsTo(Cycle::class);
     }
+    public function matiere()
+    {
+        return $this->belongsTo(Matiere::class);
+    }
 }
