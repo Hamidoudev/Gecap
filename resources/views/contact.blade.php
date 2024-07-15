@@ -61,7 +61,7 @@
                                     <div class="col-12">
                                         <div class="form-floating">
                                             <input type="text" name="subject"  class="form-control" id="subject" placeholder="Subject">
-                                            <label for="subject">Subject</label>
+                                            <label for="subject">Sujet</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="modal-footer justify-content">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
                 </div>
             </form>
         </div>

@@ -19,20 +19,20 @@
                 <div class="row">
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label> Nom </label>
+                            <label> Nom <span class="text-danger">*</span> </label>
                             <input type="text" name="nom">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
-                                <label> Type</label>
+                                <label> Type <span class="text-danger">*</span></label>
                                 <input type="text" name="type">
                             </div>
                         </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label> quantité</label>
+                            <label> quantité <span class="text-danger">*</span></label>
                             <input type="text" name="quantite">
                         </div>
                     </div>

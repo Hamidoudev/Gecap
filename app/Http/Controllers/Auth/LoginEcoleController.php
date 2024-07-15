@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\Ecole;
+use App\Models\Enseignant;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LoginEcoleController extends Controller
 {
@@ -43,7 +45,6 @@ class LoginEcoleController extends Controller
 
     public function login(Request $request)
     {
-       
         $input = $request->all();
 
         $this->validate($request, [
@@ -51,42 +52,20 @@ class LoginEcoleController extends Controller
             'password' => 'required',
         ],[
             "email.required" => 'Champ obligatoire',
-            "eamil.email" => 'Format email incorrect',
+            "email.email" => 'Format email incorrect',
             "password.required" => 'Champ obligatoire'
         ]);
 
-        $ecole = Ecole::where('email', $request->email)->first();
 
-        if (!$ecole){
-            toastr()->error('Email non valide.');
-            return redirect()->back();
+        if (Auth::guard('ecole')->attempt(['email' => $input['email'], 'password' => $input['password']])) {
+            if (Auth::guard('ecole')->user()->type->name == 'ecole') {
+                return redirect()->route('ecole.home')->with('success', 'Bienvenue sur votre espace de travail du GECAP');
+            } else {
+                Auth::guard('ecole')->logout();
+                return redirect()->route('auth.ecole.login')->with('error', 'Type non correspondant.');
+            }
+        } else {
+            return redirect()->route('auth.ecole.login')->with('error', 'Email ou mot de passe incorrect !!');
         }
-
-        if(!password_verify($request->password, $ecole->password))
-        {
-            toastr()->error('Mot de passe incorrect.');
-            return redirect()->back();
-
-        }
-
-        if($ecole->type->name != 'ecole')
-        {
-            toastr()->error('Type non correspondant.');
-            return redirect()->back();
-
-        }
-
-        Auth::login($ecole);
-
-        $request->session()->put('id', $ecole->id);
-        $request->session()->put('nom', $ecole->nom);
-        $request->session()->put('type', $ecole->type->name);
-        $request->session()->put('email', $ecole->email);
-
-
-                return redirect()->route('ecole.home')->with('success',  'Bienvenue'. ' ' .$ecole->nom . ' ' .' sur votre espace Ecole du GECAP');
-            
-
-
     }
 }

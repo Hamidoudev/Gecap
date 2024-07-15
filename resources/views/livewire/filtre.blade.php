@@ -1,5 +1,7 @@
 <div>
-
+    {{-- @if ($showModal)
+    @livewire('show-emplois')
+    @endif --}}
     <div class="page-header">
         <div class="page-title">
             <h4>Emplois Du Temps</h4>
@@ -119,27 +121,28 @@
 
 
                                 <td>
-                                    <a class="me-3" data-bs-toggle="modal"
-                                        data-bs-target="#vueModal{{ $emploi->id }}">
+                                    
+                                    <a class="me-3" wire:click="ActiveShow({{ $emploi->id }})">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/eye.svg') }}"
                                             alt="img">
                                     </a>
+                                   
                                 </td>
 
 
                                 <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
 
                                 <td>
-                                    <a class="me-3" wire:click="ActiveEdit">
+                                    <a class="me-3" wire:click="ActiveEdit({{ $emploi->id }})">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
                                             alt="img">
                                     </a>
-                                    <a class="me-3 confirm-text" data-bs-toggle="modal"
+                                    {{-- <a class="me-3 confirm-text" data-bs-toggle="modal"
                                         data-bs-target="#deleteConfirmModal"
                                         data-url="{{ route('emplois.delete', $emploi->id) }}">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}"
                                             alt="img">
-                                    </a>
+                                    </a> --}}
                                 </td>
                             </tr>
                             <tr>
@@ -175,7 +178,7 @@
                 <form wire:submit.prevent="saveEmplois">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="classe_id">Classe:</label>
+                            <label for="classe_id">Classe: <span class="text-danger">*</span></label>
                             <select name="classe_id" class="form-control" required wire:model="selectedClasse">
                                 <option value="">Sélectionner une classe</option>
                                 @foreach ($classes as $classe)
@@ -183,7 +186,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="ecole_id">Ecole:</label>
                             <select name="ecole_id" class="form-control" required wire:model="selectedEcole">
                                 <option value="">Sélectionner une ecole</option>
@@ -191,9 +194,9 @@
                                     <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
-                            <label for="cycle_id">Cycle:</label>
+                            <label for="cycle_id">Cycle: <span class="text-danger">*</span></label>
                             <select name="cycle_id" class="form-control" wire:change='changeCycle' required
                                 wire:model="selectedCycle">
                                 <option value="">Sélectionner un cycle</option>
@@ -204,7 +207,7 @@
                         </div>
                         @if ($showInput == 1)
                             <div class="form-group">
-                                <label for="enseignant_id">Enseignant:</label>
+                                <label for="enseignant_id">Enseignant: <span class="text-danger">*</span></label>
                                 <select name="enseignant_id" class="form-control" required
                                     wire:model="selectedEnseignant">
                                     <option value="">Sélectionner un Enseignant</option>
@@ -221,16 +224,16 @@
                                 @foreach ($fields as $keyField => $field)
                                     <tr>
                                         <td>
-                                            <label for="">Heure-Début</label>
+                                            <label for="">Heure-Début <span class="text-danger">*</span></label>
                                             <input type="time" name="heure_debut"
                                                 wire:model="heure_debut.{{ $keyField }}" class="form-control">
                                         </td>
                                         <td>
-                                            <label for="">Heure-Fin</label>
+                                            <label for="">Heure-Fin <span class="text-danger">*</span></label>
                                             <input type="time" name="heure_fin"
                                                 wire:model="heure_fin.{{ $keyField }}" class="form-control">
                                         </td>
-                                        <td> <label for="jour">Jour</label>
+                                        <td> <label for="jour">Jour <span class="text-danger">*</span></label>
                                             <select name="jour" id="jour"
                                                 wire:model="jour.{{ $keyField }}" class="form-control">
                                                 <option value="">Jour</option>
@@ -318,15 +321,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="ecole_id">Ecole:</label>
-                                <select name="ecole_id" class="form-control" required wire:model="selectedEcole">
-                                    <option value="">Sélectionner une ecole</option>
-                                    @foreach ($ecoles as $ecole)
-                                        <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                           
                             <div class="form-group">
                                 <label for="cycle_id">Cycle:</label>
                                 <select name="cycle_id" class="form-control" wire:change='changeCycle' required
@@ -395,8 +390,9 @@
                                                         class="form-control">
                                                         <option value="">Enseignants</option>
                                                         @foreach ($enseignants[$keyField] ?? [] as $enseignant)
-                                                            <option value="{{ $enseignant->id }}">
-                                                                {{ $enseignant->nom }}</option>
+                                                            <option value="{{ $enseignant->id }}" {{$enseignant_id[$keyField] == $enseignant->id ? "selected" : ""}}>
+                                                                {{ $enseignant->nom }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 @endif
@@ -414,13 +410,90 @@
                                     class="fa fa-plus"></i></button>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                            <button type="submit"  class="btn btn-primary">Mettre à jour</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+@endif
+
+@if ($showMode)
+<div class="page-btn">
+    <a href="#" class="btn btn-added" wire:click="RetourEdit">
+        <img src="{{ URL::to('admin-template/assets/img/icons/return1.svg') }}" alt="img" class="me-2">
+        Retour sur la liste
+    </a>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="table-top">
+            <div class="search-set">
+            </div>
+        </div>
+        <div class="card" id="">
+            <div class="card-body pb-0">
+                <form wire:submit.prevent="saveEmploisEdit">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="classe_id">Classe:</label>
+                            <p>{{ $classes->firstWhere('id', $selectedClasse)->libelle }}</p>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label for="cycle_id">Cycle:</label>
+                            <p>{{ $cycles->firstWhere('id', $selectedCycle)->libelle }}</p>
+                        </div>
+                        @if ($showInput == 1)
+                            <div class="form-group">
+                                <label for="enseignant_id">Enseignant:</label>
+                                <p>{{ $ListesEnseignants->firstWhere('id', $selectedEnseignant)->nom }}</p>
+                            </div>
+                        @endif
+
+                        <table class="table">
+                            <tbody>
+                                @foreach ($fields as $keyField => $field)
+                                    <tr>
+                                        <td>
+                                            <label for="">Heure-Début</label>
+                                            <p>{{ $heure_debut[$keyField] }}</p>
+                                        </td>
+                                        <td>
+                                            <label for="">Heure-Fin</label>
+                                            <p>{{ $heure_fin[$keyField] }}</p>
+                                        </td>
+                                        <td>
+                                            <label for="jour">Jour</label>
+                                            <p>{{ ucfirst($jour[$keyField]) }}</p>
+                                        </td>
+                                        <td>
+                                            <label for="matiere_id">Matière</label>
+                                            <p>{{ $matieres->firstWhere('id', $matiere_id[$keyField])->libelle }}</p>
+                                            @if ($selectedCycle == 2)
+                                                <label for="enseignant_id">Enseignant</label>
+                                                <p>{{ $enseignants[$keyField]->firstWhere('id', $enseignant_id[$keyField])->nom }}</p>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger"><i class="fa fa-minus" wire:click="removeField({{ $keyField }})"></i></button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-primary" wire:click='addField'><i class="fa fa-plus"></i></button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endif
 
 

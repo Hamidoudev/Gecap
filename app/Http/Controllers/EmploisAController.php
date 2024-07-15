@@ -23,9 +23,8 @@ class EmploisAController extends Controller
         $ecoles = Ecole::all();
         $cycles = Cycle::all();
         $enseignants = Enseignant::all();
-       // $emplois = Emplois::distinct()->pluck('id')
-        //->paginate(10);
-        return view('emplois.listes', compact('cycles','enseignants','classes','ecoles', 'matieres'));
+        $emplois = Emplois::all();
+        return view('emplois.listes', compact('emplois','cycles','enseignants','classes','ecoles', 'matieres'));
     }
 
     public function generatePdf(Request $request)

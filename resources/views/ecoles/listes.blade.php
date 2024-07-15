@@ -5,11 +5,11 @@
     <h4>Listes des ecoles</h4>
     {{-- <h6>Manage your User</h6> --}}
     </div>
-    {{-- <div class="page-btn">
+    <div class="page-btn">
         <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutecoleModal">
             <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter ecoles
         </a>
-        </div> --}}
+        </div>
     </div>
     <div class="card">
         <div class="card-body">
@@ -104,7 +104,7 @@
                                 
                                 <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
                                
-                                {{-- <td>
+                                <td>
                                     <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $ecole->id }}">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                     </a>
@@ -113,7 +113,7 @@
                                         <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}"
                                             alt="img">
                                     </a>
-                                </td> --}}
+                                </td>
                             </tr>
                             <tr>
                         @endforeach
@@ -130,7 +130,7 @@
 @endsection
 
 @foreach($ecoles as $ecole)
-    <div class="modal fade" id="editModal{{ $ecole->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $ecole->id }}" aria-hidden="true">
+    <div class="modal fade" role="dialog" id="editModal{{ $ecole->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $ecole->id }}" aria-hidden="true" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">

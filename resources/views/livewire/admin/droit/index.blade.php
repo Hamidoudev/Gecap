@@ -72,52 +72,24 @@
                     <table class="table  datanew">
                         <thead>
                             <tr>
-                                {{-- <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th> --}}
                                 <th>#</th>
                                 <th>Nom</th>
                                 <th> Acces </th>
                                 <th> Route </th>
                                 <th> Type de Droit </th>
-                            
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($droits as $droit)
                                 <tr>
-                                    {{-- <td>
-                <label class="checkboxs">
-                <input type="checkbox">
-                <span class="checkmarks"></span>
-                </label>
-                </td>  --}}
-                                     {{-- <td class="productimgname">
-                <a href="javascript:void(0);" class="product-img">
-                <img src="{{ URL::to('admin-template/assets/img/customer/customer1.jpg') }}" alt="product">
-                </a>
-                </td>  --}}
-                                    {{-- <td><label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label></td> --}}
-                                     
-                                            
-                                        
+    
                                     <td>{{$droit->id}}</td>
                                     <td>{{$droit->nom}}</td>
                                     <td>{{$droit->acces}}</td>
                                     <td>{{$droit->route}}</td>
                                      <td>{{$droit->type_droit->nom}}</td> 
-                                    
-                                 
-                                   
-                                    
-                                    
+             
                                     <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
                                  
                                     <td>

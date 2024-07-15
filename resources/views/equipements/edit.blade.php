@@ -6,19 +6,19 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> Nom </label>
+                        <label> Nom <span class="text-danger">*</span></label>
                         <input type="text" name="nom" value="{{ $equipement->nom }}">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> Type</label>
+                        <label> Type <span class="text-danger">*</span></label>
                         <input type="text" name="type" value="{{ $equipement->type }}">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> Quantité</label>
+                        <label> Quantité <span class="text-danger">*</span></label>
                         <input type="text" name="quantite" value="{{ $equipement->quantite }}">
                     </div>
                 </div>

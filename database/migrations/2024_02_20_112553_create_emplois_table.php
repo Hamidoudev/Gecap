@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('emplois', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('classe_id')->unsigned();
-            $table->bigInteger('enseignant_id')->unsigned();
+            $table->bigInteger('enseignant_id')->unsigned()->nullable();
             $table->bigInteger('ecole_id')->unsigned();
             $table->bigInteger('cycle_id')->unsigned();
             $table->timestamps();

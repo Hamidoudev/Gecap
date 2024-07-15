@@ -1,5 +1,5 @@
-@extends('layouts.interfaceemplois')
+@extends('pages.enseignant.interfaceemplois')
 @section('content')
-    @livewire('filtre')
+@livewire('filtre-enseignant')
 @endsection
 

@@ -30,9 +30,15 @@ use App\Http\Controllers\PersonneladminController;
 use App\Http\Controllers\ProgrammeAdminController;
 use App\Http\Controllers\Auth\LoginEcoleController;
 use App\Http\Controllers\Auth\LoginEnseignantController;
+use App\Http\Controllers\Ecole\ClasseController;
 use App\Http\Controllers\Ecole\EcoleController as EcoleEcoleController;
+use App\Http\Controllers\Ecole\EleveController as EcoleEleveController;
+use App\Http\Controllers\Ecole\EmploisController as EcoleEmploisController;
+use App\Http\Controllers\Ecole\EnseignantController as EcoleEnseignantController;
+use App\Http\Controllers\Ecole\ProgrammeController as EcoleProgrammeController;
 use App\Http\Controllers\EleveAController;
 use App\Http\Controllers\EmploisAController;
+use App\Http\Controllers\Enseignant\EmploisController as EnseignantEmploisController;
 use App\Http\Controllers\EnseignantAController;
 use App\Http\Controllers\EnseignantMatiereController;
 use App\Http\Controllers\ProgrammeAController;
@@ -103,9 +109,9 @@ Route::post('/login/ecole', [LoginEcoleController::class, 'login'])->name('login
 
 
 
-
+Route::group(['middleware' => ['auth:ecole']], function () {
 Route::get('/ecole/home', [HomeController::class, 'ecoleHome'])->name('ecole.home');
-
+});
 
 // enseignantauth
 Route::get('auth/enseignant/login', function(){
@@ -115,10 +121,10 @@ Route::post('/logout', [LoginEnseignantController::class, 'logout'])->name('logo
 Route::post('/login/enseignant', [LoginEnseignantController::class, 'login'])->name('login.enseignant');
 
 
-
+Route::group(['middleware' => ['auth:enseignant']], function () {
     Route::get('/enseignant/home', [HomeController::class, 'enseignantHome'])->name('enseignant.home');
-
-
+});
+ 
 // routes enseignants
 Route::get('/enseignant/{id}/telecharger-pdf', [EnseignantAController::class, 'telechargerPdf'])->name('telecharger_pdf');
 Route::get('/enseignants/listes', [EnseignantAController::class, 'index'])->name('enseignants.listes');
@@ -130,14 +136,14 @@ Route::get('/enseignants/delete/{id}', [EnseignantAController::class, 'destroy']
 Route::get('/enseignants/show/{id}', [EnseignantAController::class, 'show'])->name('enseignants.show');
 
 // routes enseignants de l'ecole
-Route::get('/pages/ecole/enseignant/{id}/telecharger-pdf', [EnseignantController::class, 'telechargerPdf'])->name('pages.ecole.telecharger_pdf');
-Route::get('/pages/ecole/enseignants/listes', [EnseignantController::class, 'index'])->name('pages.ecole.enseignants.listes');
-Route::get('/pages/ecole/enseignants/ajout', [EnseignantController::class, 'create'])->name('pages.ecole.enseignants.ajout');
-Route::post('/pages/ecole/enseignants/store', [EnseignantController::class, 'store'])->name('pages.ecole.enseignants.store');
-Route::get('/pages/ecole/enseignants/edit/{id}', [EnseignantController::class, 'edit'])->name('pages.ecole.enseignants.edit');
-Route::post('/pages/ecole/enseignants/update/{id}', [EnseignantController::class, 'update'])->name('pages.ecole.enseignants.update');
-Route::get('/pages/ecole/enseignants/delete/{id}', [EnseignantController::class, 'destroy'])->name('pages.ecole.enseignants.delete');
-Route::get('/pages/ecole/enseignants/show/{id}', [EnseignantController::class, 'show'])->name('pages.ecole.enseignants.show');
+Route::get('/pages/ecole/enseignant/{id}/telecharger-pdf', [EcoleEnseignantController::class, 'telechargerPdf'])->name('pages.ecole.telecharger_pdf');
+Route::get('/pages/ecole/enseignants/listes', [EcoleEnseignantController::class, 'index'])->name('pages.ecole.enseignants.listes');
+Route::get('/pages/ecole/enseignants/ajout', [EcoleEnseignantController::class, 'create'])->name('pages.ecole.enseignants.ajout');
+Route::post('/pages/ecole/enseignants/store', [EcoleEnseignantController::class, 'store'])->name('pages.ecole.enseignants.store');
+Route::get('/pages/ecole/enseignants/edit/{id}', [EcoleEnseignantController::class, 'edit'])->name('pages.ecole.enseignants.edit');
+Route::post('/pages/ecole/enseignants/update/{id}', [EcoleEnseignantController::class, 'update'])->name('pages.ecole.enseignants.update');
+Route::get('/pages/ecole/enseignants/delete/{id}', [EcoleEnseignantController::class, 'destroy'])->name('pages.ecole.enseignants.delete');
+Route::get('/pages/ecole/enseignants/show/{id}', [EcoleEnseignantController::class, 'show'])->name('pages.ecole.enseignants.show');
 
 // routes eleves
 Route::get('/eleves/listes', [EleveAController::class, 'index'])->name('eleves.listes');
@@ -148,14 +154,23 @@ Route::post('/eleves/update/{id}', [EleveAController::class, 'update'])->name('e
 Route::get('/eleves/delete/{id}', [EleveAController::class, 'destroy'])->name('eleves.delete');
 Route::get('/eleves/show/{id}', [EleveAController::class, 'show'])->name('eleves.show');
 
+// // routes eleves ecoles
+// Route::get('/pages/ecole/eleves/listes', [EcoleEleveController::class, 'index'])->name('pages.ecole.eleves.listes');
+// Route::get('/pages/ecole/eleves/ajout', [EcoleEleveController::class, 'create'])->name('pages.ecole.eleves.ajout');
+// Route::post('/pages/ecole/eleves/store', [EcoleEleveController::class, 'store'])->name('pages.ecole.eleves.store');
+// Route::get('/pages/ecole/eleves/edit/{id}', [EcoleEleveController::class, 'edit'])->name('pages.ecole.eleves.edit');
+// Route::post('/pages/ecole/eleves/update/{id}', [EcoleEleveController::class, 'update'])->name('pages.ecole.eleves.update');
+// Route::get('/pages/ecole/eleves/delete/{id}', [EcoleEleveController::class, 'destroy'])->name('pages.ecole.eleves.delete');
+// Route::get('/pages/ecole/eleves/show/{id}', [EcoleEleveController::class, 'show'])->name('pages.ecole.eleves.show');
+
 // routes eleves de l'ecole
-Route::get('/pages/ecole/eleves/listes', [EcoleEcoleController::class, 'index'])->name('pages.ecole.eleves.listes');
-Route::get('/pages/ecole/eleves/ajout', [EcoleEcoleController::class, 'create'])->name('pages.ecole.eleves.ajout');
-Route::post('/pages/ecole/eleves/store', [EcoleEcoleController::class, 'store'])->name('pages.ecole.eleves.store');
-Route::get('/pages/ecole/eleves/edit/{id}', [EcoleEcoleController::class, 'edit'])->name('pages.ecole.eleves.edit');
-Route::post('/pages/ecole/eleves/update/{id}', [EcoleEcoleController::class, 'update'])->name('pages.ecole.eleves.update');
-Route::get('/pages/ecole/eleves/delete/{id}', [EcoleEcoleController::class, 'destroy'])->name('pages.ecole.eleves.delete');
-Route::get('/pages/ecole/eleves/show/{id}', [EcoleEcoleController::class, 'show'])->name('pages.ecole.eleves.show');
+Route::get('/pages/ecole/eleves/listes', [EcoleEleveController::class, 'index'])->name('pages.ecole.eleves.listes');
+Route::get('/pages/ecole/eleves/ajout', [EcoleEleveController::class, 'create'])->name('pages.ecole.eleves.ajout');
+Route::post('/pages/ecole/eleves/store', [EcoleEleveController::class, 'store'])->name('pages.ecole.eleves.store');
+Route::get('/pages/ecole/eleves/edit/{id}', [EcoleEleveController::class, 'edit'])->name('pages.ecole.eleves.edit');
+Route::post('/pages/ecole/eleves/update/{id}', [EcoleEleveController::class, 'update'])->name('pages.ecole.eleves.update');
+Route::get('/pages/ecole/eleves/delete/{id}', [EcoleEleveController::class, 'destroy'])->name('pages.ecole.eleves.delete');
+Route::get('/pages/ecole/eleves/show/{id}', [EcoleEleveController::class, 'show'])->name('pages.ecole.eleves.show');
 
 // routes ecoles
 Route::get('/ecoles/listes', [EcoleController::class, 'index'])->name('ecoles.listes');
@@ -196,36 +211,47 @@ Route::get('/emplois/show/{id}', [EmploisAController::class, 'show'])->name('emp
 Route::get('/emplois/vue/{id}', [EmploisAController::class, 'vue'])->name('emplois.vue');
 
 // routes emplois de l'ecole
-Route::get('/pages/ecole/emplois/listes', [EmploisController::class, 'index'])->name('pages.ecole.emplois.listes');
-Route::get('/pages/ecole/emplois/ajout', [EmploisController::class, 'create'])->name('pages.ecole.emplois.ajout');
-Route::get('/pages/ecole/emplois/pdf/{id}', [EmploisController::class, 'generatePDF'])->name('pages.ecole.emplois.pdf');
-Route::post('/pages/ecole/emplois/store', [EmploisController::class, 'store'])->name('pages.ecole.emplois.store');
-Route::get('/pages/ecole/emplois/edit/{id}', [EmploisController::class, 'edit'])->name('pages.ecole.emplois.edit');
-Route::post('/pages/ecole/emplois/update/{id}', [EmploisController::class, 'update'])->name('pages.ecole.emplois.update');
-Route::get('/pages/ecole/emplois/delete/{id}', [EmploisController::class, 'destroy'])->name('pages.ecole.emplois.delete');
-Route::get('/pages/ecole/emplois/show/{id}', [EmploisController::class, 'show'])->name('pages.ecole.emplois.show');
-Route::get('/pages/ecole/emplois/vue/{id}', [EmploisController::class, 'vue'])->name('pages.ecole.emplois.vue');
+Route::get('/pages/ecole/emplois/listes', [EcoleEmploisController::class, 'index'])->name('pages.ecole.emplois.listes');
+Route::get('/pages/ecole/emplois/ajout', [EcoleEmploisController::class, 'create'])->name('pages.ecole.emplois.ajout');
+Route::get('/pages/ecole/emplois/pdf/{id}', [EcoleEmploisController::class, 'generatePDF'])->name('pages.ecole.emplois.pdf');
+Route::post('/pages/ecole/emplois/store', [EcoleEmploisController::class, 'store'])->name('pages.ecole.emplois.store');
+Route::get('/pages/ecole/emplois/edit/{id}', [EcoleEmploisController::class, 'edit'])->name('pages.ecole.emplois.edit');
+Route::post('/pages/ecole/emplois/update/{id}', [EcoleEmploisController::class, 'update'])->name('pages.ecole.emplois.update');
+Route::get('/pages/ecole/emplois/delete/{id}', [EcoleEmploisController::class, 'destroy'])->name('pages.ecole.emplois.delete');
+Route::get('/pages/ecole/emplois/show/{id}', [EcoleEmploisController::class, 'show'])->name('pages.ecole.emplois.show');
+Route::get('/pages/ecole/emplois/vue/{id}', [EcoleEmploisController::class, 'vue'])->name('pages.ecole.emplois.vue');
 
 // routes emplois de l'enseignant
-Route::get('/pages/enseignant/emplois/listes', [EmploisController::class, 'index'])->name('pages.enseignant.emplois.listes');
-Route::get('/pages/enseignant/emplois/ajout', [EmploisController::class, 'create'])->name('pages.enseignant.emplois.ajout');
-Route::get('/pages/enseignant/emplois/pdf/{id}', [EmploisController::class, 'generatePDF'])->name('pages.enseignant.emplois.pdf');
-Route::post('/pages/enseignant/emplois/store', [EmploisController::class, 'store'])->name('pages.enseignant.emplois.store');
-Route::get('/pages/enseignant/emplois/edit/{id}', [EmploisController::class, 'edit'])->name('pages.enseignant.emplois.edit');
-Route::post('/pages/enseignant/emplois/update/{id}', [EmploisController::class, 'update'])->name('pages.enseignant.emplois.update');
-Route::get('/pages/enseignant/emplois/delete/{id}', [EmploisController::class, 'destroy'])->name('pages.enseignant.emplois.delete');
-Route::get('/pages/enseignant/emplois/show/{id}', [EmploisController::class, 'show'])->name('pages.enseignant.emplois.show');
-Route::get('/pages/enseignant/emplois/vue/{id}', [EmploisController::class, 'vue'])->name('pages.enseignant.emplois.vue');
+Route::get('/pages/enseignant/emplois/listes', [EnseignantEmploisController::class, 'index'])->name('pages.enseignant.emplois.listes');
+Route::get('/pages/enseignant/emplois/ajout', [EnseignantEmploisController::class, 'create'])->name('pages.enseignant.emplois.ajout');
+Route::get('/pages/enseignant/emplois/pdf/{id}', [EnseignantEmploisController::class, 'generatePDF'])->name('pages.enseignant.emplois.pdf');
+Route::post('/pages/enseignant/emplois/store', [EnseignantEmploisController::class, 'store'])->name('pages.enseignant.emplois.store');
+Route::get('/pages/enseignant/emplois/edit/{id}', [EnseignantEmploisController::class, 'edit'])->name('pages.enseignant.emplois.edit');
+Route::post('/pages/enseignant/emplois/update/{id}', [EnseignantEmploisController::class, 'update'])->name('pages.enseignant.emplois.update');
+Route::get('/pages/enseignant/emplois/delete/{id}', [EnseignantEmploisController::class, 'destroy'])->name('pages.enseignant.emplois.delete');
+Route::get('/pages/enseignant/emplois/show/{id}', [EnseignantEmploisController::class, 'show'])->name('pages.enseignant.emplois.show');
+Route::get('/pages/enseignant/emplois/vue/{id}', [EnseignantEmploisController::class, 'vue'])->name('pages.enseignant.emplois.vue');
+
+// // routes emplois de l'enseignant
+// Route::get('/pages/enseignant/emplois/listes', [EmploisController::class, 'index'])->name('pages.enseignant.emplois.listes');
+// Route::get('/pages/enseignant/emplois/ajout', [EmploisController::class, 'create'])->name('pages.enseignant.emplois.ajout');
+// Route::get('/pages/enseignant/emplois/pdf/{id}', [EmploisController::class, 'generatePDF'])->name('pages.enseignant.emplois.pdf');
+// Route::post('/pages/enseignant/emplois/store', [EmploisController::class, 'store'])->name('pages.enseignant.emplois.store');
+// Route::get('/pages/enseignant/emplois/edit/{id}', [EmploisController::class, 'edit'])->name('pages.enseignant.emplois.edit');
+// Route::post('/pages/enseignant/emplois/update/{id}', [EmploisController::class, 'update'])->name('pages.enseignant.emplois.update');
+// Route::get('/pages/enseignant/emplois/delete/{id}', [EmploisController::class, 'destroy'])->name('pages.enseignant.emplois.delete');
+// Route::get('/pages/enseignant/emplois/show/{id}', [EmploisController::class, 'show'])->name('pages.enseignant.emplois.show');
+// Route::get('/pages/enseignant/emplois/vue/{id}', [EmploisController::class, 'vue'])->name('pages.enseignant.emplois.vue');
 
 
 // routes programmes ecoles
-Route::get('/pages/ecole/programmes/listes', [ProgrammeController::class, 'index'])->name('pages.ecole.programmes.listes');
-Route::get('/pages/ecole/programmes/ajout', [ProgrammeController::class, 'create'])->name('pages.ecole.programmes.ajout');
-Route::post('/pages/ecole/programmes/store', [ProgrammeController::class, 'store'])->name('pages.ecole.programmes.store');
-Route::get('/pages/ecole/programmes/edit/{id}', [ProgrammeController::class, 'edit'])->name('pages.ecole.programmes.edit');
-Route::post('/pages/ecole/programmes/update/{id}', [ProgrammeController::class, 'update'])->name('pages.ecole.programmes.update');
-Route::get('/pages/ecole/programmes/delete/{id}', [ProgrammeController::class, 'destroy'])->name('pages.ecole.programmes.delete');
-Route::get('/pages/ecole/programmes/show/{id}', [ProgrammeController::class, 'show'])->name('pages.ecole.programmes.show');
+Route::get('/pages/ecole/programmes/listes', [EcoleProgrammeController::class, 'index'])->name('pages.ecole.programmes.listes');
+Route::get('/pages/ecole/programmes/ajout', [EcoleProgrammeController::class, 'create'])->name('pages.ecole.programmes.ajout');
+Route::post('/pages/ecole/programmes/store', [EcoleProgrammeController::class, 'store'])->name('pages.ecole.programmes.store');
+Route::get('/pages/ecole/programmes/edit/{id}', [EcoleProgrammeController::class, 'edit'])->name('pages.ecole.programmes.edit');
+Route::post('/pages/ecole/programmes/update/{id}', [EcoleProgrammeController::class, 'update'])->name('pages.ecole.programmes.update');
+Route::get('/pages/ecole/programmes/delete/{id}', [EcoleProgrammeController::class, 'destroy'])->name('pages.ecole.programmes.delete');
+Route::get('/pages/ecole/programmes/show/{id}', [EcoleProgrammeController::class, 'show'])->name('pages.ecole.programmes.show');
 
 // routes programmes 
 Route::get('/programmes/listes', [ProgrammeAController::class, 'index'])->name('programmes.listes');
@@ -244,6 +270,15 @@ Route::get('/pages/ecole/matieres/edit/{id}', [MatiereController::class, 'edit']
 Route::post('/pages/ecole/matieres/update/{id}', [MatiereController::class, 'update'])->name('pages.ecole.matieres.update');
 Route::get('/pages/ecole/matieres/delete/{id}', [MatiereController::class, 'destroy'])->name('pages.ecole.matieres.delete');
 Route::get('/pages/ecole/matieres/show/{id}', [MatiereController::class, 'show'])->name('pages.ecole.matieres.show');
+
+// routes classes
+Route::get('/pages/ecole/classe/listes', [ClasseController::class, 'index'])->name('pages.ecole.classe.listes');
+Route::get('/pages/ecole/classe/ajout', [ClasseController::class, 'create'])->name('pages.ecole.classe.ajout');
+Route::post('/pages/ecole/classe/store', [ClasseController::class, 'store'])->name('pages.ecole.classe.store');
+Route::get('/pages/ecole/classe/edit/{id}', [ClasseController::class, 'edit'])->name('pages.ecole.classe.edit');
+Route::post('/pages/ecole/classe/update/{id}', [ClasseController::class, 'update'])->name('pages.ecole.classe.update');
+Route::get('/pages/ecole/classe/delete/{id}', [ClasseController::class, 'destroy'])->name('pages.ecole.classe.delete');
+Route::get('/pages/ecole/classe/show/{id}', [ClasseController::class, 'show'])->name('pages.ecole.classe.show');
 
 
 
@@ -342,14 +377,6 @@ Route::get('/pages/enseignant/profile/show/{id}', [ProfileController::class, 'sh
 Route::get('contact', [ContactController::class, 'create'])->name('contact');
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 
-// routes affectation
-Route::get('/pages/ecole/affectation/listes', [EnseignantMatiereController::class, 'index'])->name('pages.ecole.affectation.listes');
-Route::get('/pages/ecole/affectation/ajout', [EnseignantMatiereController::class, 'create'])->name('pages.ecole.affectation.ajout');
-Route::post('/pages/ecole/affectation/store', [EnseignantMatiereController::class, 'store'])->name('pages.ecole.affectation.store');
-Route::get('/pages/ecole/affectation/edit/{id}', [EnseignantMatiereController::class, 'edit'])->name('pages.ecole.affectation.edit');
-Route::post('/pages/ecole/affectation/update/{id}', [EnseignantMatiereController::class, 'update'])->name('pages.ecole.affectation.update');
-Route::get('/pages/ecole/affectation/delete/{id}', [EnseignantMatiereController::class, 'destroy'])->name('pages.ecole.affectation.delete');
-Route::get('/pages/ecole/affectation/show/{id}', [EnseignantMatiereController::class, 'show'])->name('pages.ecole.affectation.show');
 
 
 

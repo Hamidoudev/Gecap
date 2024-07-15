@@ -97,11 +97,10 @@
                                     <span class="status online"></span>
                                 </span>
                                 <div class="profilesets">
-                                    @if (session('nom') && session('type'))
-                                        <h6> {{ session('nom')  }}</h6>
-                                        <h5>{{ session('type') }}</h5>
-                                    @endif
-
+                                    @if (Auth::guard('ecole')->check())
+                                    <h6>{{ Auth::guard('ecole')->user()->nom }}</h6>
+                                    <h5>{{ Auth::guard('ecole')->user()->type->name }}</h5>
+                                @endif
                                 </div>
                             </div>
                             <hr class="m-0">
@@ -168,8 +167,8 @@
                                 <li><a href="{{route('pages.ecole.emplois.listes')}}">Emplois</a></li>
                                 <li><a href="{{route('programmes.listes')}}">Programme</a></li>
                                 <li><a href="{{route('pages.ecole.matieres.listes')}}">Matière</a></li>
-                                <li><a href="{{route('pages.ecole.affectation.listes')}}">Affectation</a></li>
-            
+                                <li><a href="{{route('pages.ecole.classe.listes')}}">Classe</a></li>
+                                
                             </ul>
                         </li>
                        

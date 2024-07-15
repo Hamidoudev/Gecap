@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cycle;
-use App\Models\Enseignant;
 use App\Models\Matiere;
+use App\Models\Enseignant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MatiereController extends Controller
 {
@@ -14,13 +15,17 @@ class MatiereController extends Controller
      */
     public function index()
     {
+        $enseignants = Enseignant::all();
         $cycles = Cycle::all();
-        $matieres = Matiere::where('ecole_id',session()->get('id'))->get();
-        return view('pages.ecole.matieres.listes', compact('matieres', 'cycles'));
+        $ecoleId = Auth::guard('ecole')->user()->id;  
+        $matieres = Matiere::where('ecole_id', $ecoleId)->get();
+        return view('pages.ecole.matieres.listes', compact('matieres', 'cycles','enseignants'));
     }
     public function create()
     {
-        return view('pages.ecole.matieres.ajout');
+        
+        $enseignants = Enseignant::all();
+        return view('pages.ecole.matieres.ajout', compact('enseignants'));
     }
       
 
@@ -33,8 +38,11 @@ class MatiereController extends Controller
         $matiere = new Matiere();
         $matiere->libelle = $request->libelle;
         $matiere->cycle_id = $request->cycle_id;
-        $matiere->ecole_id = session()->get('id');
+        $matiere->ecole_id =Auth::guard('ecole')->user()->id;
         $matiere->save();
+        if ($request->has('enseignants')) {
+            $matiere->enseignants()->attach($request->enseignants);
+        }
         return redirect()->route('pages.ecole.matieres.listes')->with('success', 'Enregistrement effectué avec succès');
     }
     
@@ -62,9 +70,13 @@ class MatiereController extends Controller
         $matiere = Matiere::find($id);
         $matiere->libelle = $request->libelle;
         $matiere->cycle_id = $request->cycle_id;
-        $matiere->ecole_id = session()->get('id');
-       
+        $matiere->ecole_id = Auth::guard('ecole')->user()->id;
         $matiere->save();
+        if ($request->has('enseignants')) {
+            $matiere->enseignants()->sync($request->input('enseignants'));
+        }else {
+            $matiere->enseignants()->detach();
+        }
         return redirect()->route('pages.ecole.matieres.listes')->with('success', 'modification effectuée avec succès'); 
     }
 

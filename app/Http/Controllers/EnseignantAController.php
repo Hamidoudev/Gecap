@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ecole;
-use App\Models\Enseignant;
 use App\Models\Matiere;
+use App\Models\Enseignant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EnseignantAController extends Controller
 {
@@ -32,7 +33,7 @@ class EnseignantAController extends Controller
     {
         
         $enseignant = new Enseignant();
-        $enseignant->ecole_id = $request->ecole_id;
+        $enseignant->ecole_id =Auth::guard('ecole')->user()->id;
         $enseignant->matricule = $request->matricule;
         $enseignant->nom = $request->nom;
         $enseignant->prenom = $request->prenom;
@@ -87,7 +88,7 @@ class EnseignantAController extends Controller
     public function update(Request $request, string $id)
     {
         $enseignant = Enseignant::find($id);
-        $enseignant->ecole_id = $request->ecole_id;
+        $enseignant->ecole_id =Auth::guard('ecole')->user()->id;
         $enseignant->matricule = $request->matricule;
         $enseignant->nom = $request->nom;
         $enseignant->prenom = $request->prenom;
@@ -102,7 +103,7 @@ class EnseignantAController extends Controller
         
         $enseignant->save();
         $enseignant->matieres()->sync($request->matieres);
-        return redirect()->route('enseignants.listes')->with('success', 'modification effectuée avec succès'); 
+        return redirect()->route('pages.ecole.enseignants.listes')->with('success', 'modification effectuée avec succès'); 
     }
 
     /**

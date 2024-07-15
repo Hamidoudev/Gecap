@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use App\Models\Ecole;
 use App\Models\typeEcole;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
 use App\Notifications\UserNotification;
 
 class EcoleController extends Controller
@@ -16,9 +18,10 @@ class EcoleController extends Controller
      */
     public function index()
     {
+        $types = Type::all();
         $typeecoles = typeEcole::all(); 
         $ecoles = Ecole::paginate(10);
-        return view('ecoles.listes', ['typeecoles' => $typeecoles], compact('ecoles'));
+        return view('ecoles.listes', compact('ecoles', 'typeecoles','types'));
     }
     public function create()
     {
@@ -35,10 +38,11 @@ class EcoleController extends Controller
     {
         $ecole = new Ecole;
         $ecole->typeecole_id = $request->typeecole_id; 
+        $ecole->type_id = 4; 
         $ecole->nom = $request->nom;
         $ecole->siege = $request->siege;
         $ecole->email = $request->email;
-    
+        $ecole->password =Hash::make($request->password);
         $ecole->save();
         return redirect()->route('ecoles.listes')->with('success', 'enregistrement effectuée'); 
     }
@@ -72,9 +76,11 @@ class EcoleController extends Controller
     {
         $ecole = Ecole::find($id);
         $ecole->typeecole_id = $request->typeecole_id; 
+        $ecole->type_id = 4; 
         $ecole->nom = $request->nom;
         $ecole->siege = $request->siege;
         $ecole->email = $request->email;
+        $ecole->password = $request->password;
     
         $ecole->save();
         return redirect()->route('ecoles.listes')->with('success', 'modification effectuée avec succès'); 

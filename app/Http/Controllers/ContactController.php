@@ -27,6 +27,6 @@ class ContactController extends Controller
         $ecole->message = $request->message;
     
         $ecole->save();
-        return redirect()->route('welcome')->with('success', 'enregistrement effectuée'); 
+        return redirect()->route('contact')->with('success', 'Merci de nous avoir contactés, nous vous reviendrons.'); 
     }
 }

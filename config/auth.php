@@ -36,21 +36,22 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-
-        'ecole' => [
-            'driver' => 'session',
-            'provider' => 'ecoles',
-        ],
-
-        'enseignant' => [
-            'driver' => 'session',
-            'provider' => 'enseignants',
-        ],
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
     ],
+
+    'ecole' => [
+        'driver' => 'session',
+        'provider' => 'ecoles',
+    ],
+
+    'enseignant' => [
+        'driver' => 'session',
+        'provider' => 'enseignants',
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -69,21 +70,21 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        'ecoles' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Ecole::class,
-        ],
-        'enseignants' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Enseignant::class,
-        ],
+   'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
     ],
+
+    'ecoles' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Ecole::class,
+    ],
+    'enseignants' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Enseignant::class,
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------

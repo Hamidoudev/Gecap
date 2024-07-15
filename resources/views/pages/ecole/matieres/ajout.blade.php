@@ -20,13 +20,13 @@
                                  
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
-                                <label> Libelle</label>
+                                <label> Libelle <span class="text-danger">*</span></label>
                                 <input type="text" name="libelle">
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
-                                <label> Cycle </label>
+                                <label> Cycle <span class="text-danger">*</span></label>
                                 <div class="input-with-dropdown">
                                     <select id="ecoles_list" wire:model="selectedEcole" name="cycle_id">
                                         <option value="">Cycle</option>

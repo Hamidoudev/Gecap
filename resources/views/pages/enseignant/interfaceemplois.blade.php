@@ -93,23 +93,21 @@
                         <div class="profilename">
                             <div class="profileset">
                                 <span class="user-img">
-                                    <img src="{{ URL::to('admin-template/assets/img/profiles/avatar-02.jpg') }}"
-                                        alt="" id="profilePic">
+                                    <img src="{{ URL::to('admin-template/assets/img/profiles/avator1.jpg') }}" alt="" id="profilePic">
                                     <span class="status online"></span>
                                 </span>
                                 <div class="profilesets">
-                                    @if (Auth::check() && Auth::user()->type)
-                                        <h6> {{ Auth::user()->last_name }}</h6>
-                                        <h5>{{ Auth::user()->type->name }}</h5>
-                                    @endif
+                                    @if (Auth::guard('enseignant')->check())
+                                    <h6>{{ Auth::guard('enseignant')->user()->prenom }} {{ Auth::guard('enseignant')->user()->nom }}</h6>
+                                    <h5>{{ Auth::guard('enseignant')->user()->type->name }}</h5>
+                                @endif
 
                                 </div>
                             </div>
                             <hr class="m-0">
-                            <a class="dropdown-item" href="{{ url('profile/vue') }}"> <i class="me-2"
-                                    data-feather="user"></i>
+                            <a class="dropdown-item"  href="{{ route('pages.ecole.profile.vue') }}"> <i class="me-2" data-feather="user"></i>
                                 Mon Profile</a>
-
+                           
                             <a class="dropdown-item" href="#"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Déconnexion
@@ -130,7 +128,7 @@
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="{{ url('profile/vue') }}">Mon Profile</a>
+                    <a class="dropdown-item" href="{{ route('pages.ecole.profile.vue') }}">Mon Profile</a>
 
                     <a class="dropdown-item" href="#"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -149,69 +147,35 @@
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
-                        @php
-                            $types = \App\Models\Droit::all()->groupBy('type_droit_id');
-                        @endphp
-                        @php
-                            $user = Auth::user();
-                            $dashboardUrl = '';
-
-                            if ($user->type->name == 'admin') {
-                                $dashboardUrl = url('/admin/home');
-                            } elseif ($user->type->name == 'user') {
-                                $dashboardUrl = url('/user/home');
-                            } elseif ($user->type->name == 'manager') {
-                                $dashboardUrl = url('/manager/home');
-                            }
-                        @endphp
-
                         <li class="active">
-                            <a href="{{ $dashboardUrl }}"><img
-                                    src="{{ URL::to('admin-template/assets/img/icons/dashboard.svg') }}"
-                                    alt="img"><span> Dashboard</span> </a>
+                            <a href="{{route('enseignant.home')}}"><img src="{{ URL::to('admin-template/assets/img/icons/dashboard.svg') }}" alt="img"><span>
+                                    Dashboard</span> </a>
                         </li>
-                        @foreach ($types as $key => $type)
-                            @php
-                                $elements = 0;
-                                $droitAutorises = [];
-                                foreach ($type as $id => $droit) {
-                                    $droitAutorises = DB::table('droit_role')
-                                        ->where('role_id', '=', Auth::user()->role->id)
-                                        ->where('droit_id', '=', $droit->id)
-                                        ->get('id');
-                                    if (count($droitAutorises)) {
-                                        $elements += 1;
-                                    }
-                                }
+                        {{-- <li class="submenu">
+                            <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/product.svg') }}" alt="img"><span>
+                                    Administrative</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                
+                                <li><a href="{{route('pages.ecole.eleves.listes')}}">Eleves</a></li>
+                                <li><a href="{{route('pages.ecole.enseignants.listes')}}">Enseignants</a></li>
+                              
+                            </ul>
+                        </li> --}}
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/purchase1.svg') }}" alt="img"><span>
+                                    Pedagogie</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="{{route('pages.enseignant.emplois.listes')}}">Emplois</a></li>
+                                {{-- <li><a href="{{route('programmes.listes')}}">Programme</a></li>
+                                <li><a href="{{route('pages.ecole.matieres.listes')}}">Matière</a></li> --}}
+                                {{-- <li><a href="{{route('pages.ecole.affectation.listes')}}">Affectation</a></li> --}}
+            
+                            </ul>
+                        </li>
+                       
 
-                            @endphp
-                            @if ($elements > 0)
-                                <li class="submenu">
-                                    <a href="javascript:void(0);"><img
-                                            src="{{ URL::to('admin-template/assets/img/icons/product.svg') }}"
-                                            alt="img"><span>{{ \App\Models\TypeDroit::find($key)->nom }}</span>
-                                        <span class="menu-arrow"></span></a>
-                                    <ul>
-                                        @forelse ($type as $droit)
-                                            @php
-                                                $droitAutorises = DB::table('droit_role')
-                                                    ->where('role_id', '=', Auth::user()->role->id)
-                                                    ->where('droit_id', '=', $droit->id)
-                                                    ->get('id');
-
-                                            @endphp
-                                            @if (count($droitAutorises))
-                                                <li><a href="{{ route($droit->route) }}">{{ $droit->nom }}</a></li>
-                                            @endif
-                                        @empty
-                                        @endforelse
-
-
-                                    </ul>
-                                </li>
-                            @endif
-                        @endforeach
-
+                           
+             
                     </ul>
                 </div>
             </div>

@@ -18,24 +18,52 @@
                 <div class="row">
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label for="ecole"> Ecole</label>
-                        
-                            <div class="input-with-dropdown">
-                                <select id="ecoles_list" wire:model="selectedEcole" name="ecole_id">
-                                    <option value="">Sélectionner une école</option>
+                            <label for="ecole"> Ecole <span class="text-danger">*</span></label>
+                                <select id="ecoles_list" class="form-control" name="ecole_id">
                                     @foreach($ecoles as $ecole)
                                         <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
                                     @endforeach
                                 </select>
-                            </div>  
+                             
                         </div>
-                    </div>  
+                    </div> 
+                    
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label> Libelle</label>
-                            <input type="text" name="libelle">
+                            <label for="classe_id">Classe <span class="text-danger">*</span></label>
+                            
+                            <select name="classe_id" id="classe_id" class="form-control" >
+                                @foreach ($classes as $classe)
+                                    <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
+                                @endforeach
+                            </select>
+                             
+                        </div>
+                    </div> 
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="matiere_id">Matière <span class="text-danger">*</span></label>
+                            <select name="matiere_id" id="matiere_id" class="form-control">
+                                @foreach ($matieres as $matiere)
+                                    <option value="{{ $matiere->id }}">{{ $matiere->libelle }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> 
+                    
+                 
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="theme">Thème <span class="text-danger">*</span></label>
+                            <input type="text" name="theme" id="theme" class="form-control" value="{{ old('theme') }}">
                         </div>
                     </div>
+                   
+                        <div class="form-group">
+                            <label for="contenu">Contenu <span class="text-danger">*</span></label>
+                            <textarea name="contenu" id="contenu" class="form-control">{{ old('contenu') }}</textarea>
+                        </div>
+                   
                 </div>
             </div>
                 </div>

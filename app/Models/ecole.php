@@ -9,6 +9,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Ecole extends Authenticatable
 {
     protected $guard = [];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
     
     public function typeecole()
     {

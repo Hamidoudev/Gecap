@@ -82,9 +82,8 @@
                     <tr>
                         <th>#</th>
                         <th>Ecole</th>
-                        
-                        <th>First name</th>
-                        <th>Last name</th>
+                        <th>Prenom</th>
+                        <th>Nom</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Adresse</th>

@@ -1,6 +1,6 @@
 <form action="{{ route('eleves.update', $eleve->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @method('PUT')
+    @method('POST')
     <div class="card">
         <div class="card-body">
             <div class="row">

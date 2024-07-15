@@ -22,4 +22,9 @@ class Matiere extends Model
     {
         return $this->belongsTo(Matiere::class);
     }
+
+    public function ensegnant_matiere()
+    {
+        return $this->belongsTo(EnseignantMatiere::class);
+    }
 }

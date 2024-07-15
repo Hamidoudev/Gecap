@@ -17,7 +17,7 @@
                              <div class="row">
                                  <div class="col-lg-3 col-sm-6 col-12">
                                      <div class="form-group">
-                                         <label for="ecole"> Classe</label>
+                                         <label for="ecole"> Classe <span class="text-danger">*</span></label>
 
                                          <div class="input-with-dropdown">
                                              <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
@@ -29,45 +29,40 @@
                                          </div>
                                      </div>
                                  </div>
-                                 <div class="col-lg-3 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="ecole"> Ecole</label>
-                                        <td>{{ session('nom')  }}</td>
-                                    </div>
-                                </div>
+                                
                                  <div class="col-lg-3 col-sm-6 col-12">
                                      <div class="form-group">
-                                         <label> Matricule</label>
-                                         <input type="text" name="matricule">
+                                         <label> Matricule <span class="text-danger">*</span></label>
+                                         <input type="text" name="matricule" id="matricule">
                                      </div>
                                  </div>
                                  <div class="col-lg-3 col-sm-6 col-12">
                                      <div class="form-group">
-                                         <label> Nom </label>
+                                         <label> Nom <span class="text-danger">*</span></label>
                                          <input type="text" name="nom">
                                      </div>
                                  </div>
                                  <div class="col-lg-3 col-sm-6 col-12">
                                      <div class="form-group">
-                                         <label> Prénom</label>
+                                         <label> Prénom <span class="text-danger">*</span></label>
                                          <input type="text" name="prenom">
                                      </div>
                                  </div>
                                  <div class="col-lg-3 col-sm-6 col-12">
                                      <div class="form-group">
-                                         <label>Date Naissance</label>
+                                         <label>Date Naissance <span class="text-danger">*</span></label>
                                          <input type="date" name="date_n">
                                      </div>
                                  </div>
                                  <div class="col-lg-3 col-sm-6 col-12">
                                      <div class="form-group">
-                                         <label>Adresse</label>
+                                         <label>Adresse <span class="text-danger">*</span></label>
                                          <input type="text" name="adresse">
                                      </div>
                                  </div>
                                  <div class="col-lg-3 col-sm-6 col-12">
                                      <div class="form-group">
-                                         <label for="genre">Genre</label>
+                                         <label for="genre">Genre <span class="text-danger">*</span></label>
                                          <select name="genre" id="genre" class="form-control">
                                              <option value="F">Femme</option>
                                              <option value="M">Homme</option>
@@ -78,7 +73,7 @@
 
                                  <div class="col-lg-12">
                                      <div class="form-group">
-                                         <label> Acte_Naissance</label>
+                                         <label> Acte_Naissance <span class="text-danger">*</span></label>
                                          <div class="image-upload">
                                              <input type="file" name="acte_n">
                                              <div class="image-uploads">

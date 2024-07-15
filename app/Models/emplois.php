@@ -28,4 +28,8 @@ class Emplois extends Model
     {
         return $this->belongsTo(Enseignant::class);
     }
+    public function emploisMatieres()
+    {
+        return $this->hasMany(EmploisMatiere::class);
+    }
 }

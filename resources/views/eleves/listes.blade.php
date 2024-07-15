@@ -4,11 +4,11 @@
     <div class="page-title">
     <h4>Listes des Eleves</h4>
     </div>
-    <div class="page-btn">
+    {{-- <div class="page-btn">
         <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEleveModal">
             <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Eleve
         </a>
-    </div>
+    </div> --}}
 </div>
 <div class="card">
     <div class="card-body">
@@ -27,7 +27,7 @@
                     </a>
                 </div>
             </div>
-            <div class="wordset">
+            {{-- <div class="wordset">
                 <ul>
                     <li>
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
@@ -42,13 +42,13 @@
                                 src="{{ URL::to('admin-template/assets/img/icons/printer.svg') }}" alt="img"></a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
         </div>
 
         <div class="card" id="filter_inputs">
             <div class="card-body pb-0">
                 <div class="row">
-                    <div class="col-lg-2 col-sm-6 col-12">
+                    {{-- <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
                             <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
                                 <option value="">Sélectionner un cycle</option>
@@ -57,7 +57,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
                             <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
@@ -92,8 +92,7 @@
                         <th>Adresse</th>
                         <th>Genre</th>
                         <th>Acte De Naissance </th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -120,20 +119,15 @@
                                     Aucun acte disponible
                                 @endif
                             </td>
-                            <td>
-                                <div class="status-toggle d-flex justify-content-between align-items-center">
-                                    <input type="checkbox" id="user1" class="check">
-                                    <label for="user1" class="checktoggle">checkbox</label>
-                                </div>
-                            </td>
-                            <td>
+                          
+                            {{-- <td>
                                 <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $eleve->id }}">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                 </a>
                                 <a class="me-3 confirm-text" href="#" onclick="showDeleteModal('{{ route('eleves.delete', $eleve->id) }}')">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}" alt="img">
                                 </a>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classe;
 use App\Models\Ecole;
 use App\Models\Eleve;
+use App\Models\Classe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EleveController extends Controller
 {
@@ -16,7 +17,8 @@ class EleveController extends Controller
     {
         $ecoles = Ecole::all();
         $classes = Classe::all(); 
-        $eleves = eleve::where('ecole_id',session()->get('id'))->get();
+        $ecoleId = Auth::guard('ecole')->user()->id;
+        $eleves = Eleve::where('ecole_id', $ecoleId)->get();
         return view('pages.ecole.eleves.listes', compact('eleves','classes','ecoles'));
     }
     public function create()
@@ -34,7 +36,7 @@ class EleveController extends Controller
     {
         $eleve = new eleve;
         $eleve->classe_id = $request->classe_id; 
-        $eleve->ecole_id = session()->get('id');
+        $eleve->ecole_id = Auth::guard('ecole')->user()->id;
         $eleve->matricule = $request->matricule;
         $eleve->nom = $request->nom;
         $eleve->prenom = $request->prenom;
@@ -85,7 +87,7 @@ class EleveController extends Controller
     {
         $eleve = eleve::find($id);
         $eleve->classe_id = $request->classe_id;
-        $eleve->ecole_id = session()->get('id');
+        $eleve->ecole_id = Auth::guard('ecole')->user()->id;
         $eleve->matricule = $request->matricule;
         $eleve->nom = $request->nom;
         $eleve->prenom = $request->prenom;

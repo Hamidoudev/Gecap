@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Emplois::class)->constrained();
             $table->foreignIdFor(Matiere::class)->constrained();
+            $table->integer('enseignant_id')->nullable();
             $table->string('jour');
             $table->time('heure_debut');
             $table->time('heure_fin');

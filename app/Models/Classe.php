@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Classe extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function cycle()
+    {
+       return $this->belongsTo(Type::class);
+    }
 }

@@ -18,13 +18,13 @@ class EmploisController extends Controller
 {
     public function index()
     {
+        $ecoles = Ecole::all();
         $classes = Classe::all();
         $matieres = Matiere::all();
-        $ecoles = Ecole::all();
         $cycles = Cycle::all();
         $enseignants = Enseignant::all();
-       // $emplois = Emplois::distinct()->pluck('id')
-        //->paginate(10);
+       $emplois = Emplois::where('ecole_id',session()->get('id'))->get();
+       
         return view('pages.ecole.emplois.listes', compact('cycles','enseignants','classes','ecoles', 'matieres'));
     }
 
@@ -166,7 +166,7 @@ class EmploisController extends Controller
     }
     public function showSchedule($jour, $heure)
 {
-    // Exemple de récupération de la matière sélectionnée
+    
     $selectedMatiere = Emplois::where('jour', $jour)
                             ->where('heure', $heure)
                             ->with('matiere')

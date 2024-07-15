@@ -73,6 +73,15 @@ return new class extends Migration
                 
                 
             ],
+            [
+               
+                'role_id' => 1,
+                'droit_id' => 11,
+               
+               
+                
+                
+            ],
              [
                
                 'role_id' => 2,

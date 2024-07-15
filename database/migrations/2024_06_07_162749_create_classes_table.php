@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cycle;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,19 +16,20 @@ return new class extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
             $table->string('libelle');
+            $table->foreignIdFor(Cycle::class)->constrained();
             $table->timestamps();
         });
 
-        DB::table('classes')->insert([
-            [
-                'libelle' => 'premiere année',
+        // DB::table('classes')->insert([
+        //     [
+        //         'libelle' => 'premiere année',
             
                 
-            ],
-            [
-                'libelle' => 'deuxieme année',
-            ],
-        ]);
+        //     ],
+        //     [
+        //         'libelle' => 'deuxieme année',
+        //     ],
+        // ]);
     }
 
     /**

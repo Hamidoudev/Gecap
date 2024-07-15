@@ -31,6 +31,14 @@ return new class extends Migration
                 
             ],
             [
+                'nom' => 'Rôles',
+                'acces' => 1,
+                'route' => 'roles.index',
+                'type_droit_id' => 4,
+                
+                
+            ],
+            [
                 'nom' => 'Utilisateurs',
                 'acces' => 1,
                 'route' => 'users.index',

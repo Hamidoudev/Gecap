@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
 use App\Models\Ecole;
+use App\Models\Matiere;
 use App\Models\Programme;
 use Illuminate\Http\Request;
 
@@ -14,62 +16,68 @@ class ProgrammeAController extends Controller
     public function index()
     {
         $ecoles = Ecole::all();
-        $programmes = Programme::paginate(10);
-        return view('programmes.listes', compact('programmes','ecoles'));
+        $classes = Classe::all();
+        $matieres = Matiere::all();
+        $programmes = Programme::paginate(20);
+        return view('programmes.listes', compact('programmes', 'classes','matieres','ecoles'));
     }
 
     public function create()
     {
         $ecoles = Ecole::all();
-        return view('programmes.ajout', compact('ecoles'));
+        $classes = Classe::all();
+        $matieres = Matiere::all();
+        return view('programmes.ajout', compact('ecoles', 'classes', 'matieres'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $programme = new Programme();
-        $programme->ecole_id = $request->ecole_id;
-        $programme->libelle = $request->libelle;
-        $programme->save();
-        return redirect()->route('programmes.listes')->with('success', 'enregistrement effectuée avec succès'); 
+        $validatedData = $request->validate([
+            'ecole_id' => 'required|exists:ecoles,id',
+            'classe_id' => 'required|exists:classes,id',
+            'matiere_id' => 'required|exists:matieres,id',
+            'theme' => 'required|string|max:255',
+            'contenu' => 'required|string',
+        ]);
+
+        Programme::create($validatedData);
+        return redirect()->route('programmes.listes')->with('success', 'Programme ajouté avec succès.');
     }
 
     public function edit($id)
     {
+        $programme = Programme::findOrFail($id);
         $ecoles = Ecole::all();
-        $programme = Programme::find($id);
-        return view('programmes.edit', compact('programme', 'ecoles'));
+        $classes = Classe::all();
+        $matieres = Matiere::all();
+        return view('programmes.edit', compact('programme', 'ecoles', 'classes', 'matieres'));
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'ecole_id' => 'sometimes|exists:ecoles,id',
+            'classe_id' => 'sometimes|exists:classes,id',
+            'matiere_id' => 'sometimes|exists:matieres,id',
+            'theme' => 'required|string|max:255',
+            'contenu' => 'required|string'
+        ]);
+
+        $programme = Programme::findOrFail($id);
+        $programme->update($validatedData);
+        return redirect()->route('programmes.listes')->with('success', 'Programme mis à jour avec succès.');
+    }
+
+    public function destroy($id)
+    {
+        $programme = Programme::findOrFail($id);
+        $programme->delete();
+        return redirect()->route('programmes.listes')->with('success', 'Programme supprimé avec succès.');
+    }
+
     public function show(string $id)
     {
-        $programme = Programme::find($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $programme = Programme::find($id);
-        $programme->ecole_id = $request->ecole_id;
-        $programme->libelle = $request->libelle;
-        $programme->save();
-        return redirect()->route('programmes.listes')->with('success', 'modification effectuée avec succès');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $programme = Programme::find($id);
-        $programme->delete();
-        return redirect()->route('programmes.listes')->with('danger', 'suppression effectuée avec succès');
+        $programme = Programme::with(['ecole', 'classe', 'matiere'])->findOrFail($id);
+        return view('programmes.show', compact('programme'));
     }
 }

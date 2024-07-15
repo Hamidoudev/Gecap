@@ -6,6 +6,7 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
+                        <label for="">Type</label>
                         <div class="input-with-dropdown">
                             <select id="ecoles_list" name="typeecole_id" class="form-control">
                                 @foreach ($typeecoles as $typeecole)
@@ -37,6 +38,28 @@
                         <input type="text" name="email"value="{{ $ecole->email }}">
                     </div>
                 </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>Mot de passe <span class="text-danger">*</span></label>
+                        <input type="password" name="password" value="{{ $ecole->password }}">
+                    </div>
+                </div>
+
+                {{-- <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="">Type</label>
+                        <div class="input-with-dropdown">
+                            <select id="ecoles_list" name="type_id" class="form-control">
+                                @foreach ($types as $type)
+                                    <option value="{{ $type->id }}"
+                                        {{ $ecole->type_id == $type->id ? 'selected' : '' }}>
+                                        {{ $type->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div> --}}
 
 
 

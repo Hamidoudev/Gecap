@@ -19,19 +19,19 @@
                 <div class="row">
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Nom</label>
+                            <label>Nom <span class="text-danger">*</span></label>
                             <input type="text" name="nom">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Prénom</label>
+                            <label>Prénom <span class="text-danger">*</span></label>
                             <input type="text" name="prenom">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label for="statut">Statut</label>
+                            <label for="statut">Statut <span class="text-danger">*</span></label>
                             <select name="statut" id="statut" class="form-control">
                                 <option value="active">Active</option>
                                 <option value="non-active">Non-active</option>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>École</label>
+                            <label>École <span class="text-danger">*</span></label>
                             <div class="input-with-dropdown">
                                 <select id="ecoles_list" wire:model="selectedEcole" name="ecole_id">
                                     <option value="">Sélectionner une école</option>
@@ -53,40 +53,40 @@
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Classe tenue</label>
+                            <label>Classe tenue <span class="text-danger">*</span></label>
                             <input type="text" name="classe_tenue">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Discipline</label>
+                            <label>Discipline <span class="text-danger">*</span></label>
                             <input type="text" name="discipline">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Thème</label>
+                            <label>Thème <span class="text-danger">*</span></label>
                             <input type="text" name="theme">
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Durée</label>
+                            <label>Durée <span class="text-danger">*</span></label>
                             <input type="text" name="duree">
                         </div>
                     </div>
                   
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Effectif</label>
+                            <label>Effectif <span class="text-danger">*</span></label>
                             <input type="number" name="effectif">
                         </div>
                         <div class="form-group">
-                            <label>Fille</label>
+                            <label>Fille <span class="text-danger">*</span></label>
                             <input type="number" name="F">
                         </div> 
                         <div class="form-group">
-                            <label>Garçon</label>
+                            <label>Garçon <span class="text-danger">*</span></label>
                             <input type="number" name="G">
                         </div>
                     </div>
@@ -95,13 +95,13 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ITEM</th>
-                            <th>Note</th>
+                            <th>ITEM <span class="text-danger">*</span></th>
+                            <th>Note <span class="text-danger">*</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>La fiche de préparation existe-t-elle ? Est-elle exploitable ?</td>
+                            <td>La fiche de préparation existe-t-elle ? Est-elle exploitable ? </td>
                             <td><input type="number" name="fiche_preparation" min="0" max="10"></td>
                         </tr>
                         <tr>
@@ -145,35 +145,35 @@
                 
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>1. Conseiller</label>
+                        <label>1. Conseiller <span class="text-danger">*</span></label>
                         <input type="text" name="conseille1">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
-                    <label>2. Conseiller</label>
+                    <label>2. Conseiller <span class="text-danger">*</span></label>
                     <input type="text" name="conseille2">
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>3. Conseiller</label>
+                        <label>3. Conseiller <span class="text-danger">*</span></label>
                         <input type="text" name="conseille3">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>4. Conseiller</label>
+                        <label>4. Conseiller <span class="text-danger">*</span></label>
                         <input type="text" name="conseille4">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>5. Conseiller</label>
+                        <label>5. Conseiller <span class="text-danger">*</span></label>
                         <input type="text" name="conseille5">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label>Date</label>
+                        <label>Date <span class="text-danger">*</span></label>
                         <input type="date" name="date">
                     </div>
                 </div>

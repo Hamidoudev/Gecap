@@ -26,7 +26,7 @@
                     </a>
                 </div>
             </div>
-            <div class="wordset">
+            {{-- <div class="wordset">
                 <ul>
                     <li>
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="{{ URL::to('admin-template/assets/img/icons/pdf.svg') }}" alt="img"></a>
@@ -38,10 +38,10 @@
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="{{ URL::to('admin-template/assets/img/icons/printer.svg') }}" alt="img"></a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
         </div>
 
-        <div class="card" id="filter_inputs">
+        {{-- <div class="card" id="filter_inputs">
             <div class="card-body pb-0">
                 <div class="row">
                     <div class="col-lg-2 col-sm-6 col-12">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="table-responsive">
             <table class="table datanew">
@@ -82,14 +82,10 @@
                     <tr>
                         <th>#</th>
                         <th>Maricule</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Date Naissance</th>
+                        <th>Prenom</th>
+                        <th>Nom</th>
                         <th>Email</th>
-                        <th>Phone</th>
-                        <th>Adresse</th>
                         <th>CV</th>
-                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -100,10 +96,7 @@
                             <td>{{ $enseignant->matricule }}</td>
                             <td>{{ $enseignant->nom }}</td>
                             <td>{{ $enseignant->prenom }}</td>
-                            <td>{{ $enseignant->date_n }}</td>
                             <td>{{ $enseignant->email }}</td>
-                            <td>{{ $enseignant->telephone }}</td>
-                            <td>{{ $enseignant->adresse }}</td>
                             <td>
                                 @if ($enseignant->cv)
                                     <a href="{{ url('mes_cv/'.$enseignant->cv) }}">
@@ -113,12 +106,7 @@
                                     Aucun CV disponible
                                 @endif
                             </td>
-                            <td>
-                                <div class="status-toggle d-flex justify-content-between align-items-center">
-                                    <input type="checkbox" id="status{{ $enseignant->id }}" class="check">
-                                    <label for="status{{ $enseignant->id }}" class="checktoggle">checkbox</label>
-                                </div>
-                            </td>
+                           
                             <td>
                                 <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $enseignant->id }}">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
@@ -134,7 +122,7 @@
         </div>
     </div>
 </div>
-@include('enseignants.ajout')
+@include('pages.ecole.enseignants.ajout')
 
 <script>
     // Afficher le modal de confirmation lorsqu'on clique sur le lien de suppression

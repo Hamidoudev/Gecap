@@ -23,35 +23,7 @@ return new class extends Migration
             $table->foreignId('type_id')->constrained('types')->onDelete('cascade');
             $table->timestamps();
         });
-        DB::table('ecoles')->insert([
-            [
-                'typeecole_id' => '1',
-                'nom' => 'Nakani Doucoure',
-                'siege' => 'Kati',
-                'email' => 'nakanid@gmail.com',
-                'password' => bcrypt('@@@@@@@@'),
-                'type_id' => '4',
-      
-
-                
-            ],
-            [
-                'typeecole_id' => '2',
-                'nom' => 'LNDN',
-                'siege' => 'quartier fleuve',
-                'email' => 'lndn@gmail.com',
-                'password' => bcrypt('@@@@@@@@'),
-                'type_id' => '4',
-            ],
-            [
-                'typeecole_id' => '3',
-                'nom' => 'Mama Thiam',
-                'siege' => 'Hippodrome',
-                'email' => 'mamathiam@gmail.com',
-                'password' => bcrypt('@@@@@@@@'),
-                'type_id' => '4',
-            ],
-        ]);
+        
     }
 
     /**

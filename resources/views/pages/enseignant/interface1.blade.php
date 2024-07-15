@@ -97,11 +97,10 @@
                                     <span class="status online"></span>
                                 </span>
                                 <div class="profilesets">
-                                    @if (session('nom') && session('type'))
-                                        <h6>{{ session('prenom')  }} {{ session('nom')  }}</h6>
-                                        <h5>{{ session('type') }}</h5>
-                                    @endif
-
+                                    @if (Auth::guard('enseignant')->check())
+                                    <h6>{{ Auth::guard('enseignant')->user()->prenom }} {{ Auth::guard('enseignant')->user()->nom }}</h6>
+                                    <h5>{{ Auth::guard('enseignant')->user()->type->name }}</h5>
+                                @endif
                                 </div>
                             </div>
                             <hr class="m-0">

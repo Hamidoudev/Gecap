@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -14,7 +15,7 @@ return new class extends Migration
         Schema::create('eleves', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('classe_id')->unsigned();
-            $table->string('matricule');
+            $table->string('matricule')->unique();
             $table->string('nom');
             $table->string('prenom');
             $table->date('date_n');
@@ -25,6 +26,17 @@ return new class extends Migration
 
             $table->timestamps();
         });
+
+          // Génération du matricule
+    DB::unprepared('
+    CREATE TRIGGER generate_matricule BEFORE INSERT ON eleves
+    FOR EACH ROW
+    BEGIN
+        DECLARE next_matricule INT;
+        SELECT IFNULL(MAX(CAST(SUBSTRING(matricule, 2) AS UNSIGNED)), 0) + 1 INTO next_matricule FROM eleves;
+        SET NEW.matricule = CONCAT("E", LPAD(next_matricule, 3, "0"));
+    END
+');
     }
 
     /**
