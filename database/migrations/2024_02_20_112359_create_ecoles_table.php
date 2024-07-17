@@ -23,7 +23,8 @@ return new class extends Migration
             $table->foreignId('type_id')->constrained('types')->onDelete('cascade');
             $table->timestamps();
         });
-        
+          // Ajouter la contrainte de vérification pour MySQL 8.0.16 et plus
+          DB::statement('ALTER TABLE ecoles ADD CONSTRAINT password_min_length CHECK (CHAR_LENGTH(password) >= 8)');
     }
 
     /**
@@ -32,5 +33,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('ecoles');
+        DB::statement('ALTER TABLE ecoles DROP CONSTRAINT password_min_length');
+    
     }
 };

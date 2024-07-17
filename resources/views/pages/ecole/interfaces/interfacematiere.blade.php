@@ -162,19 +162,16 @@
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="{{ URL::to('admin-template/assets/img/icons/purchase1.svg') }}" alt="img"><span>
-                                    Pedagogie</span> <span class="menu-arrow"></span></a>
+                                    Pédagogie</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="{{route('pages.ecole.emplois.listes')}}">Emplois</a></li>
-                                <li><a href="{{route('programmes.listes')}}">Programme</a></li>
+                                <li><a href="{{route('pages.ecole.programmes.listes')}}">Programme</a></li>
                                 <li><a href="{{route('pages.ecole.matieres.listes')}}">Matière</a></li>
                                 <li><a href="{{route('pages.ecole.classe.listes')}}">Classe</a></li>
             
                             </ul>
                         </li>
-                       
-
-                           
-             
+        
                     </ul>
                 </div>
             </div>

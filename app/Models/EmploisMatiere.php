@@ -13,7 +13,7 @@ class EmploisMatiere extends Model
 
     public function enseignant()
     {
-        $this->belongsTo(Enseignant::class);
+        return $this->belongsTo(Enseignant::class);
     }
 
     public function emplois()

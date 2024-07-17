@@ -2,7 +2,7 @@
 @section('content')
 <div class="page-header">
     <div class="page-title">
-    <h4>Listes des Matières</h4>
+        <h4>Listes des Matières</h4>
     </div>
     <div class="page-btn">
         <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEleveModal">
@@ -17,8 +17,7 @@
                 <div class="search-path">
                     <a class="btn btn-filter" id="filter_search">
                         <img src="{{ URL::to('admin-template/assets/img/icons/filter.svg') }}" alt="img">
-                        <span><img src="{{ URL::to('admin-template/assets/img/icons/closes.svg') }}"
-                                alt="img"></span>
+                        <span><img src="{{ URL::to('admin-template/assets/img/icons/closes.svg') }}" alt="img"></span>
                     </a>
                 </div>
                 <div class="search-input">
@@ -27,7 +26,6 @@
                     </a>
                 </div>
             </div>
-         
         </div>
 
         {{-- <div class="card" id="filter_inputs">
@@ -55,16 +53,12 @@
                     </div>
                     <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                         <div class="form-group">
-                            <a class="btn btn-filters ms-auto"><img
-                                    src="{{ URL::to('admin-template/assets/img/icons/search-whites.svg') }}"
-                                    alt="img"></a>
+                            <a class="btn btn-filters ms-auto"><img src="{{ URL::to('admin-template/assets/img/icons/search-whites.svg') }}" alt="img"></a>
                         </div>
                     </div>
                 </div>
-                   
-                </div>
             </div>
-        </div>  --}}
+        </div> --}}
 
         <div class="table-responsive">
             <table class="table datanew">
@@ -81,43 +75,32 @@
                         <tr>
                             <td>{{ $matiere->id }}</td>
                             <td>{{ $matiere->libelle }}</td>
-                            <td>@foreach($cycles as $cycle)
-                                @if($cycle->id == $matiere->cycle_id)
-                                    {{ $cycle->libelle }}
-                                @endif
-                            @endforeach</td>                         
+                            <td>
+                                @foreach($cycles as $cycle)
+                                    @if($cycle->id == $matiere->cycle_id)
+                                        {{ $cycle->libelle }}
+                                    @endif
+                                @endforeach
+                            </td>
                             <td>
                                 <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $matiere->id }}">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                 </a>
-                                {{-- <a class="me-3 confirm-text" href="#" onclick="showDeleteModal('{{ route('eleves.delete', $matiere->id) }}')">
+                                <a class="me-3 confirm-text" href="#" onclick="showDeleteModal('{{ route('eleves.delete', $matiere->id) }}')">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}" alt="img">
-                                </a> --}}
+                                </a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>
 
-@include('matieres.ajout')
+@include('pages.ecole.matieres.ajout')
 
 <script>
-    // Afficher le modal de confirmation lorsqu'on clique sur le lien de suppression
-    $('.confirm-text').on('click', function(e) {
-        e.preventDefault();
-        var deleteUrl = $(this).attr('href');
-        $('#deleteModal').modal('show');
-
-        // Lorsqu'on clique sur le bouton "Supprimer" du modal, redirige vers l'URL de suppression
-        $('#confirmDelete').on('click', function() {
-            window.location.href = deleteUrl;
-        });
-    });
-
     function showDeleteModal(deleteUrl) {
         $('#confirmDelete').attr('href', deleteUrl); // Met à jour le lien de suppression dans le modal
         $('#deleteModal').modal('show'); // Affiche le modal
@@ -143,8 +126,6 @@
     </div>
 </div>
 
-@endsection
-
 @foreach($matieres as $matiere)
 <div class="modal fade" id="editModal{{ $matiere->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $matiere->id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -160,21 +141,5 @@
     </div>
 </div>
 @endforeach
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirmation de suppression</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                Êtes-vous sûr de vouloir supprimer cet elève ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <a id="confirmDelete" class="btn btn-danger" href="#">Supprimer</a>
-            </div>
-        </div>
-    </div>
-</div>
 
+@endsection

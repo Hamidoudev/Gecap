@@ -35,10 +35,12 @@ use App\Http\Controllers\Ecole\EcoleController as EcoleEcoleController;
 use App\Http\Controllers\Ecole\EleveController as EcoleEleveController;
 use App\Http\Controllers\Ecole\EmploisController as EcoleEmploisController;
 use App\Http\Controllers\Ecole\EnseignantController as EcoleEnseignantController;
+use App\Http\Controllers\Ecole\ProfileController as EcoleProfileController;
 use App\Http\Controllers\Ecole\ProgrammeController as EcoleProgrammeController;
 use App\Http\Controllers\EleveAController;
 use App\Http\Controllers\EmploisAController;
 use App\Http\Controllers\Enseignant\EmploisController as EnseignantEmploisController;
+use App\Http\Controllers\Enseignant\ProfileController as EnseignantProfileController;
 use App\Http\Controllers\EnseignantAController;
 use App\Http\Controllers\EnseignantMatiereController;
 use App\Http\Controllers\ProgrammeAController;
@@ -363,19 +365,28 @@ Route::post('/profile/update/', [ProfileController::class, 'update'])->name('pro
 Route::get('/profile/show/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
 //profile ecole
-Route::get('/pages/ecole/profile/vue', [ProfileController::class, 'index'])->name('pages.ecole.profile.vue');
-Route::get('/pages/ecole/profile/edit/{id}', [ProfileController::class, 'edit'])->name('pages.ecole.profile.edit');
-Route::post('/pages/ecole/profile/update/', [ProfileController::class, 'update'])->name('pages.ecole.profile.update');
-Route::get('/pages/ecole/profile/show/{id}', [ProfileController::class, 'show'])->name('pages.ecole.profile.show');
+Route::get('/pages/ecole/profile/vue', [EcoleProfileController::class, 'index'])->name('pages.ecole.profile.vue');
+Route::get('/pages/ecole/profile/edit/{id}', [EcoleProfileController::class, 'edit'])->name('pages.ecole.profile.edit');
+Route::post('/pages/ecole/profile/update/', [EcoleProfileController::class, 'update'])->name('pages.ecole.profile.update');
+Route::get('/pages/ecole/profile/show/{id}', [EcoleProfileController::class, 'show'])->name('pages.ecole.profile.show');
 
 //profile enseignant
-Route::get('/pages/enseignant/profile/vue', [ProfileController::class, 'index'])->name('pages.enseignant.profile.vue');
-Route::get('/pages/enseignant/profile/edit/{id}', [ProfileController::class, 'edit'])->name('pages.enseignant.profile.edit');
-Route::post('/pages/enseignant/profile/update/', [ProfileController::class, 'update'])->name('pages.enseignant.profile.update');
-Route::get('/pages/enseignant/profile/show/{id}', [ProfileController::class, 'show'])->name('pages.enseignant.profile.show');
+Route::get('/pages/enseignant/profile/vue', [EnseignantProfileController::class, 'index'])->name('pages.enseignant.profile.vue');
+Route::get('/pages/enseignant/profile/edit/{id}', [EnseignantProfileController::class, 'edit'])->name('pages.enseignant.profile.edit');
+Route::post('/pages/enseignant/profile/update/', [EnseignantProfileController::class, 'update'])->name('pages.enseignant.profile.update');
+Route::get('/pages/enseignant/profile/show/{id}', [EnseignantProfileController::class, 'show'])->name('pages.enseignant.profile.show');
 
 Route::get('contact', [ContactController::class, 'create'])->name('contact');
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+
+
+// smtp ecole
+Route::get("message", "MessageEcoleController@formEcoleMail");
+Route::post("message", "MessageEcoleController@sendEcoleMail")->name('send.messageecole.google');
+
+// smtp enseignant
+Route::get("message", "MessageEnseignantController@formEnseignantMail");
+Route::post("message", "MessageEcoleController@sendEnseignantMail")->name('send.messageenseignant.google');
 
 
 

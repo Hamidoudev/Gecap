@@ -7,8 +7,10 @@ use App\Models\Matiere;
 use App\Models\Enseignant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\EnseignantMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class EnseignantController extends Controller
 {
@@ -29,6 +31,7 @@ class EnseignantController extends Controller
 
     public function store(Request $request)
     {
+        $password = $request->password;
         $enseignant = new Enseignant();
         $enseignant->ecole_id =Auth::guard('ecole')->user()->id;
         $enseignant->matricule = $request->matricule;
@@ -53,9 +56,16 @@ class EnseignantController extends Controller
             $file->move(public_path('mes_cv'), $fileName);
             $enseignant->cv = $fileName;
         }
-
+        $data = [
+        
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'email' => $request->email,
+            'password' => $password
+        ];
         $enseignant->save();
-
+        Mail::to($request->email)
+                         ->queue(new EnseignantMail($data));
         // Associer les matières
         $enseignant->matieres()->attach($request->matieres);
 

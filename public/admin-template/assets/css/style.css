@@ -8412,15 +8412,15 @@ span.select2-container.select2-container--default.select2-container--open {
 
 .ecole {
     color: #fff;
-    background: url("../img/fille.jpg") top center no-repeat;
-    background-size: cover;
+    background: url("../img/eve.png") top center no-repeat;
+    background-size:cover;
     font-size: 8px;
     padding: 200px 0 100px 0;
     position: relative;
   }
   .ecole:before {
     content: "";
-    background: rgba(0, 0, 0, 0.8);
+   
     position: absolute;
     inset: 0;
   }
@@ -8493,6 +8493,8 @@ span.select2-container.select2-container--default.select2-container--open {
     padding: 8px 0;
    
   }
+
+  
   
   .fooecoleter .footer-content .footer-links ul li:first-child {
     padding-top: 0;
@@ -8524,14 +8526,130 @@ span.select2-container.select2-container--default.select2-container--open {
   .ecole .footer-legal .credits a {
     color: var(--color-primary);
   }
+ /* Style pour les enseignants */
 
+ .enseignant {
+    color: #fff;
+    background: url("../img/enseignant1.png") top center no-repeat;
+    background-size: cover;
+    font-size: 8px;
+    padding: 200px 0 100px 0;
+    position: relative;
+  }
+  .enseignant:before {
+    content: "";
+    
+    position: absolute;
+    inset: 0;
+  }
+  
+  .enseignant .footer-content .footer-info {
+    margin-bottom: 30px;
+  }
+  
+  .enseignant .footer-content .footer-info h3 {
+    font-size: 28px;
+   justify-content: center;
+    margin: 0 0 0px 0;
+    padding: 2px 0 2px 0;
+    line-height: 1;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+ 
+  
+  .enseignant .footer-content .footer-info h3 span {
+    color: var(--color-primary);
+  }
+  
+  .enseignant .footer-content .footer-info p {
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 0;
+    font-family: var(--font-primary);
+    color: #fff;
+  }
+  
+  .enseignant .footer-content .social-links a {
+    font-size: 18px;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    line-height: 1;
+    margin-right: 8px;
+    border-radius: 4px;
+    width: 36px;
+    height: 36px;
+    transition: 0.3s;
+  }
+  
+  .enseignant .footer-content .social-links a:hover {
+    background: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  .enseignant .footer-content h4 {
+    font-size: 25px;
+    font-weight: 600;
+    color: #fff;
+    position: relative;
+    padding-bottom: 12px;
+  }
+  
+  .enseignant .footer-content .footer-links {
+    margin-bottom: 30px;
+  }
+  
+  .enseignant .footer-content .footer-links ul {
+    
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .enseignant .footer-content .footer-links ul li {
+    padding: 8px 0;
+   
+  }
 
+  
+  
+  .fooecoleter .footer-content .footer-links ul li:first-child {
+    padding-top: 0;
+    font-size: 12px;
+  }
+  
+  .enseignant .footer-content .footer-links ul a {
+    color: rgba(255, 255, 255, 0.6);
+    transition: 0.3s;
+    display: inline-block;
+    line-height: 1;
+  }
+  
+  .enseignant .footer-content .footer-links ul a:hover {
+    color: #fff;
+  }
+  
+  .enseignant .footer-legal .copyright {
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+  .enseignant .footer-legal .credits {
+    padding-top: 4px;
+    font-size: 13px;
+    color: #fff;
+  }
+  
+  .enseignant .footer-legal .credits a {
+    color: var(--color-primary);
+  }
 
   
 
   .footer {
     color: #fff;
-    background: url("../img/eveee.jpg") top center no-repeat;
+    background: url("../img/admin.png") top center no-repeat;
     background-size: cover;
     font-size: 8px;
     padding: 200px 0 100px 0;
@@ -8540,7 +8658,7 @@ span.select2-container.select2-container--default.select2-container--open {
   
   .footer:before {
     content: "";
-    background: rgba(0, 0, 0, 0.8);
+   
     position: absolute;
     inset: 0;
   }

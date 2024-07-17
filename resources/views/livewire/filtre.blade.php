@@ -1,7 +1,5 @@
 <div>
-    {{-- @if ($showModal)
-    @livewire('show-emplois')
-    @endif --}}
+   
     <div class="page-header">
         <div class="page-title">
             <h4>Emplois Du Temps</h4>
@@ -91,7 +89,7 @@
                         <tr>
 
                             <th>#</th>
-                            <th>Ecole</th>
+                            {{-- <th>Ecole</th> --}}
                             <th>Classe</th>
                             <th> Emplois </th>
 
@@ -103,13 +101,13 @@
                             <tr>
 
                                 <td>{{ $emploi->id }}</td>
-                                <td>
+                                {{-- <td>
                                     @foreach ($ecoles as $ecole)
                                         @if ($ecole->id == $emploi->ecole_id)
                                             {{ $ecole->nom }}
                                         @endif
                                     @endforeach
-                                </td>
+                                </td> --}}
                                 <td>
 
                                     @foreach ($classes as $classe)
@@ -122,7 +120,7 @@
 
                                 <td>
                                     
-                                    <a class="me-3" wire:click="ActiveShow({{ $emploi->id }})">
+                                    <a class="me-3" href="{{url('pages/ecole/emplois/show/'.$emploi->id)}}">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/eye.svg') }}"
                                             alt="img">
                                     </a>
@@ -186,15 +184,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="ecole_id">Ecole:</label>
-                            <select name="ecole_id" class="form-control" required wire:model="selectedEcole">
-                                <option value="">Sélectionner une ecole</option>
-                                @foreach ($ecoles as $ecole)
-                                    <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
+                      
                         <div class="form-group">
                             <label for="cycle_id">Cycle: <span class="text-danger">*</span></label>
                             <select name="cycle_id" class="form-control" wire:change='changeCycle' required
@@ -419,116 +409,5 @@
     </div>
 @endif
 
-@if ($showMode)
-<div class="page-btn">
-    <a href="#" class="btn btn-added" wire:click="RetourEdit">
-        <img src="{{ URL::to('admin-template/assets/img/icons/return1.svg') }}" alt="img" class="me-2">
-        Retour sur la liste
-    </a>
-</div>
-<div class="card">
-    <div class="card-body">
-        <div class="table-top">
-            <div class="search-set">
-            </div>
-        </div>
-        <div class="card" id="">
-            <div class="card-body pb-0">
-                <form wire:submit.prevent="saveEmploisEdit">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="classe_id">Classe:</label>
-                            <p>{{ $classes->firstWhere('id', $selectedClasse)->libelle }}</p>
-                        </div>
-                       
-                        <div class="form-group">
-                            <label for="cycle_id">Cycle:</label>
-                            <p>{{ $cycles->firstWhere('id', $selectedCycle)->libelle }}</p>
-                        </div>
-                        @if ($showInput == 1)
-                            <div class="form-group">
-                                <label for="enseignant_id">Enseignant:</label>
-                                <p>{{ $ListesEnseignants->firstWhere('id', $selectedEnseignant)->nom }}</p>
-                            </div>
-                        @endif
-
-                        <table class="table">
-                            <tbody>
-                                @foreach ($fields as $keyField => $field)
-                                    <tr>
-                                        <td>
-                                            <label for="">Heure-Début</label>
-                                            <p>{{ $heure_debut[$keyField] }}</p>
-                                        </td>
-                                        <td>
-                                            <label for="">Heure-Fin</label>
-                                            <p>{{ $heure_fin[$keyField] }}</p>
-                                        </td>
-                                        <td>
-                                            <label for="jour">Jour</label>
-                                            <p>{{ ucfirst($jour[$keyField]) }}</p>
-                                        </td>
-                                        <td>
-                                            <label for="matiere_id">Matière</label>
-                                            <p>{{ $matieres->firstWhere('id', $matiere_id[$keyField])->libelle }}</p>
-                                            @if ($selectedCycle == 2)
-                                                <label for="enseignant_id">Enseignant</label>
-                                                <p>{{ $enseignants[$keyField]->firstWhere('id', $enseignant_id[$keyField])->nom }}</p>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger"><i class="fa fa-minus" wire:click="removeField({{ $keyField }})"></i></button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-primary" wire:click='addField'><i class="fa fa-plus"></i></button>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@endif
-
-
-
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteConfirmModalLabel">Confirmation de suppression</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Voulez-vous vraiment supprimer cet Emplois ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <a href="#" id="confirmDeleteButton" class="btn btn-danger">Supprimer</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var deleteConfirmModal = document.getElementById('deleteConfirmModal');
-        var confirmDeleteButton = document.getElementById('confirmDeleteButton');
-
-        deleteConfirmModal.addEventListener('show.bs.modal', function(event) {
-            var button = event.relatedTarget;
-            var url = button.getAttribute('data-url');
-            confirmDeleteButton.setAttribute('href', url);
-        });
-    });
-</script>
 
 </div>

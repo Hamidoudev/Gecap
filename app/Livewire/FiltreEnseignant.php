@@ -2,16 +2,17 @@
 
 namespace App\Livewire;
 
-use App\Models\Classe;
 use App\Models\Cycle;
 use App\Models\Ecole;
+use App\Models\Classe;
 use App\Models\Emplois;
-use App\Models\EmploisMatiere;
-use App\Models\Enseignant;
 use App\Models\Matiere;
 use Livewire\Component;
+use App\Models\Enseignant;
+use App\Models\EmploisMatiere;
 use Illuminate\Support\Facades\DB;
 use Yoeunes\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class FiltreEnseignant extends Component
 {
@@ -27,43 +28,38 @@ class FiltreEnseignant extends Component
     public $afficherliste = true;
     public $afficherform = false;
     public $editMode = false;
+    public $showMode = false;
     public $heure_debut = [];
     public $heure_fin = [];
     public $jour = [];
     public $DetailEmploi;
     public $emploismatiere;
     public $ListesEnseignants = [];
-    public $emploisIdToDisplay;
-    public $showModal = false;
-    public $emploisList;
+    public $emploismatiereDetail;
+  
 
    
 
-    public function showEmplois($emploisId)
-    {
-        $this->emploisIdToDisplay = $emploisId;
-        $this->showModal = true;
-    }
-
-    public function closeShowEmploisModal()
-    {
-        $this->showModal = false;
-    }
+   
 
     public function mount()
     {
-        $this->emploisList = Emplois::with('classe', 'cycle', 'enseignant')->get(); 
-        // $this->emploisList = EmploisMatiere::with($this->heure_debut,$this->heure_fin,$this->jour,$this->matiere_id,$this->enseignant_id )->get(); 
 
         $this->matieres = Matiere::all();
         $this->enseignants = collect();
 
-        $this->emplois = DB::table("emplois")->get();
+        // $this->emplois = DB::table("emplois")->get();
     }
 
     public function enterEditMode($emploiId)
     {
         $this->editMode = true;
+        $this->loadEmploi($emploiId);
+    }
+
+    public function entershowMode($emploiId)
+    {
+        $this->showMode = true;
         $this->loadEmploi($emploiId);
     }
 
@@ -78,6 +74,7 @@ class FiltreEnseignant extends Component
         $this->afficherliste = true;
         $this->afficherform = false;
     }
+
     public function ActiveEdit($id)
     {
         $this->fields =[];
@@ -106,10 +103,20 @@ class FiltreEnseignant extends Component
         $this->editMode = true;
     }
 
+  
+    public function ActiveShow($id)
+    {
+        $this->DetailEmploi = Emplois::where('id', $id)->first();
+        $this->emploismatiereDetail = EmploisMatiere::where('emplois_id',$this->DetailEmploi->id)->get();
+        $this->afficherliste = false;
+        $this->showMode = true;
+    }
+
     public function RetourEdit()
     {
         $this->afficherliste = true;
         $this->editMode = false;
+        $this->showMode = false;
     }
 
     public function loadEmploi($emploiId)
@@ -242,7 +249,7 @@ class FiltreEnseignant extends Component
 
     public function __construct()
     {
-        $this->emplois = Emplois::all();
+        $this->emplois = Emplois::where('enseignant_id', Auth::guard('enseignant')->user()->id)->get();
         $this->classes = Classe::all();
         $this->cycles = Cycle::all();
         $this->ecoles = Ecole::all();
@@ -250,7 +257,252 @@ class FiltreEnseignant extends Component
         $this->ListesEnseignants = Cycle::find(1)->enseignants;
     }
 
-  
+    public function saveEmplois()
+    {
+       
+        if ($this->selectedClasse && $this->selectedCycle) {
+            if ($this->selectedCycle == 1) {
+                if ($this->selectedEnseignant) {
+                    if (count($this->heure_debut) == count($this->heure_fin) && count($this->heure_fin) && count($this->heure_fin) == count($this->jour) && count($this->jour) == count($this->matiere_id)) {
+                        DB::beginTransaction();
+                        try {
+
+                            
+                            $emplois = new Emplois;
+                            $emplois->classe_id = $this->selectedClasse;
+                            $emplois->ecole_id = Auth::guard('ecole')->user()->id;
+                            $emplois->enseignant_id = $this->selectedEnseignant;
+                            $emplois->cycle_id = $this->selectedCycle;
+                            $emplois->save();
+                            for ($i = 0; $i < count($this->heure_debut); $i++) {
+
+                         
+                                $emploisMatiere = new EmploisMatiere;
+                                $emploisMatiere->emplois_id = $emplois->id;
+                                $emploisMatiere->matiere_id = $this->matiere_id[$i];
+                                $emploisMatiere->jour = $this->jour[$i];
+                                $emploisMatiere->heure_debut = $this->heure_debut[$i];
+                                $emploisMatiere->heure_fin = $this->heure_fin[$i];
+                                $emploisMatiere->save();
+
+                                if ($this->heure_debut[$i] > $this->heure_fin[$i]) {
+                                    Toastr::error("Heure de debut superieur à heure de fin");
+                                    continue;
+                                }
+                                //    Emplois::firstOrCreate(
+                                //         [
+                                //             "classe_id" => $this->selectedClasse,
+                                //             "ecole_id" => $this->selectedEcole,
+                                //             "enseignant_id" => $this->selectedEnseignant,
+                                //             "cycle_id" => $this->selectedCycle,
+                                //             "matiere_id" => $this->matiere_id[$i],
+                                //             "jour"=>$this->jour[$i],
+                                //             "heure_debut"=>$this->heure_debut[$i],
+                                //             "heure_fin"=>$this->heure_fin[$i],
+                                //         ]
+                                //         );
+                            }
+                            DB::commit();
+                            Toastr::success("Emploi du temps ajouter avec succes!");
+                            return redirect()->to(route("pages.ecole.emplois.listes"));
+                        } catch (\Exception $e) {
+                            Toastr::error($e->getMessage(), "Erreur:");
+                            DB::rollback();
+                            return 0;
+                        }
+                    } else {
+                        Toastr::error("Veuillez remplir tous les champs");
+                        DB::rollback();
+                        return 0;
+                    }
+                } else {
+                    Toastr::error("Veuillez remplir tous les champs");
+                    DB::rollback();
+                    return 0;
+                }
+            } else {
+                if (count($this->heure_debut) == count($this->heure_fin) && count($this->heure_fin) == count($this->matiere_id) && count($this->matiere_id) == count($this->enseignant_id)) {
+                    DB::beginTransaction();
+                    try {
+                        $emplois = new Emplois;
+                        $emplois->classe_id = $this->selectedClasse;
+                        $emplois->ecole_id = Auth::guard('ecole')->user()->id;
+                        $emplois->enseignant_id = $this->selectedEnseignant;
+                        $emplois->cycle_id = $this->selectedCycle;
+                        $emplois->save();
+                        for ($i = 0; $i < count($this->heure_debut); $i++) {
+                            if ($this->heure_debut[$i] > $this->heure_fin[$i]) {
+                                Toastr::error("Erreur", "Heure de debut superieur a heure de fin");
+                                continue;
+                            }
+                            
+                            $enseignantAlreadyBusy = EmploisMatiere::where(
+                                [
+                                    ["enseignant_id", $this->enseignant_id[$i]],
+                                    ["jour", $this->jour[$i]],
+                                    ["heure_debut", $this->heure_debut[$i]],
+                                    ["heure_fin", $this->heure_fin[$i]],
+                                ]
+                            )->get();
+                            if (count($enseignantAlreadyBusy)) {
+                                Toastr::error("Erreur", "Enseignant " . Enseignant::find($this->enseignant_id[$i])->prenom . " déjà affecter ");
+                                continue;
+
+             
+                            }
+
+                            $emploisMatiere = new EmploisMatiere;
+                            $emploisMatiere->emplois_id = $emplois->id;
+                            $emploisMatiere->enseignant_id = $this->enseignant_id[$i];
+                            $emploisMatiere->matiere_id = $this->matiere_id[$i];
+                            $emploisMatiere->jour = $this->jour[$i];
+                            $emploisMatiere->heure_debut = $this->heure_debut[$i];
+                            $emploisMatiere->heure_fin = $this->heure_fin[$i];
+                            $emploisMatiere->save();
+
+                               
+                        }
+                        DB::commit();
+                        Toastr::success("Emploi du temps ajouter avec succes!");
+                        return redirect()->to(route("pages.ecole.emplois.listes"));
+                    } catch (\Exception $e) {
+                        Toastr::error($e->getMessage(), "Erreur: ");
+                        DB::rollback();
+                        return 0;
+                    }
+                } else {
+                    Toastr::error("Veuillez remplir tous les champs");
+                    DB::rollback();
+                    return 0;
+                }
+            }
+        } else {
+            Toastr::error("Veuillez remplir tous les champs");
+            DB::rollback();
+            return 0;
+        }
+    }
+    public function saveEmploisEdit($id)
+    {
+
+        if ($this->selectedClasse && $this->selectedCycle) {
+            if ($this->selectedCycle == 1) {
+                if ($this->selectedEnseignant) {
+                    if (count($this->heure_debut) == count($this->heure_fin) && count($this->heure_fin) && count($this->heure_fin) == count($this->jour) && count($this->jour) == count($this->matiere_id)) {
+                        DB::beginTransaction();
+                        try {
+                            $emplois = Emplois::find($id);
+                            if (!$emplois) {
+                                Toastr::error("Emploi du temps non trouvé");
+                                return 0;
+                            }
+                            $emplois->classe_id = $this->selectedClasse;
+                            $emplois->ecole_id = Auth::guard('ecole')->user()->id;
+                            $emplois->enseignant_id = $this->selectedEnseignant;
+                            $emplois->cycle_id = $this->selectedCycle;
+                            $emplois->save();
+    
+                            // Clear existing EmploisMatiere records for this Emplois
+                            EmploisMatiere::where('emplois_id', $emplois->id)->delete();
+    
+                            for ($i = 0; $i < count($this->heure_debut); $i++) {
+                                if ($this->heure_debut[$i] > $this->heure_fin[$i]) {
+                                    Toastr::error("Heure de debut superieur à heure de fin");
+                                    continue;
+                                }
+    
+                                $emploisMatiere = new EmploisMatiere;
+                                $emploisMatiere->$id = $emplois->id;
+                                $emploisMatiere->matiere_id = $this->matiere_id[$i];
+                                $emploisMatiere->jour = $this->jour[$i];
+                                $emploisMatiere->heure_debut = $this->heure_debut[$i];
+                                $emploisMatiere->heure_fin = $this->heure_fin[$i];
+                                $emploisMatiere->save();
+                            }
+                            DB::commit();
+                            Toastr::success("Emploi du temps mis à jour avec succès!");
+                            return redirect()->to(route("pages.ecole.emplois.listes"));
+                        } catch (\Exception $e) {
+                            Toastr::error($e->getMessage(), "Erreur:");
+                            DB::rollback();
+                            return 0;
+                        }
+                    } else {
+                        Toastr::error("Veuillez remplir tous les champs");
+                        DB::rollback();
+                        return 0;
+                    }
+                } else {
+                    Toastr::error("Veuillez remplir tous les champs");
+                    DB::rollback();
+                    return 0;
+                }
+            } else {
+                if (count($this->heure_debut) == count($this->heure_fin) && count($this->heure_fin) == count($this->matiere_id) && count($this->matiere_id) == count($this->enseignant_id)) {
+                    DB::beginTransaction();
+                    try {
+                        $emplois = Emplois::find($id);
+                        if (!$emplois) {
+                            Toastr::error("Emploi du temps non trouvé");
+                            return 0;
+                        }
+                        $emplois->classe_id = $this->selectedClasse;
+                        $emplois->ecole_id = Auth::guard('ecole')->user()->id;
+                        $emplois->enseignant_id = $this->selectedEnseignant;
+                        $emplois->cycle_id = $this->selectedCycle;
+                        $emplois->save();
+    
+                        // Clear existing EmploisMatiere records for this Emplois
+                        EmploisMatiere::where('emplois_id', $emplois->id)->delete();
+    
+                        for ($i = 0; $i < count($this->heure_debut); $i++) {
+                            if ($this->heure_debut[$i] > $this->heure_fin[$i]) {
+                                Toastr::error("Erreur", "Heure de debut superieur a heure de fin");
+                                continue;
+                            }
+    
+                            $enseignantAlreadyBusy = EmploisMatiere::where(
+                                [
+                                    ["enseignant_id", $this->enseignant_id[$i]],
+                                    ["jour", $this->jour[$i]],
+                                    ["heure_debut", $this->heure_debut[$i]],
+                                    ["heure_fin", $this->heure_fin[$i]],
+                                ]
+                            )->get();
+                            if (count($enseignantAlreadyBusy)) {
+                                Toastr::error("Erreur", "Enseignant " . Enseignant::find($this->enseignant_id[$i])->prenom . " déjà affecté ");
+                                continue;
+                            }
+    
+                            $emploisMatiere = new EmploisMatiere();
+                            $emploisMatiere->id = $emplois->id;
+                            $emploisMatiere->enseignant_id = $this->enseignant_id[$i];
+                            $emploisMatiere->matiere_id = $this->matiere_id[$i];
+                            $emploisMatiere->jour = $this->jour[$i];
+                            $emploisMatiere->heure_debut = $this->heure_debut[$i];
+                            $emploisMatiere->heure_fin = $this->heure_fin[$i];
+                            $emploisMatiere->save();
+                        }
+                        DB::commit();
+                        Toastr::success("Emploi du temps mis à jour avec succès!");
+                        return redirect()->to(route("pages.ecole.emplois.listes"));
+                    } catch (\Exception $e) {
+                        Toastr::error($e->getMessage(), "Erreur: ");
+                        DB::rollback();
+                        return 0;
+                    }
+                } else {
+                    Toastr::error("Veuillez remplir tous les champs");
+                    DB::rollback();
+                    return 0;
+                }
+            }
+        } else {
+            Toastr::error("Veuillez remplir tous les champs");
+            DB::rollback();
+            return 0;
+        }
+    }
 
     public function save()
     {

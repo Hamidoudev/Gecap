@@ -122,7 +122,7 @@
 
                                 <td>
                                     
-                                    <a class="me-3" wire:click="ActiveShow({{ $emploi->id }})">
+                                    <a class="me-3" href="{{url('emplois/show/'.$emploi->id)}}">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/eye.svg') }}"
                                             alt="img">
                                     </a>

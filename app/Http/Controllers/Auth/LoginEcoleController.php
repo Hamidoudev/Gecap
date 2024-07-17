@@ -56,7 +56,9 @@ class LoginEcoleController extends Controller
             "password.required" => 'Champ obligatoire'
         ]);
 
+   
 
+       
         if (Auth::guard('ecole')->attempt(['email' => $input['email'], 'password' => $input['password']])) {
             if (Auth::guard('ecole')->user()->type->name == 'ecole') {
                 return redirect()->route('ecole.home')->with('success', 'Bienvenue sur votre espace de travail du GECAP');

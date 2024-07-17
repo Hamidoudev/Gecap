@@ -32,4 +32,8 @@ class Emplois extends Model
     {
         return $this->hasMany(EmploisMatiere::class);
     }
+    public function ecole()
+            {
+                return $this->belongsTo(Ecole::class);
+            }
 }

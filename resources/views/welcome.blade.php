@@ -35,18 +35,18 @@
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        {{-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only"></span>
             </div>
-        </div>
+        </div> --}}
         <!-- Spinner End -->
 
 
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="auth/login" class="navbar-brand p-0">
+            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0 sticky-top shadow-sm">
+                <a href="#"  class="navbar-brand p-0">
                     <h1 class="m-0">GECAP</h1>
                     
                 </a>
@@ -55,41 +55,32 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
-                        <a href="/" class="nav-item nav-link active">Accueil</a>
-                        <a href="/" class="nav-item nav-link">A-propos</a>
-                       
-                        {{-- <div class="nav-item dropdown">
-                            <a href="auth/loginEcole" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Se Connecter</a>
-                            <div class="dropdown-menu m-0">
-                                <a href="auth/loginEcole" class="dropdown-item">Ecole</a>
-                                <a href="auth/loginEnseignant" class="dropdown-item">Enseignant</a>
-                                
-                            </div>
-                        </div> --}}
+                        <a href="#accueil" class="nav-item nav-link active">Accueil</a>
+                        <a href="#apropos" class="nav-item nav-link">A-propos</a>
                         <a href="#" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="nav-item dropdown">
-                    <a href="#" class="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block dropdown-toggle" data-bs-toggle="dropdown">Se Connecter</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="auth/ecole/login" class="dropdown-item">Ecole</a>
-                        <a href="auth/enseignant/login" class="dropdown-item">Enseignant</a>
-                        
-                    </div>
+                        <a href="#" class="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block " data-bs-toggle="dropdown">Se Connecter</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="auth/ecole/login" class="dropdown-item">Ecole</a>
+                            <a href="auth/enseignant/login" class="dropdown-item">Enseignant</a>
+                        </div>
                     </div>
                 </div>
+                
             </nav>
 
-            <div class="container-xxl bg-primary hero-header">
-                <div class="container px-lg-5">
-                    <div class="row g-5 align-items-end">
-                        <div class="col-lg-6 text-center text-lg-start" style="font-family: 'Times New Roman', Times, serif" >
+            <div class="container-xxl bg-primary hero-header" id="accueil">
+                <div class="container px-lg-1 ">
+                    <div class="row g-5 align-items-center ">
+                        <div class="col-lg-6 text-center text-lg-start mt-0" style="font-family: 'Times New Roman', Times, serif" >
                             <h1 class="text-white mb-4 animated slideInDown">Bienvenue sur GeCAP</h1>
                             <p class="text-white pb-3 animated slideInDown">L'outil indispensable pour le Centre d'Animation Pédagogique de Sebenicoro !
                                  Nous sommes ravis de vous accueillir sur notre plateforme conçue sur mesure pour simplifier et optimiser vos processus.
                                  Facilitez votre gestion administrative, 
                                  optimisez vos programmes pédagogiques et donnez une nouvelle dimension à votre efficacité organisationnelle</p>
                         </div>
-                        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200" onmousedown="startTimer()" onmouseup="stopTimer()" ontouchstart="startTimer()" ontouchend="stopTimer()">
                           <img src="{{ URL:: to('Arsha/assets/img/login.png') }}" class="img-fluid animated" alt="">
                         </div>
                     </div>
@@ -100,7 +91,7 @@
 
 
         <!-- Feature Start -->
-        <div class="container-xxl py-5">
+        {{-- <div class="container-xxl py-5">
             <div class="container py-5 px-lg-5">
                 <div class="row g-4">
                     <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
@@ -126,39 +117,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Feature End -->
-
-
-        <!-- About Start -->
-       
-        <!-- About End -->
-
-
-        <!-- Facts Start -->
-        <div class="container-xxl bg-primary fact py-5 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-4">
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
-                        <i class="fa fa-certificate fa-3x text-secondary mb-3"></i>
-                        <h1 class="text-white mb-2" data-toggle="counter-up">3</h1>
-                        <p class="text-white mb-0">Années d'experience</p>
-                    </div>
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
-                        <i class="fa fa-users-cog fa-3x text-secondary mb-3"></i>
-                        <h1 class="text-white mb-2" data-toggle="counter-up">34</h1>
-                        <p class="text-white mb-0">Membres de l'administration</p>
-                    </div>
-                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
-                        <i class="fa fa-users fa-3x text-secondary mb-3"></i>
-                        <h1 class="text-white mb-2" data-toggle="counter-up">8</h1>
-                        <p class="text-white mb-0">Clients Satisfaits</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Facts End -->
-
 
         <!-- Service Start -->
         <div class="container-xxl py-5">
@@ -167,31 +127,11 @@
                     <p class="section-title text-secondary justify-content-center"><span></span>Nos Services<span></span></p>
                     <h1 class="text-center mb-5">What Solutions We Provide</h1>
                 </div>
-                <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item d-flex flex-column text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fa fa-search fa-2x"></i>
-                            </div>
-                            <h5 class="mb-3">SEO Optimization</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item d-flex flex-column text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fa fa-laptop-code fa-2x"></i>
-                            </div>
-                            <h5 class="mb-3">Web Design</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
-                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
+                <div class="row g-4" id="apropos">
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <i class="fab fa-facebook-f fa-2x"></i>
+                                <img src="{{ URL:: to('Arsha/assets/img/fille.png') }}" alt="Social Media Marketing" class="img-fluid">
                             </div>
                             <h5 class="mb-3">Social Media Marketing</h5>
                             <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
@@ -201,7 +141,7 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <i class="fa fa-mail-bulk fa-2x"></i>
+                                <img src="{{ URL:: to('Arsha/assets/img/skills.png') }}" alt="Email Marketing" class="img-fluid">
                             </div>
                             <h5 class="mb-3">Email Marketing</h5>
                             <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
@@ -211,7 +151,7 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <i class="fa fa-thumbs-up fa-2x"></i>
+                                <img src="{{ URL:: to('Arsha/assets/img/why-us.png') }}" alt="PPC Advertising" class="img-fluid">
                             </div>
                             <h5 class="mb-3">PPC Advertising</h5>
                             <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
@@ -221,7 +161,28 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <i class="fab fa-android fa-2x"></i>
+                                <img src="{{ URL:: to('Arsha/assets/img/images.png') }}" alt="App Development" class="img-fluid">
+                            </div>
+                            <h5 class="mb-3">App Development</h5>
+                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="service-item d-flex flex-column text-center rounded">
+                            <div class="service-icon flex-shrink-0">
+                                <img src="{{ URL:: to('Arsha/assets/img/hero-img.png') }}" alt="App Development" class="img-fluid">
+                            </div>
+                            <h5 class="mb-3">App Development</h5>
+                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                            <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="service-item d-flex flex-column text-center rounded">
+                            <div class="service-icon flex-shrink-0">
+                                <img src="{{ URL:: to('Arsha/assets/img/boy.png') }}" alt="App Development" class="img-fluid">
                             </div>
                             <h5 class="mb-3">App Development</h5>
                             <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
@@ -231,6 +192,35 @@
                 </div>
             </div>
         </div>
+    <!-- Facts Start -->
+        <div class="container-xxl bg-primary fact py-5 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="container py-5 px-lg-5">
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                        <i class="fa fa-certificate fa-3x text-secondary mb-3"></i>
+                        <h1 class="text-white mb-2" data-toggle="counter-up">3</h1>
+                        <p class="text-white mb-0">Ecoles</p>
+                    </div>
+                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                        <i class="fa fa-users-cog fa-3x text-secondary mb-3"></i>
+                        <h1 class="text-white mb-2" data-toggle="counter-up">34</h1>
+                        <p class="text-white mb-0">Membres de l'administration</p>
+                    </div>
+                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
+                        <i class="fa fa-users fa-3x text-secondary mb-3"></i>
+                        <h1 class="text-white mb-2" data-toggle="counter-up">8</h1>
+                        <p class="text-white mb-0">Elèves</p>
+                    </div>
+                    <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                        <i class="fa fa-users-cog fa-3x text-secondary mb-3"></i>
+                        <h1 class="text-white mb-2" data-toggle="counter-up">34</h1>
+                        <p class="text-white mb-0">Enseignants</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!-- Facts End -->
+
         <!-- Service End -->
 
 
@@ -406,12 +396,12 @@
                                 <h5>Fousseyni DIALLO</h5>
                                 <span>DCAP</span>
                             </div>
-                            <div class="d-flex justify-content-center p-4">
+                            {{-- <div class="d-flex justify-content-center p-4">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
@@ -421,12 +411,12 @@
                                 <h5>Bakary KANTE</h5>
                                 <span>DCAP adjoint</span>
                             </div>
-                            <div class="d-flex justify-content-center p-4">
+                            {{-- <div class="d-flex justify-content-center p-4">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
@@ -436,12 +426,12 @@
                                 <h5>Labati GASSAMBA</h5>
                                 <span>Sécretaire</span>
                             </div>
-                            <div class="d-flex justify-content-center p-4">
+                            {{-- <div class="d-flex justify-content-center p-4">
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
                                 <a class="btn btn-square mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -468,8 +458,9 @@
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <p class="section-title text-white h5 mb-4">Lien rapide<span></span></p>
-                        <a class="btn btn-link" href="">A propos de nous</a>
-                        <a class="btn btn-link" href="">Contact</a>
+                        <a class="btn btn-link" href="#accueil">Accueil</a>
+                        <a class="btn btn-link" href="#apropos">A propos de nous</a>
+                        <a class="btn btn-link" href="" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal">Contact</a>
                     </div>
                 </div>
             </div>
@@ -507,6 +498,47 @@
 
     <!-- Template Javascript -->
     <script src="{{ URL:: to('template/js/main.js') }}"></script>
+
+    <script>
+        // Fonction pour détecter l'appui long
+        var timer;
+        function startTimer() {
+            timer = setTimeout(function() {
+                // Rediriger vers la page de connexion administrateur
+                window.location.href = "{{ url('auth/login') }}";
+            }, 7000); // 7 secondes
+        }   
+    
+        function stopTimer() {
+            clearTimeout(timer);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Remove 'active' class from all nav links
+                navLinks.forEach(nav => nav.classList.remove('active'));
+
+                // Add 'active' class to the clicked nav link
+                this.classList.add('active');
+            });
+        });
+
+        // To handle modal links specifically if needed
+        const modalLink = document.querySelector('a[data-bs-target="#ajoutEnseignantModal"]');
+        if (modalLink) {
+            modalLink.addEventListener('click', function() {
+                // Remove 'active' class from all nav links
+                navLinks.forEach(nav => nav.classList.remove('active'));
+
+                // Add 'active' class to the clicked modal link
+                this.classList.add('active');
+            });
+        }
+    });
+    </script>
 </body>
 
 </html>

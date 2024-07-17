@@ -113,7 +113,7 @@ class EnseignantAController extends Controller
     {
         $enseignant = Enseignant::find($id);
         $enseignant->delete();
-        return redirect()->route('enseignants.listes')->with('danger', 'suppression effectuée avec succèsx');
+        return redirect()->route('pages.ecole.enseignants.listes')->with('danger', 'suppression effectuée avec succèsx');
     }
     public function telechargerPdf($id)
 {

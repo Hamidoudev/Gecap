@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use App\Models\Ecole;
+use App\Mail\EcoleMail;
 use App\Models\typeEcole;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Notifications\UserNotification;
 
 class EcoleController extends Controller
@@ -36,6 +38,7 @@ class EcoleController extends Controller
      */
     public function store(Request $request)
     {
+        $password = $request->password;
         $ecole = new Ecole;
         $ecole->typeecole_id = $request->typeecole_id; 
         $ecole->type_id = 4; 
@@ -44,6 +47,14 @@ class EcoleController extends Controller
         $ecole->email = $request->email;
         $ecole->password =Hash::make($request->password);
         $ecole->save();
+        $data = [
+            'nom' => $request->nom,
+            'email' => $request->email,
+            'siege' => $request->siege,
+            'password' => $password
+        ];
+        Mail::to($request->email)
+                        ->queue(new EcoleMail($data));
         return redirect()->route('ecoles.listes')->with('success', 'enregistrement effectuée'); 
     }
     

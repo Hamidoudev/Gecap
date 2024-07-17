@@ -33,29 +33,15 @@ class EleveController extends Controller
 
     public function store(Request $request)
     {
-        // Validation des données du formulaire
-        $validatedData = $request->validate([
-            'matricule' => 'required|unique:eleves,matricule',
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'date_n' => 'required|date',
-            'adresse' => 'nullable|string',
-            'genre' => 'required|in:F,M',
-            'acte_n' => 'nullable|binary',
-            'ecole_id' => 'required|exists:ecoles,id',
-            'classe_id' => 'required|exists:classes,id',
-        ]);
-
-        // Création d'un nouvel élève avec les données validées
-        $eleve = new Eleve();
-        $eleve->classe_id = $request->classe_id;
-        $eleve->ecole_id = Auth::guard('ecole')->user()->id;
-        $eleve->matricule = $validatedData['matricule'];
-        $eleve->nom = $validatedData['nom'];
-        $eleve->prenom = $validatedData['prenom'];
-        $eleve->date_n = $validatedData['date_n'];
-        $eleve->adresse = $validatedData['adresse'];
-        $eleve->genre = $validatedData['genre'];
+        $eleve = new Eleve;
+        $eleve->classe_id = $request->classe_id; 
+        $eleve->ecole_id =Auth::guard('ecole')->user()->id;
+        $eleve->matricule = $request->matricule;
+        $eleve->nom = $request->nom;
+        $eleve->prenom = $request->prenom;
+        $eleve->date_n = $request->date_n;
+        $eleve->adresse = $request->adresse;
+        $eleve->genre = $request->genre;
         if ($request->hasFile('acte_n')) {
             $file = $request->file('acte_n');
             
@@ -97,9 +83,9 @@ class EleveController extends Controller
     public function edit($id)
     {
        
-        $classes = Classe::all();
+       
         $eleve = eleve::find($id);
-        return view('pages.ecole.eleves.edit', compact('eleve', 'classes'));
+        return view('pages.ecole.eleves.edit', compact('eleve'));
     }
 
         public function update(Request $request, string $id)

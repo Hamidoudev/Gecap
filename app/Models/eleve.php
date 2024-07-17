@@ -14,4 +14,8 @@ class Eleve extends Model
     {
         return $this->belongsTo(Classe::class);
     }
+    public function ecole()
+    {
+        return $this->belongsTo(Ecole::class);
+    }
 }

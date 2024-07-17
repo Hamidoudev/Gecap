@@ -56,8 +56,10 @@ class LoginEnseignantController extends Controller
         ]);
 
        
+        
+       
 
-
+      
         if (Auth::guard('enseignant')->attempt(['email' => $input['email'], 'password' => $input['password']])) {
             if (Auth::guard('enseignant')->user()->type->name == 'enseignant') {
                 return redirect()->route('enseignant.home')->with('success', 'Bienvenue sur votre espace de travail du GECAP');

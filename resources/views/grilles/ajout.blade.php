@@ -9,11 +9,33 @@
                 @if ($message = Session::get('success'))
                 <h3> {{ $message }} </h3>
             @endif
+
+           
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <form action="{{ route('grilles.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                     <div class="modal-body">
+                        @error('nom')
+
+                        <div class="alert alert-danger">
+                    
+                            <p>Le champ "Nom" est obligatoire!!!</p>
+                    
+                        </div>
+                    
+                    @enderror
+                    
+                    
+                    @error('prenom')
+                    
+                        <div class="alert alert-danger">
+                    
+                            <p>Le champ "Prénom" est obligatoire!!!</p>
+                    
+                        </div>
+                    
+                    @enderror
                         <div class="card">
                             <div class="card-body">
                 <div class="row">

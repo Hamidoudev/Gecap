@@ -17,15 +17,14 @@ class EleveController extends Controller
     {
         $ecoles = Ecole::all();
         $classes = Classe::all(); 
-        $ecoleId = Auth::guard('ecole')->user()->id;
-        $eleves = Eleve::where('ecole_id', $ecoleId)->get();
-        return view('pages.ecole.eleves.listes', compact('eleves','classes','ecoles'));
+        $eleves = Eleve::all();
+        return view('eleves.listes', compact('eleves','classes','ecoles'));
     }
     public function create()
     {
         $ecoles = Ecole::all();
         $classes = Classe::all();
-        return view('pages.ecole.eleves.ajout', compact('classes', 'ecoles'));
+        return view('eleves.ajout', compact('classes', 'ecoles'));
     }
       
 
@@ -69,7 +68,7 @@ class EleveController extends Controller
         $ecoles = Ecole::all();
         $classes = Classe::all();
         $eleve = eleve::find($id);
-        return view('pages.ecole.eleves.edit', compact('eleve', 'classes','ecoles'));
+        return view('eleves.edit', compact('eleve', 'classes','ecoles'));
     }
 
     /**

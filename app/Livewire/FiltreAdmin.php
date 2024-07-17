@@ -36,6 +36,7 @@ class FiltreAdmin extends Component
     public $DetailEmploi;
     public $emploismatiere;
     public $ListesEnseignants = [];
+    public $emploismatiereDetail;
   
 
    
@@ -103,32 +104,13 @@ class FiltreAdmin extends Component
         $this->editMode = true;
     }
 
+  
     public function ActiveShow($id)
     {
-        $this->fields =[];
-        $DetailEmploi = Emplois::where('id', $id)->first();
-        $this->selectedClasse = $DetailEmploi->classe_id;
-        $this->selectedCycle = $DetailEmploi->cycle_id;
-        $this->selectedEnseignant = $DetailEmploi->enseignant_id;
-        $emploismatiere = EmploisMatiere::where('emplois_id',$DetailEmploi->id)->get();
-        $this->fields[] =$emploismatiere;
-        foreach($emploismatiere as $key=> $emploi)
-        {
-            $this->heure_debut[$key] = $emploi->heure_debut;
-            $this->heure_fin[$key] = $emploi->heure_fin;
-            $this->jour[$key] = $emploi->jour;
-            $this->matiere_id[$key] = $emploi->matiere_id;
-            $this->enseignant_id[$key] = $emploi->enseignant_id;
-
-            $matiere = Matiere::find($emploi->matiere_id);
-            if ($matiere) {
-                $this->enseignants[$key] = $matiere->enseignants;
-            } else {
-                $this->enseignants[$key] = [];
-            }
-        }
+        $this->DetailEmploi = Emplois::where('id', $id)->first();
+        $this->emploismatiereDetail = EmploisMatiere::where('emplois_id',$this->DetailEmploi->id)->get();
         $this->afficherliste = false;
-        $this->editMode = true;
+        $this->showMode = true;
     }
 
     public function RetourEdit()

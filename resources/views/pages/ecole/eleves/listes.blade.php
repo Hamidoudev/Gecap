@@ -185,7 +185,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                @include('eleves.edit', ['eleve' => $eleve])
+                @include('pages.ecole.eleves.edit', ['eleve' => $eleve])
             </div>
         </div>
     </div>

@@ -25,13 +25,14 @@
         <div class="container">
         <div class="loginbox">
         <div class="login-left col-md-6">
-        <img class="img-fluid" src="{{ URL:: to('Arsha/assets/img/boy.png') }}" alt="Logo">
+        <img class="img-fluid" src="{{ URL:: to('Arsha/assets/img/why-us.png') }}" alt="Logo">
         </div>
         <div class="login-right">
         <div class="login-right-wrap">
         <h1>Bienvenue !!</h1>
+        <p>Cher Enseignant</p>
         {{-- <p class="account-subtitle">Need an account? <a href="register.html">Sign Up</a></p> --}}
-        <h2>Authentifiez-vous</h2>
+        <h2>Authentifiez-vous pour continuer</h2>
                                     <form method="POST" action="{{ route ('login.enseignant') }}">
                                         @csrf
                                         <div class="mb-3">

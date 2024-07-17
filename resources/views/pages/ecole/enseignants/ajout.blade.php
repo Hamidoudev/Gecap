@@ -45,8 +45,7 @@
                                 <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Téléphone <span class="text-danger">*</span></label>
-                                        <input type="text" name="telephone" class="form-control">
-                                    </div>
+                                        <input type="text" name="telephone" class="form-control" id="telephone" value="+223">                                    </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="form-group">
@@ -105,3 +104,35 @@
 <!-- Vos scripts JS, y compris Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const telephoneInput = document.getElementById('telephone');
+        
+        // Mettre le curseur après le préfixe initial
+        telephoneInput.setSelectionRange(4, 4);
+
+        // Événement pour empêcher la suppression du préfixe
+        telephoneInput.addEventListener('input', function(e) {
+            if (!telephoneInput.value.startsWith('+223')) {
+                telephoneInput.value = '+223';
+                telephoneInput.setSelectionRange(4, 4);
+            }
+        });
+
+        // Empêcher la suppression du préfixe via Backspace ou Delete
+        telephoneInput.addEventListener('keydown', function(e) {
+            const cursorPos = telephoneInput.selectionStart;
+            if ((e.key === 'Backspace' && cursorPos <= 4) || (e.key === 'Delete' && cursorPos < 4)) {
+                e.preventDefault();
+                telephoneInput.setSelectionRange(4, 4);
+            }
+        });
+
+        // Mettre le curseur après le préfixe lorsqu'on clique dans le champ
+        telephoneInput.addEventListener('click', function(e) {
+            if (telephoneInput.selectionStart < 4) {
+                telephoneInput.setSelectionRange(4, 4);
+            }
+        });
+    });
+</script>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,83 +7,108 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
+
         .container {
-            width: 80%;
+            max-width: 800px;
             margin: 0 auto;
+            padding: 20px;
         }
-        h1 {
-            text-align: center;
+
+        .detail-info {
+            color: rgb(42, 120, 246);
+            font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
         }
-        .form-group {
-            margin: 20px 0;
-        }
-        label {
-            font-weight: bold;
-        }
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
+
+        table, th, td {
+            border: 1px solid #333;
+        }
+
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
+            padding: 10px;
+            text-align: left;
         }
+
         th {
-            background-color: #f2f2f2;
+            background-color: #333;
+            color: white;
+        }
+
+        .footer-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Emploi du Temps</h1>
-        <div class="form-group">
-            <label for="classe_id">Classe:</label>
-            {{ isset($emploi->classe->libelle) ? $emploi->classe->libelle : 'Aucune classe sélectionnée' }}
-        </div>
-        <div class="form-group">
-            <label for="cycle_id">Cycle:</label>
-            {{ isset($emploi->cycle->libelle) ? $emploi->cycle->libelle : 'Aucun cycle sélectionné' }}
-        </div>
-        <div class="form-group">
-            <label for="ecole_id">Ecole:</label>
-            {{ isset($emploi->ecole->nom) ? $emploi->ecole->nom : 'Aucune école sélectionnée' }}
-        </div>
-        <div class="form-group">
-            <label for="ecole_id">Enseignant:</label>
-            {{ isset($emploi->enseignant->nom) ? $emploi->enseignant->nom : 'Aucun enseignant sélectionnée' }}
-        </div>
+        <strong>
+            <h3 class="detail-info">Détail Emplois de l'école {{ $DetailEmploi->ecole->nom }}</h3>
+        </strong>
+        <p>Classe :  {{ $DetailEmploi->classe->libelle }}</p>
+        <p>Cycle :  {{ $DetailEmploi->cycle->libelle }}</p>
+
+        <!-- Affichage de l'enseignant si le cycle est 1 -->
+        @if ($DetailEmploi->cycle->id == 1)
+        <p>Enseignant : {{ $DetailEmploi->enseignant->prenom }} {{ $DetailEmploi->enseignant->nom }}</p>
+    @endif
+
         <table>
             <thead>
                 <tr>
-                    <th>Heures/Jours</th>
-                    <th>Lundi</th>
-                    <th>Mardi</th>
-                    <th>Mercredi</th>
-                    <th>Jeudi</th>
-                    <th>Vendredi</th>
+                    <th>Heure Début</th>
+                    <th>Heure Fin</th>
+                    <th>Jour</th>
+                    <th>Matière</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach(['7h:45-10h:00', '7h:45-8h:45', '8h:45-9h:45', '10h:00-12h:00', '12h:00-13h:00', '13h:00-14h:00', '14h:00-15h:00', '15h:00-16h:00', '16h:00-17h:00', '17h:00-18h:00','15h:00-17h:00'] as $heure)
+                @foreach ($emploismatiereDetail as $item)
                     <tr>
-                        <td>{{ $heure }}</td>
-                        @foreach(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'] as $jour)
-                            <td>
-                                {{ isset($emploi->matiere_id[$jour][$heure]) ? $emploi->matiere_id[$jour][$heure]->libelle : 'Aucune matière sélectionnée' }}
-                            </td>
-                        @endforeach
+                        <td>{{ $item->heure_debut }}</td>
+                        <td>{{ $item->heure_fin }}</td>
+                        <td>{{ $item->jour }}</td>
+                        <td>{{ $item->matiere->libelle }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @if ($item->enseignant_id == null)
+                                <span>......</span>
+                            @else
+                            <span>{{$item->enseignant->nom}} {{$item->enseignant->prenom}}</span>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-    
+
 </body>
 </html>

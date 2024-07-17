@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ecole;
 
+use Carbon\Carbon;
 use App\Models\Cycle;
 use App\Models\Ecole;
 use App\Models\Classe;
@@ -9,6 +10,7 @@ use App\Models\Emplois;
 use App\Models\Matiere;
 use App\Models\Enseignant;
 use Illuminate\Http\Request;
+use App\Models\EmploisMatiere;
 use Barryvdh\DomPDF\Facade\pdf;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -22,32 +24,26 @@ class EmploisController extends Controller
         $matieres = Matiere::all();
         $cycles = Cycle::all();
         $enseignants = Enseignant::all();
-        $enseignantId = Auth::guard('enseignant')->user()->id;
-        $emplois = Emplois::where('enseignant_id', $enseignantId)->get();
-        return view('pages.ecole.emplois.listes', compact('cycles','enseignants','classes', 'matieres'));
+        $ecoleId = Auth::guard('ecole')->user()->id;
+        $emplois = Emplois::where('id', $ecoleId)->get();
+        return view('pages.ecole.emplois.listes', compact('cycles','enseignants','classes', 'matieres','emplois'));
     }
 
-    public function generatePdf(Request $request)
+   
+    public function generatePdf($id)
     {
-       $id = decrypt($request->id);
+        $DetailEmploi = Emplois::where('id', $id)->first();
+        $emploismatiereDetail = EmploisMatiere::where('emplois_id',$DetailEmploi->id)->get();
+        $data = [
+            'DetailEmploi' => $DetailEmploi,
+            'emploismatiereDetail' => $emploismatiereDetail
+        ];
+        $pdf = Pdf::loadView('pages.ecole.emplois.pdf', $data);
+        $todayDate = Carbon::now()->format('Y-m-d');
+        return $pdf->download('Emplois du temps - '.$todayDate . '.pdf');
        
-       try {
-            $emploi = Emplois::find($id);
-            $pdf = PDF::loadView('emplois.pdf', compact('emploi'));
-    
-            Log::info('PDF généré avec succès');
-    
-            return $pdf->download('emplois.pdf');
-        } catch (\Exception $e) {
-            Log::error('Erreur lors de la génération du PDF :', [
-                'message' => $e->getMessage(),
-                'stack' => $e->getTraceAsString()
-            ]);
-    
-            return response()->json(['error' => 'Échec de la génération du PDF'], 500);
-        }
     }
-    
+
     public function create()
     {
         $classes = Classe::all();
@@ -99,7 +95,10 @@ class EmploisController extends Controller
 
     public function show(string $id)
     {
-        $emploi = Emplois::with(['classes', 'cycles', 'ecoles','enseignants', 'matieres'])->findOrFail($id);
+        // $emploi = Emplois::with(['classes', 'cycles', 'ecoles','enseignants', 'matieres'])->findOrFail($id);
+        $DetailEmploi = Emplois::where('id', $id)->first();
+        $emploismatiereDetail = EmploisMatiere::where('emplois_id',$DetailEmploi->id)->get();
+        return view('pages.ecole.emplois.vue',compact('DetailEmploi','emploismatiereDetail'));
     }
     public function vue(Request $request, string $id)
     {

@@ -9,7 +9,10 @@
             <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter grilles
         </a>
     </div>
+
+
 </div>
+
 <div class="card">
     <div class="card-body">
         <div class="table-top">
@@ -27,11 +30,15 @@
                 </div>
             </div>
             <div class="wordset">
-                <ul>
-                    <li>
-                        <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="{{ URL::to('admin-template/assets/img/icons/printer.svg') }}" alt="img"></a>
-                    </li>
-                </ul>
+                @if ($errors->any())
+
+                <div class="alert alert-danger">
+            
+                    <p> Echec d'enregistrement, Tout les champs sont obligatoire!!!</p>
+            
+                </div>
+            
+            @endif
             </div>
         </div>
 

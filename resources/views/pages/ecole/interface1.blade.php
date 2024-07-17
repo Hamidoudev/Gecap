@@ -185,7 +185,7 @@
 
 
 
-            <footer id="footer" class="footer">
+            <footer id="footer" class="ecole">
 
                 <div class="footer-content position-relative">
                     <div class="container">
@@ -193,7 +193,7 @@
 
                             <div class="col-lg-4 col-md-6">
                                 <div class="footer-info " style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
-                                    <h4 class="">Bienvenue, <br> {{ session('nom')   }} </h4>
+                                    <h4 class="">Bienvenue, <br> {{ Auth::guard('ecole')->user()->nom }}</h4>
                                     <p>
                                         sur votre espace de travail. 
                                     </p>
@@ -243,9 +243,9 @@
                 <div class="row">
 
                     @php
-                    use App\Models\Personneladmin;
+                    use App\Models\Matiere;
                     use App\Models\Enseignant;
-                    use App\Models\grille;
+                    use App\Models\eleve;
                     use App\Models\Programme;
                     @endphp
                     
@@ -253,11 +253,11 @@
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count bg-secondary">
                             <div class="dash-counts">
-                                <h4>{{ Personneladmin::count() }}</h4>
-                                <h5>Personnels</h5>
+                                <h4>{{ eleve::count() }}</h4>
+                                <h5>Elèves</h5>
                             </div>
                             <div class="dash-imgs">
-                                <a href="{{route('personnels.listes')}}">
+                                <a href="{{route('pages.ecole.eleves.listes')}}">
                                  <i data-feather="user"></i></a>
                             </div>
                         </div>
@@ -269,18 +269,18 @@
                                 <h5>Enseignants</h5>
                             </div>
                             <div class="dash-imgs">
-                                <a href="{{route('enseignants.listes')}}"><i data-feather="user-check"> </i></a>
+                                <a href="{{route('pages.ecole.enseignants.listes')}}"><i data-feather="user-check"> </i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12 d-flex">
                         <div class="dash-count das2">
                             <div class="dash-counts">
-                                <h4>{{ grille::count() }}</h4>
-                                <h5>Grilles</h5>
+                                <h4>{{ Matiere::count() }}</h4>
+                                <h5>Matière</h5>
                             </div>
                             <div class="dash-imgs">
-                                <a href="{{route('grilles.listes')}}"> <i data-feather="file-text"></i></a>
+                                <a href="{{route('pages.ecole.matieres.listes')}}"> <i data-feather="file-text"></i></a>
                             </div>
                         </div>
                     </div>

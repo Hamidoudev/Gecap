@@ -12,17 +12,19 @@ use Illuminate\Queue\SerializesModels;
 class EcoleMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $data;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     public function build()
     {
-        
+        return $this->from("hamidoudem69@gmail.com") // L'expéditeur
+                    ->subject("Message du  Système GECAP ") // Le sujet
+                    ->view('emails.ecole-message'); // La vue
     }
 }

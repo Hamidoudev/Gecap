@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Filtre extends Component
 {
-    public $selectedEnseignant, $ecoles, $classes, $cycles, $emplois, $selectedClasse, $selectedCycle, $selectedEcole;
+    public $selectedEnseignant, $selectedEmploiId, $ecoles, $classes, $cycles, $emplois, $selectedClasse, $selectedCycle, $selectedEcole;
     public $showInput = false;
     public $matiere_id = [];
     public $emploiId;
@@ -35,9 +35,8 @@ class Filtre extends Component
     public $DetailEmploi;
     public $emploismatiere;
     public $ListesEnseignants = [];
-  
-
-   
+    public $emploismatiereDetail;
+    public $id;
 
    
 
@@ -46,8 +45,8 @@ class Filtre extends Component
 
         $this->matieres = Matiere::all();
         $this->enseignants = collect();
-
-        $this->emplois = DB::table("emplois")->get();
+       
+        // $this->emplois = DB::table("emplois")->get();
     }
 
     public function enterEditMode($emploiId)
@@ -104,30 +103,10 @@ class Filtre extends Component
 
     public function ActiveShow($id)
     {
-        $this->fields =[];
-        $DetailEmploi = Emplois::where('id', $id)->first();
-        $this->selectedClasse = $DetailEmploi->classe_id;
-        $this->selectedCycle = $DetailEmploi->cycle_id;
-        $this->selectedEnseignant = $DetailEmploi->enseignant_id;
-        $emploismatiere = EmploisMatiere::where('emplois_id',$DetailEmploi->id)->get();
-        $this->fields[] =$emploismatiere;
-        foreach($emploismatiere as $key=> $emploi)
-        {
-            $this->heure_debut[$key] = $emploi->heure_debut;
-            $this->heure_fin[$key] = $emploi->heure_fin;
-            $this->jour[$key] = $emploi->jour;
-            $this->matiere_id[$key] = $emploi->matiere_id;
-            $this->enseignant_id[$key] = $emploi->enseignant_id;
-
-            $matiere = Matiere::find($emploi->matiere_id);
-            if ($matiere) {
-                $this->enseignants[$key] = $matiere->enseignants;
-            } else {
-                $this->enseignants[$key] = [];
-            }
-        }
+        $this->DetailEmploi = Emplois::where('id', $id)->first();
+        $this->emploismatiereDetail = EmploisMatiere::where('emplois_id',$this->DetailEmploi->id)->get();
         $this->afficherliste = false;
-        $this->editMode = true;
+        $this->showMode = true;
     }
 
     public function RetourEdit()
@@ -267,12 +246,13 @@ class Filtre extends Component
 
     public function __construct()
     {
-        $this->emplois = Emplois::all();
+        $this->emplois = Emplois::where('ecole_id', Auth::guard('ecole')->user()->id)->get();
         $this->classes = Classe::all();
         $this->cycles = Cycle::all();
         $this->ecoles = Ecole::all();
         $this->enseignants = Enseignant::all();
         $this->ListesEnseignants = Cycle::find(1)->enseignants;
+        
     }
 
     public function saveEmplois()
@@ -402,11 +382,10 @@ class Filtre extends Component
     }
     public function saveEmploisEdit($id)
     {
-
         if ($this->selectedClasse && $this->selectedCycle) {
             if ($this->selectedCycle == 1) {
                 if ($this->selectedEnseignant) {
-                    if (count($this->heure_debut) == count($this->heure_fin) && count($this->heure_fin) && count($this->heure_fin) == count($this->jour) && count($this->jour) == count($this->matiere_id)) {
+                    if (count($this->heure_debut) == count($this->heure_fin) && count($this->heure_fin) == count($this->jour) && count($this->jour) == count($this->matiere_id)) {
                         DB::beginTransaction();
                         try {
                             $emplois = Emplois::find($id);
@@ -425,12 +404,12 @@ class Filtre extends Component
     
                             for ($i = 0; $i < count($this->heure_debut); $i++) {
                                 if ($this->heure_debut[$i] > $this->heure_fin[$i]) {
-                                    Toastr::error("Heure de debut superieur à heure de fin");
+                                    Toastr::error("Heure de début supérieure à l'heure de fin");
                                     continue;
                                 }
     
                                 $emploisMatiere = new EmploisMatiere;
-                                $emploisMatiere->$id = $emplois->id;
+                                $emploisMatiere->emplois_id = $emplois->id; // Correct assignment
                                 $emploisMatiere->matiere_id = $this->matiere_id[$i];
                                 $emploisMatiere->jour = $this->jour[$i];
                                 $emploisMatiere->heure_debut = $this->heure_debut[$i];
@@ -447,12 +426,10 @@ class Filtre extends Component
                         }
                     } else {
                         Toastr::error("Veuillez remplir tous les champs");
-                        DB::rollback();
                         return 0;
                     }
                 } else {
                     Toastr::error("Veuillez remplir tous les champs");
-                    DB::rollback();
                     return 0;
                 }
             } else {
@@ -475,25 +452,25 @@ class Filtre extends Component
     
                         for ($i = 0; $i < count($this->heure_debut); $i++) {
                             if ($this->heure_debut[$i] > $this->heure_fin[$i]) {
-                                Toastr::error("Erreur", "Heure de debut superieur a heure de fin");
+                                Toastr::error("Erreur", "Heure de début supérieure à l'heure de fin");
                                 continue;
                             }
     
-                            $enseignantAlreadyBusy = EmploisMatiere::where(
-                                [
-                                    ["enseignant_id", $this->enseignant_id[$i]],
-                                    ["jour", $this->jour[$i]],
-                                    ["heure_debut", $this->heure_debut[$i]],
-                                    ["heure_fin", $this->heure_fin[$i]],
-                                ]
-                            )->get();
-                            if (count($enseignantAlreadyBusy)) {
-                                Toastr::error("Erreur", "Enseignant " . Enseignant::find($this->enseignant_id[$i])->prenom . " déjà affecté ");
+                            $enseignantAlreadyBusy = EmploisMatiere::where([
+                                ["enseignant_id", $this->enseignant_id[$i]],
+                                ["jour", $this->jour[$i]],
+                                ["heure_debut", $this->heure_debut[$i]],
+                                ["heure_fin", $this->heure_fin[$i]],
+                            ])->exists();
+    
+                            if ($enseignantAlreadyBusy) {
+                                $enseignantName = Enseignant::find($this->enseignant_id[$i])->prenom;
+                                Toastr::error("Erreur", "Enseignant " . $enseignantName . " déjà affecté ");
                                 continue;
                             }
     
                             $emploisMatiere = new EmploisMatiere;
-                            $emploisMatiere->id = $emplois->id;
+                            $emploisMatiere->emplois_id = $emplois->id; // Correct assignment
                             $emploisMatiere->enseignant_id = $this->enseignant_id[$i];
                             $emploisMatiere->matiere_id = $this->matiere_id[$i];
                             $emploisMatiere->jour = $this->jour[$i];
@@ -511,17 +488,15 @@ class Filtre extends Component
                     }
                 } else {
                     Toastr::error("Veuillez remplir tous les champs");
-                    DB::rollback();
                     return 0;
                 }
             }
         } else {
             Toastr::error("Veuillez remplir tous les champs");
-            DB::rollback();
             return 0;
         }
     }
-
+    
     public function save()
     {
         $this->validate([
@@ -543,3 +518,90 @@ class Filtre extends Component
         return view('livewire.filtre');
     }
 }
+
+// public function store(Request $request)
+//     {
+//         //
+//         $request->validate(
+//             [
+//                 "jour" => "|integer",
+//                 "heure_debut" => "|required",
+//                 "heure_fin" => "|required",
+//                 "professeur_id" => "|integer",
+//                 "matiere_id" => "|integer",
+//                 "filiere_id" => "|integer",
+//                 "periode_id" => "|integer",
+//                 "semestre_id" => "|integer",
+//                 "exercice_id" => "|integer",
+//             ]);
+//             if($request->heure_debut > $request->heure_fin)
+//             {
+//                 Toastr::error('Heure de debut supérieur à heure de fin','Erreur :');
+//                 return redirect()->back();
+//             }
+//             DB::beginTransaction();
+
+//             try{
+
+//                 $cour = Cour::where(
+//                     [
+//                         ['jour','=',$request->jour],
+//                         ['heure_debut','=',$request->heure_debut],
+//                         ['professeur_id','=',$request->professeur_id],
+//                         ['semestre_id','=',$request->semestre_id],
+//                         ['exercice_id','=',$request->exercice_id],
+//                     ]
+//                 )->first();
+
+//                 if($cour){
+//                     Toastr::error('Ce professeur est pris déjà dans le crenau choisi avec la classe '.$cour->filiere->nom.' '.$cour->periode->libelle.' '.$cour->site->libelle,'Erreur :');
+//                     return redirect()->back();
+//                 }
+//                 $cour = Cour::where(
+//                     [
+//                         ['jour','=',$request->jour],
+//                         ['heure_debut','=',$request->heure_debut],
+//                         ['heure_fin','=',$request->heure_fin],
+//                         ['filiere_id','=',$request->filiere_id],
+//                         ['periode_id','=',$request->periode_id],
+//                         ['site_id','=',Auth::user()->site->id],
+//                         ['semestre_id','=',$request->semestre_id],
+//                         ['exercice_id','=',$request->exercice_id],
+//                     ]
+//                 )->first();
+//                 if($cour)
+//                 {
+//                     Toastr::error('Vous avez déjà une programation avec Mr/Mme '.$cour->professeur->nom.' '.$cour->professeur->prenom,'Erreur :');
+//                     return redirect()->back();
+//                 }
+
+                
+//               $courCreated = Cour::create(
+//                     [
+//                         'jour'=>$request->jour,
+//                         'heure_debut'=>$request->heure_debut,
+//                         'heure_fin'=>$request->heure_fin,
+//                         'filiere_id'=>$request->filiere_id,
+//                         'professeur_id'=>$request->professeur_id,
+//                         'matiere_id'=>$request->matiere_id,
+//                         'periode_id'=>$request->periode_id,
+//                         'site_id'=>Auth::user()->site->id,
+//                         'semestre_id'=>$request->semestre_id,
+//                         'exercice_id'=>$request->exercice_id,
+//                     ]
+//                     );
+//                 if($courCreated){
+//                     DB::commit();
+//                     Toastr::success('Programmation enregistrer avec success','Merci :-)');
+//                 }else{
+//                     DB::rollBack();
+//                     Toastr::error("Un problème s'est survenu lors du traitement ",'Erreur :');
+//                 }
+//             }catch(\Exception $e)
+//             {
+//                 DB::rollBack();
+//                 Toastr::error($e->getMessage(),'Erreur :');
+//             }
+
+//           return redirect()->back();
+//     }

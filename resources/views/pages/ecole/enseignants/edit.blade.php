@@ -38,7 +38,7 @@
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
                         <label>Téléphone <span class="text-danger">*</span></label>
-                        <input type="text" name="telephone"value="{{ $enseignant->telephone }}">
+                        <input type="text" name="telephone"value="{{ $enseignant->telephone ?? '+223' }}">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
@@ -71,6 +71,44 @@
         </div>
     </div>
 </form>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const phoneInput = document.getElementById('phone');
+        
+        // S'assurer que le champ commence par +223
+        if (!phoneInput.value.startsWith('+223')) {
+            phoneInput.value = '+223';
+        }
+
+        // Mettre le curseur après le préfixe initial
+        phoneInput.setSelectionRange(4, 4);
+
+        // Événement pour empêcher la suppression du préfixe
+        phoneInput.addEventListener('input', function(e) {
+            if (!phoneInput.value.startsWith('+223')) {
+                phoneInput.value = '+223';
+                phoneInput.setSelectionRange(4, 4);
+            }
+        });
+
+        // Empêcher la suppression du préfixe via Backspace ou Delete
+        phoneInput.addEventListener('keydown', function(e) {
+            const cursorPos = phoneInput.selectionStart;
+            if ((e.key === 'Backspace' && cursorPos <= 4) || (e.key === 'Delete' && cursorPos < 4)) {
+                e.preventDefault();
+                phoneInput.setSelectionRange(4, 4);
+            }
+        });
+
+        // Mettre le curseur après le préfixe lorsqu'on clique dans le champ
+        phoneInput.addEventListener('click', function(e) {
+            if (phoneInput.selectionStart < 4) {
+                phoneInput.setSelectionRange(4, 4);
+            }
+        });
+    });
+</script>
+
 
 
 

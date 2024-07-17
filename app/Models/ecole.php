@@ -22,4 +22,5 @@ class Ecole extends Authenticatable
     {
         return $this->belongsTo(Type::class);
     }
+    
 }

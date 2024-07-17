@@ -22,7 +22,16 @@ return new class extends Migration
             [
                
                 'role_id' => 1,
-                'droit_id' => 1,
+                'droit_id' => 2,
+               
+               
+                
+                
+            ],
+            [
+               
+                'role_id' => 1,
+                'droit_id' => 9,
                
                
                 

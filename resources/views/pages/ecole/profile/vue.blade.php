@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-body">
            
-            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('pages.ecole.profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="profile-set">
                     <div class="profile-head">
@@ -24,8 +24,8 @@
                                 </div>
                             </div>
                             <div class="profile-contentname">
-                                <h2>{{ Auth::user()->username }}</h2>
-                                <h4>{{ Auth::user()->type->name }}</h4>
+                                <h2>{{ Auth::guard('ecole')->user()->nom }}</h2>
+                                <h4>{{ Auth::guard('ecole')->user()->type->name }}</h4>
                             </div>
                         </div>
     
@@ -34,47 +34,66 @@
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
                         <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name"
-                                value="{{ $user->first_name }}">
+                            <label>Type Ecole</label>
+                            <input type="text" class="form-control" id="type_id" name="typeecole_id"
+                                value="{{ $ecole->typeecole->libelle }}">
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name"
-                                value="{{ $user->last_name }}">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" id="nom" name="nom"
+                                value="{{ $ecole->nom }}">
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" class="form-control" id="email" name="email"
-                                value="{{ $user->email }}">
+                                value="{{ $ecole->email }}">
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone"
-                                value="{{ $user->phone }}">
+                            <label>Siege</label>
+                            <input type="text" class="form-control" id="siege" name="siege"
+                                value="{{ $ecole->siege }}">
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="form-group">
-                            <label>User Name</label>
-                            <input type="text" class="form-control" id="username" name="username"
-                                value="{{ $user->username }}">
+                            <label>Mot de passe</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('password', 'togglePassword')">
+                                        <i id="togglePassword" class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                  
-
-                  
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Confirmer Mot de passe</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="confirm_password" name="password_confirmation">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('confirm_password', 'toggleConfirmPassword')">
+                                        <i id="toggleConfirmPassword" class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
                     <div class="col-12">
                         <button type="button" class="btn btn-secondary">Fermer</button>
                         <button type="submit" class="btn btn-primary">Valider</button>
                     </div>
                 </div>
+                
+               
             </form>
         </div>
     </div>
@@ -87,6 +106,27 @@
                 output.src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);
+
+            
+                function togglePasswordVisibility(fieldId, toggleIconId) {
+                    var passwordField = document.getElementById(fieldId);
+                    var toggleIcon = document.getElementById(toggleIconId);
+                    if (passwordField.type === "password") {
+                        passwordField.type = "text";
+                        toggleIcon.classList.remove("fa-eye");
+                        toggleIcon.classList.add("fa-eye-slash");
+                    } else {
+                        passwordField.type = "password";
+                        toggleIcon.classList.remove("fa-eye-slash");
+                        toggleIcon.classList.add("fa-eye");
+                    }
+                }
+              
+                
+        
         }
     </script>
+            <!-- Don't forget to include FontAwesome for the eye icon -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                
 @endsection

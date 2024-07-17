@@ -102,10 +102,10 @@
                                 <td>{{ $emploi->id }}</td>
                                 <td>
                                     @foreach ($ecoles as $ecole)
-                                        @if ($ecole->id == $emploi->ecole_id)
-                                            {{ $ecole->nom }}
-                                        @endif
-                                    @endforeach
+                                    @if ($ecole->id == $emploi->ecole_id)
+                                        {{ $ecole->nom }}
+                                    @endif
+                                @endforeach
                                 </td>
                                 <td>
 
@@ -119,7 +119,7 @@
 
                                 <td>
                                     
-                                    <a class="me-3" wire:click="showEmplois({{ $emploi->id }})">
+                                    <a class="me-3" href="{{url('pages/enseignant/emplois/show/'.$emploi->id)}}">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/eye.svg') }}"
                                             alt="img">
                                     </a>

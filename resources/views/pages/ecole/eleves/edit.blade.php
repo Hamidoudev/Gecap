@@ -1,6 +1,6 @@
-<form action="{{ route('eleves.update', $eleve->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('pages.ecole.eleves.update', $eleve->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @method('PUT')
+    @method('POST')
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -8,7 +8,7 @@
                     <div class="form-group">
                         <label>Classe</label>
                         <div class="input-with-dropdown">
-                            <select id="ecoles_list" name="ecole_id" class="form-control">
+                            <select id="ecoles_list" name="classe_id" class="form-control">
                                 @foreach($classes as $classe)
                                     <option value="{{ $classe->id }}" {{ $eleve->classe_id == $classe->id ? 'selected' : '' }}>
                                         {{ $classe->libelle }}
