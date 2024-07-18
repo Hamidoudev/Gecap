@@ -15,10 +15,10 @@ class EleveAController extends Controller
      */
     public function index()
     {
+        $ecoles = Ecole::all();
         $classes = Classe::all(); 
-        $ecoleId = Auth::guard('ecole')->user()->id;
-        $eleves = Eleve::where('ecole_id', $ecoleId)->get();;
-        return view('eleves.listes', ['classes' => $classes], compact('eleves'));
+        $eleves = Eleve::all();
+        return view('eleves.listes', ['classes' => $classes], compact('eleves','ecoles'));
     }
     public function create()
     {

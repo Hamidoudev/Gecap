@@ -23,10 +23,17 @@ return new class extends Migration
 
         DB::table('droits')->insert([
             [
+                'nom' => 'Enseignants',
+                'acces' => 1,
+                'route' => 'enseignants.listes',
+                'type_droit_id' => 1,
+               
+            ],
+            [
                 'nom' => 'Emplois',
                 'acces' => 1,
                 'route' => 'emplois.listes',
-                'type_droit_id' => 1,
+                'type_droit_id' => 2,
                 
                 
             ],
@@ -46,13 +53,7 @@ return new class extends Migration
                 
                 
             ],
-            [
-                'nom' => 'Enseignants',
-                'acces' => 1,
-                'route' => 'enseignants.listes',
-                'type_droit_id' => 1,
-               
-            ],
+          
             [
                 'nom' => 'Eleves',
                 'acces' => 1,

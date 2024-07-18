@@ -2,13 +2,9 @@
 @section('content')
 <div class="page-header">
     <div class="page-title">
-        <h4>Listes d'Equipement</h4>
+        <h4>Listes des Sorties</h4>
     </div>
-    <div class="page-btn">
-        <a href="#" class="btn btn-added" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal">
-            <img src="{{ URL::to('admin-template/assets/img/icons/plus.svg') }}" alt="img" class="me-2">Ajouter Equipement
-        </a>
-    </div>
+  
 </div>
 <div class="card">
     <div class="card-body">
@@ -81,22 +77,24 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Ecole</th>
                         <th>Libelle</th>
-                        <th>Date</th>
+                        <th>Date Sortie</th>
                         <th>Quantité</th>
-                        <th>Sortie</th>
-                        <th>Action</th>
+                        <th>Bon de Sortie</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($equipements as $equipement)
+                    @foreach ($sortieequipements as $sortieequipement)
                         <tr>
-                            <td>{{ $equipement->id }}</td>
-                            <td>{{ $equipement->libelle }}</td>
-                            <td>{{ $equipement->date_entre }}</td>
-                            <td>{{ $equipement->quantite }}</td>
-                            <td> <a class="me-3" href="{{url('equipement/'. $equipement->libelle.'/sortie')}}">
-                                <img src="{{ URL::to('admin-template/assets/img/icons/eye1.svg') }}" alt="img">
+                            <td>{{ $sortieequipement->id }}</td>
+                            <td>{{ $sortieequipement->ecole->nom }}</td>
+                            <td>{{ $sortieequipement->equipement->libelle }}</td>
+                            <td>{{ $sortieequipement->date_sortie }}</td>
+                            <td>{{ $sortieequipement->quantite }}</td>
+                            <td> <a class="me-3" href="{{route('equipementsorties.pdf', encrypt("$sortieequipement->id"))}}">
+                                <img src="{{ URL::to('admin-template/assets/img/icons/purchase1.svg') }}" alt="img">
                             </a></td>
                             {{-- <td>
                                 <div class="status-toggle d-flex justify-content-between align-items-center">
@@ -104,14 +102,14 @@
                                     <label for="equipement{{ $equipement->id }}" class="checktoggle">checkbox</label>
                                 </div>
                             </td> --}}
-                            <td>
+                            {{-- <td>
                                 <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipement->id }}">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                 </a>
                                 {{-- <a class="me-3 confirm-text" href="#" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-url="{{ route('equipements.delete', $equipement->id) }}">
                                     <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}" alt="img">
-                                </a> --}}
-                            </td>
+                                </a>
+                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>

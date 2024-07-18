@@ -68,6 +68,16 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-lg-2 col-sm-6 col-12">
+                        <div class="form-group">
+                            <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
+                                <option value="">Sélectionner une Ecole</option>
+                                @foreach($ecoles as $ecole)
+                                    <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                         <div class="form-group">
                             <a class="btn btn-filters ms-auto"><img
@@ -86,6 +96,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Ecole</th>
                         <th>Classe</th>
                         <th>Matricule</th>
                         <th>Nom </th>
@@ -99,6 +110,13 @@
                     @foreach ($eleves as $eleve)
                         <tr>
                             <td>{{ $eleve->id }}</td>
+                            <td>
+                                @foreach($ecoles as $ecole)
+                                    @if($ecole->id == $eleve->ecole_id)
+                                        {{ $ecole->nom }}
+                                    @endif
+                                @endforeach
+                            </td>
                             <td>
                                 @foreach($classes as $classe)
                                     @if($classe->id == $eleve->classe_id)

@@ -43,6 +43,7 @@ use App\Http\Controllers\Enseignant\EmploisController as EnseignantEmploisContro
 use App\Http\Controllers\Enseignant\ProfileController as EnseignantProfileController;
 use App\Http\Controllers\EnseignantAController;
 use App\Http\Controllers\EnseignantMatiereController;
+use App\Http\Controllers\EquipementSortieController;
 use App\Http\Controllers\ProgrammeAController;
 
 /*
@@ -296,12 +297,17 @@ Route::get('/grilles/show/{id}', [GrilleController::class, 'show'])->name('grill
 
 // routes equipements
 Route::get('/equipements/listes', [EquipementController::class, 'index'])->name('equipements.listes');
+Route::get('/equipementsorties/listes', [EquipementController::class, 'sortieslistes'])->name('equipementsorties.listes');
+Route::get('/equipementsorties/pdf/{id}', [EquipementController::class, 'generatePDF'])->name('equipementsorties.pdf');
 Route::get('/equipements/ajout', [EquipementController::class, 'create'])->name('equipements.ajout');
 Route::post('/equipements/store', [EquipementController::class, 'store'])->name('equipements.store');
 Route::get('/equipements/edit/{id}', [EquipementController::class, 'edit'])->name('equipements.edit');
 Route::post('/equipements/update/{id}', [EquipementController::class, 'update'])->name('equipements.update');
 Route::get('/equipements/delete/{id}', [EquipementController::class, 'destroy'])->name('equipements.delete');
 Route::get('/equipements/show/{id}', [EquipementController::class, 'show'])->name('equipements.show');
+Route::get('/equipement/{libelle}/sortie', [EquipementController::class, 'sortie']);
+Route::post('/equipement/{libelle}/sortie', [EquipementController::class, 'savesortie']);
+
 
 // routes Diplomes
 Route::get('/diplomes/listes', [DiplomeController::class, 'index'])->name('diplomes.listes');

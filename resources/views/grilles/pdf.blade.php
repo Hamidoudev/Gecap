@@ -31,6 +31,10 @@
             font-size: 20px;
             margin: 5px 0;
         }
+        .logo {
+            width: 150px;
+            height: auto;
+        }
         .flag {
             display: flex;
             justify-content: center;
@@ -38,7 +42,7 @@
             margin: 10px 0;
         }
         .flag div {
-            height: 5px;
+            height: 10px;
         }
         .flag .green {
             background-color: #14a34b;
@@ -57,9 +61,6 @@
             align-items: center;
             justify-content: space-around;
             margin: 20px 0;
-        }
-        .emblem img {
-            width: 150px;
         }
         .text {
             font-size: 20px;
@@ -108,6 +109,7 @@
 <body>
     <div class="container">
         <div class="header">
+            <img src="{{ public_path('images/GECAP(4).png') }}" alt="Logo" class="logo">
             <h1>Ministère de l'Éducation Nationale</h1>
             <div class="flag">
                 <div class="green"></div>
