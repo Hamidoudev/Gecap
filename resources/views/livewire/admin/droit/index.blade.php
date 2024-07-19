@@ -31,7 +31,7 @@
                     
                 </div>
     
-                <div class="card" id="filter_inputs">
+                {{-- <div class="card" id="filter_inputs">
                     <div class="card-body pb-0">
                         <div class="row">
                             <div class="col-lg-2 col-sm-6 col-12">
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>  --}}
     
                 <div class="table-responsive">
                     <table class="table  datanew">

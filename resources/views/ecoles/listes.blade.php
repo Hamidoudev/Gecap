@@ -33,40 +33,32 @@
                 <div class="row">
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
-                            <input type="text" placeholder="Entrez le nom de l'utilisateur">
+                            <input type="text" id="filter_nom" placeholder="Entrez le nom de l'école" class="form-control">
                         </div>
                     </div>
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
-                            <input type="text" placeholder="Entrez le numéro de téléphone">
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 col-12">
-                        <div class="form-group">
-                            <input type="text" placeholder="Entrez l'email">
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 col-12">
-                        <div class="form-group">
-                            <select class="select">
-                                <option>Désactivé</option>
-                                <option>Activé</option>
+                            <select id="filter_type" class="form-control">
+                                <option value="">Sélectionner un type</option>
+                                @foreach($typeecoles as $typeecole)
+                                    <option value="{{ $typeecole->id }}">{{ $typeecole->libelle }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                         <div class="form-group">
-                            <a class="btn btn-filters ms-auto">
+                            {{-- <a class="btn btn-filters ms-auto">
                                 <img src="{{ URL::to('admin-template/assets/img/icons/search-whites.svg') }}" alt="img">
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        
         <div class="table-responsive">
-            <table class="table datanew">
+            <table class="table datanew" id="ecoles_table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -77,9 +69,9 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="ecoles_body">
                     @foreach ($ecoles as $ecole)
-                        <tr>
+                        <tr data-type-id="{{ $ecole->typeecole_id }}" data-nom="{{ strtolower($ecole->nom) }}">
                             <td>{{ $ecole->id }}</td>
                             <td>
                                 @foreach($typeecoles as $typeecole)
@@ -104,12 +96,43 @@
                 </tbody>
             </table>
         </div>
+        
     </div>
 </div>
 
 @include('ecoles.ajout')
 
 <script>
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterNom = document.getElementById('filter_nom');
+        const filterType = document.getElementById('filter_type');
+        const ecolesTableBody = document.getElementById('ecoles_body');
+
+        function filterEcoles() {
+            const selectedNom = filterNom.value.toLowerCase();
+            const selectedType = filterType.value;
+            const rows = ecolesTableBody.getElementsByTagName('tr');
+
+            for (const row of rows) {
+                const typeId = row.getAttribute('data-type-id');
+                const nom = row.getAttribute('data-nom');
+
+                if ((selectedNom === '' || nom.includes(selectedNom)) &&
+                    (selectedType === '' || typeId === selectedType)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+
+        filterNom.addEventListener('input', filterEcoles);
+        filterType.addEventListener('change', filterEcoles);
+    });
+
+
     function showDeleteModal(deleteUrl, ecoleName) {
         $('#confirmDelete').attr('href', deleteUrl); // Met à jour le lien de suppression dans le modal
         $('#deleteModal .modal-body').text(`Êtes-vous sûr de vouloir supprimer l'école ${ecoleName} ?`);

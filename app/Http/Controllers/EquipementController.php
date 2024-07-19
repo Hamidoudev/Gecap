@@ -62,6 +62,8 @@ class EquipementController extends Controller
         if($request->quantite > $equipement->quantite)
         {
             toastr()->error('quantite insuffisante !!');
+            return redirect()->back();
+
         }
         else
         {

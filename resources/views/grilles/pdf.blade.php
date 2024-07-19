@@ -21,54 +21,51 @@
         }
         .header {
             text-align: center;
+            position: relative;
+        }
+        .header .logo {
+            width: 80px;
+            height: auto;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .header .logo-right {
+            width: 80px;
+            height: auto;
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
         .header h1 {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             margin: 0;
         }
-        .header h2 {
-            font-size: 20px;
-            margin: 5px 0;
-        }
-        .logo {
-            width: 150px;
-            height: auto;
+        .flag-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
         }
         .flag {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 10px 0;
         }
         .flag div {
+            width: 50px;
             height: 10px;
         }
         .flag .green {
             background-color: #14a34b;
-            width: 100px;
         }
         .flag .yellow {
             background-color: #ffcd00;
-            width: 100px;
         }
         .flag .red {
             background-color: #ce1126;
-            width: 100px;
-        }
-        .emblem {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            margin: 20px 0;
-        }
-        .text {
-            font-size: 20px;
-            font-weight: bold;
         }
         .slogan {
             text-align: center;
-            font-size: 18px;
+            font-size: 14px;
             margin-top: 10px;
         }
         .slogan span {
@@ -109,15 +106,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="{{ public_path('images/GECAP(4).png') }}" alt="Logo" class="logo">
+            <img src="{{ public_path('Armoiries_Mali.png') }}" alt="Logo" class="logo-right">
             <h1>Ministère de l'Éducation Nationale</h1>
-            <div class="flag">
-                <div class="green"></div>
-                <div class="yellow"></div>
-                <div class="red"></div>
-            </div>
-            <div class="emblem">
-                <div class="text">REPUBLIQUE DU MALI</div>
+            <div class="flag-container">
+                <img src="{{ public_path('mali.png') }}" alt="Logo" class="logo">
+
             </div>
             <div class="slogan">
                 <span>Un Peuple - Un But - Une Foi</span>
@@ -136,22 +129,32 @@
                         <tr>
                             <th>Nom :</th>
                             <td>{{ $grille->nom }}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>Prénom :</th>
                             <td>{{ $grille->prenom }}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>Statut :</th>
                             <td>{{ $grille->statut }}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>École :</th>
-                            <td>{{ $grille->ecole_id }}</td>
+                            <td>{{ $grille->ecole->nom }}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>Classe tenue :</th>
-                            <td>{{ $grille->classe }}</td>
+                            <td>{{ $grille->classe_tenue }}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <th>Effectif :</th>
@@ -190,7 +193,7 @@
                         <th class="center">Notes analytiques</th>
                     </tr>
                 </thead>
-                <tbody>
+ <tbody>
                     <tr>
                         <td>1. La fiche de préparation existe-t-elle ? est-elle exploitable ?</td>
                         <td class="center">{{ $grille->fiche_preparation }}</td>
@@ -231,7 +234,7 @@
                         <td>10. Les exercices d'évaluation ont-ils été effectués ?</td>
                         <td class="center">{{ $grille->exercices_evaluation }}</td>
                     </tr>
-                </tbody>
+                </tbody>               
             </table>
 
             <div class="form-section">
@@ -252,7 +255,6 @@
 
             <div class="form-section">
                 <label for="date">Bamako le : <span>{{ $grille->date }}</span></label>
-                
             </div>
         </form>
     </div>

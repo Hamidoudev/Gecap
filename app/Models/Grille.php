@@ -31,4 +31,8 @@ class grille extends Model
         'exercices_evaluation',
         'total_points',
     ];
+    public function  ecole()
+    {
+        return $this->belongsTo(Ecole::class);
+    }
 }

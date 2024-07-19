@@ -42,38 +42,47 @@
                 <div class="row">
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
-                            <input type="text" placeholder="Enter Nom d'Equipement">
+                            <select id="filter_ecole" class="form-control">
+                                <option value="">Sélectionner une école</option>
+                                @foreach($sortieequipements->unique('ecole.nom') as $sortieequipement)
+                                    <option value="{{ $sortieequipement->ecole->nom }}">{{ $sortieequipement->ecole->nom }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
-                            <input type="text" placeholder="Enter Type">
+                            <select id="filter_libelle" class="form-control">
+                                <option value="">Sélectionner un libellé</option>
+                                @foreach($sortieequipements->unique('equipement.libelle') as $sortieequipement)
+                                    <option value="{{ $sortieequipement->equipement->libelle }}">{{ $sortieequipement->equipement->libelle }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
-                            <input type="text" placeholder="Enter Quantité">
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 col-12">
-                        <div class="form-group">
-                            <select class="select">
-                                <option>Disable</option>
-                                <option>Enable</option>
+                            <select id="filter_quantite" class="form-control">
+                                <option value="">Sélectionner une quantité</option>
+                                @foreach($sortieequipements->unique('quantite') as $sortieequipement)
+                                    <option value="{{ $sortieequipement->quantite }}">{{ $sortieequipement->quantite }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                         <div class="form-group">
-                            <a class="btn btn-filters ms-auto"><img src="{{ URL::to('admin-template/assets/img/icons/search-whites.svg') }}" alt="img"></a>
+                            <a class="btn btn-filters ms-auto" id="filter_button">
+                                <img src="{{ URL::to('admin-template/assets/img/icons/search-whites.svg') }}" alt="img">
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        
         <div class="table-responsive">
-            <table class="table datanew">
+            <table class="table datanew" id="sortieequipements_table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -82,43 +91,30 @@
                         <th>Date Sortie</th>
                         <th>Quantité</th>
                         <th>Bon de Sortie</th>
-                        
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="sortieequipements_body">
                     @foreach ($sortieequipements as $sortieequipement)
-                        <tr>
+                        <tr data-ecole="{{ $sortieequipement->ecole->nom }}" data-libelle="{{ $sortieequipement->equipement->libelle }}" data-quantite="{{ $sortieequipement->quantite }}">
                             <td>{{ $sortieequipement->id }}</td>
                             <td>{{ $sortieequipement->ecole->nom }}</td>
                             <td>{{ $sortieequipement->equipement->libelle }}</td>
                             <td>{{ $sortieequipement->date_sortie }}</td>
                             <td>{{ $sortieequipement->quantite }}</td>
-                            <td> <a class="me-3" href="{{route('equipementsorties.pdf', encrypt("$sortieequipement->id"))}}">
-                                <img src="{{ URL::to('admin-template/assets/img/icons/purchase1.svg') }}" alt="img">
-                            </a></td>
-                            {{-- <td>
-                                <div class="status-toggle d-flex justify-content-between align-items-center">
-                                    <input type="checkbox" id="equipement{{ $equipement->id }}" class="check">
-                                    <label for="equipement{{ $equipement->id }}" class="checktoggle">checkbox</label>
-                                </div>
-                            </td> --}}
-                            {{-- <td>
-                                <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipement->id }}">
-                                    <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
+                            <td>
+                                <a class="me-3" href="{{route('equipementsorties.pdf', encrypt("$sortieequipement->id"))}}">
+                                    <img src="{{ URL::to('admin-template/assets/img/icons/purchase1.svg') }}" alt="img">
                                 </a>
-                                {{-- <a class="me-3 confirm-text" href="#" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-url="{{ route('equipements.delete', $equipement->id) }}">
-                                    <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}" alt="img">
-                                </a>
-                            </td> --}}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+        
     </div>
 </div>
 @include('equipements.ajout')
-@endsection
 
 @foreach($equipements as $equipement)
     <div class="modal fade" id="editModal{{ $equipement->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $equipement->id }}" aria-hidden="true">
@@ -156,6 +152,38 @@
 </div>
 
 <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const filterEcole = document.getElementById('filter_ecole');
+        const filterLibelle = document.getElementById('filter_libelle');
+        const filterQuantite = document.getElementById('filter_quantite');
+        const filterButton = document.getElementById('filter_button');
+        const sortieequipementsTableBody = document.getElementById('sortieequipements_body');
+
+        function filterSortieequipements() {
+            const selectedEcole = filterEcole.value.toLowerCase();
+            const selectedLibelle = filterLibelle.value.toLowerCase();
+            const selectedQuantite = filterQuantite.value;
+            const rows = sortieequipementsTableBody.getElementsByTagName('tr');
+
+            for (const row of rows) {
+                const ecole = row.getAttribute('data-ecole').toLowerCase();
+                const libelle = row.getAttribute('data-libelle').toLowerCase();
+                const quantite = row.getAttribute('data-quantite');
+
+                if ((selectedEcole === '' || ecole.includes(selectedEcole)) &&
+                    (selectedLibelle === '' || libelle.includes(selectedLibelle)) &&
+                    (selectedQuantite === '' || quantite === selectedQuantite)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+
+        filterButton.addEventListener('click', filterSortieequipements);
+    });
+
+
     document.addEventListener('DOMContentLoaded', function () {
         var deleteConfirmModal = document.getElementById('deleteConfirmModal');
         var confirmDeleteButton = document.getElementById('confirmDeleteButton');
@@ -167,3 +195,5 @@
         });
     });
 </script>
+@endsection
+

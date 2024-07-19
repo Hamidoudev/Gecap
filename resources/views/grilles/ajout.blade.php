@@ -164,6 +164,12 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label>Total des Points</label>
+                        <input type="text" id="totalPoints" readonly>
+                    </div>
+                </div>
                 
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
@@ -172,8 +178,10 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
-                    <label>2. Conseiller <span class="text-danger">*</span></label>
-                    <input type="text" name="conseille2">
+                    <div class="form-group">
+                        <label>2. Conseiller <span class="text-danger">*</span></label>
+                        <input type="text" name="conseille2">
+                    </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
@@ -213,4 +221,35 @@
     </div>
     </div>
 
-
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const fields = [
+                'fiche_preparation',
+                'materiel_didactique',
+                'utilisation_materiel',
+                'opo_annonces',
+                'methode_pertinente',
+                'eleves_activite',
+                'contenu_conforme',
+                'contenu_maitrise',
+                'techniques_animation',
+                'exercices_evaluation'
+            ];
+        
+            function calculateTotal() {
+                let total = 0;
+                fields.forEach(field => {
+                    const value = document.querySelector(`input[name="${field}"]`).value;
+                    total += parseFloat(value) || 0;  // Use parseFloat to handle decimals and default to 0 if empty
+                });
+                document.getElementById('totalPoints').value = total;
+            }
+        
+            fields.forEach(field => {
+                document.querySelector(`input[name="${field}"]`).addEventListener('input', calculateTotal);
+            });
+        
+            // Initial calculation if there are pre-filled values
+            calculateTotal();
+        });
+        </script>
