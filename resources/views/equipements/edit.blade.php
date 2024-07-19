@@ -6,14 +6,14 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> Nom <span class="text-danger">*</span></label>
-                        <input type="text" name="nom" value="{{ $equipement->nom }}">
+                        <label> Libelle <span class="text-danger">*</span></label>
+                        <input type="text" name="libelle" value="{{ $equipement->libelle }}">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
-                        <label> Type <span class="text-danger">*</span></label>
-                        <input type="text" name="type" value="{{ $equipement->type }}">
+                        <label> Date Entree <span class="text-danger">*</span></label>
+                        <input type="date" name="date_entre" value="{{ $equipement->date_entre }}">
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-12">

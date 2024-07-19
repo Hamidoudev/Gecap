@@ -291,7 +291,7 @@
                                 <h5>Programmes</h5>
                             </div>
                             <div class="dash-imgs">
-                                <a href="{{route('programmes.listes')}}"><i data-feather="file"></i></a>
+                                <a href="{{route('pages.ecole.programmes.listes')}}"><i data-feather="file"></i></a>
                             </div>
                         </div>
                     </div>

@@ -245,7 +245,7 @@
                                 <h5>Emplois</h5>
                             </div>
                             <div class="dash-imgs">
-                                <a href="{{route('personnels.listes')}}">
+                                <a href="{{route('pages.enseignant.emplois.listes')}}">
                                  <i data-feather="user"></i></a>
                             </div>
                         </div>
@@ -257,7 +257,7 @@
                                 <h5>Enseignants</h5>
                             </div>
                             <div class="dash-imgs">
-                                <a href="{{route('enseignants.listes')}}"><i data-feather="user-check"> </i></a>
+                                <i data-feather="user-check"> </i>
                             </div>
                         </div>
                     </div>
@@ -268,7 +268,7 @@
                                 <h5>Eleves</h5>
                             </div>
                             <div class="dash-imgs">
-                                <a href="{{route('eleves.listes')}}"> <i data-feather="file-text"></i></a>
+                                <i data-feather="file-text"></i>
                             </div>
                         </div>
                     </div>
@@ -279,7 +279,7 @@
                                 <h5>Programmes</h5>
                             </div>
                             <div class="dash-imgs">
-                                <a href="{{route('programmes.listes')}}"><i data-feather="file"></i></a>
+                               <i data-feather="file"></i>
                             </div>
                         </div>
                     </div>

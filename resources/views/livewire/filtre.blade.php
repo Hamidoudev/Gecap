@@ -202,7 +202,7 @@
                                     wire:model="selectedEnseignant">
                                     <option value="">Sélectionner un Enseignant</option>
                                     @foreach ($ListesEnseignants as $enseignant)
-                                        <option value="{{ $enseignant->id }}">{{ $enseignant->nom }}</option>
+                                        <option value="{{ $enseignant->id }}">{{ $enseignant->nom }} {{ $enseignant->prenom }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -253,7 +253,7 @@
                                                     <option value="">Enseignants</option>
                                                     @foreach ($enseignants[$keyField] ?? [] as $enseignant)
                                                         <option value="{{ $enseignant->id }}">
-                                                            {{ $enseignant->nom }}
+                                                            {{ $enseignant->nom }} {{ $enseignant->prenom }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -329,7 +329,7 @@
                                         wire:model="selectedEnseignant">
                                         <option value="">Sélectionner un Enseignant</option>
                                         @foreach ($ListesEnseignants as $enseignant)
-                                            <option value="{{ $enseignant->id }}">{{ $enseignant->nom }}</option>
+                                            <option value="{{ $enseignant->id }}">{{ $enseignant->nom }} {{ $enseignant->prenom }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -381,7 +381,7 @@
                                                         <option value="">Enseignants</option>
                                                         @foreach ($enseignants[$keyField] ?? [] as $enseignant)
                                                             <option value="{{ $enseignant->id }}" {{$enseignant_id[$keyField] == $enseignant->id ? "selected" : ""}}>
-                                                                {{ $enseignant->nom }}
+                                                                {{ $enseignant->nom }}  {{ $enseignant->prenom }}
                                                             </option>
                                                         @endforeach
                                                     </select>

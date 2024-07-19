@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programme Scolaire</title>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+@extends('pages.ecole.interfaces.interfaceprogramme')
+@section('content')
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,6 +43,13 @@
     </style>
 </head>
 <body>
+    @php
+    function formatContent($contenu) {
+$patterns = ['/2\./', '/3\./','/4\./', '/5\./','/6\./', '/7\./'];
+$replacements = ['<br>2.', '<br>3.', '<br>4.', '<br>5.', '<br>6.', '<br>7'];
+return preg_replace($patterns, $replacements, $contenu);
+}
+@endphp
     <h1>Programme Scolaire</h1>
     <h2>{{ $programme->classe->libelle }}</h2>
     <table>
@@ -72,12 +74,12 @@
                 <td>
                     <ul>
                         @foreach(explode(',', $programme->contenu) as $contenu)
-                            <li>{{ $contenu }}</li>
-                        @endforeach
+                        <li>{!! $contenu !!}</li>
+                       @endforeach
                     </ul>
                 </td>
             </tr>
         </tbody>
     </table>
 </body>
-</html>
+@endsection

@@ -48,19 +48,9 @@
         <div class="card" id="filter_inputs">
             <div class="card-body pb-0">
                 <div class="row">
-                    {{-- <div class="col-lg-2 col-sm-6 col-12">
-                        <div class="form-group">
-                            <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
-                                <option value="">Sélectionner un cycle</option>
-                                @foreach($classes as $classe)
-                                    <option value="{{ $classe->id }}">{{ $classe->cycle }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> --}}
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
-                            <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
+                            <select id="filter_classe" name="classe_id" class="form-control">
                                 <option value="">Sélectionner une classe</option>
                                 @foreach($classes as $classe)
                                     <option value="{{ $classe->id }}">{{ $classe->libelle }}</option>
@@ -70,29 +60,20 @@
                     </div>
                     <div class="col-lg-2 col-sm-6 col-12">
                         <div class="form-group">
-                            <select id="ecoles_list" wire:model="selectedEcole" name="classe_id">
-                                <option value="">Sélectionner une Ecole</option>
+                            <select id="filter_ecole" name="ecole_id" class="form-control">
+                                <option value="">Sélectionner une école</option>
                                 @foreach($ecoles as $ecole)
                                     <option value="{{ $ecole->id }}">{{ $ecole->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                        <div class="form-group">
-                            <a class="btn btn-filters ms-auto"><img
-                                    src="{{ URL::to('admin-template/assets/img/icons/search-whites.svg') }}"
-                                    alt="img"></a>
-                        </div>
-                    </div>
-                </div>
-                   
                 </div>
             </div>
-        </div> 
-
+        </div>
+        
         <div class="table-responsive">
-            <table class="table datanew">
+            <table class="table datanew" id="eleves_table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -103,29 +84,16 @@
                         <th>Adresse</th>
                         <th>Genre</th>
                         <th>Acte De Naissance </th>
-                        
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="eleves_body">
                     @foreach ($eleves as $eleve)
-                        <tr>
+                        <tr data-ecole-id="{{ $eleve->ecole_id }}" data-classe-id="{{ $eleve->classe_id }}">
                             <td>{{ $eleve->id }}</td>
-                            <td>
-                                @foreach($ecoles as $ecole)
-                                    @if($ecole->id == $eleve->ecole_id)
-                                        {{ $ecole->nom }}
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach($classes as $classe)
-                                    @if($classe->id == $eleve->classe_id)
-                                        {{ $classe->libelle }}
-                                    @endif
-                                @endforeach
-                            </td> 
-                            <td>{{ $eleve->matricule }}</td>                         
-                            <td>{{ $eleve->nom  }}</td>
+                            <td>{{ $ecole->firstWhere('id', $eleve->ecole_id)->nom }}</td>
+                            <td>{{ $classe->firstWhere('id', $eleve->classe_id)->libelle }}</td>
+                            <td>{{ $eleve->matricule }}</td>
+                            <td>{{ $eleve->nom }}</td>
                             <td>{{ $eleve->adresse }}</td>
                             <td>{{ $eleve->genre }}</td>
                             <td>
@@ -137,20 +105,12 @@
                                     Aucun acte disponible
                                 @endif
                             </td>
-                          
-                            {{-- <td>
-                                <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $eleve->id }}">
-                                    <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
-                                </a>
-                                <a class="me-3 confirm-text" href="#" onclick="showDeleteModal('{{ route('eleves.delete', $eleve->id) }}')">
-                                    <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}" alt="img">
-                                </a>
-                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+        
 
     </div>
 </div>
@@ -158,6 +118,36 @@
 @include('eleves.ajout')
 
 <script>
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterClasse = document.getElementById('filter_classe');
+        const filterEcole = document.getElementById('filter_ecole');
+        const elevesTableBody = document.getElementById('eleves_body');
+
+        function filterEleves() {
+            const selectedClasse = filterClasse.value;
+            const selectedEcole = filterEcole.value;
+            const rows = elevesTableBody.getElementsByTagName('tr');
+
+            for (const row of rows) {
+                const classeId = row.getAttribute('data-classe-id');
+                const ecoleId = row.getAttribute('data-ecole-id');
+
+                if ((selectedClasse === '' || classeId === selectedClasse) &&
+                    (selectedEcole === '' || ecoleId === selectedEcole)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+
+        filterClasse.addEventListener('change', filterEleves);
+        filterEcole.addEventListener('change', filterEleves);
+    });
+
+
     // Afficher le modal de confirmation lorsqu'on clique sur le lien de suppression
     $('.confirm-text').on('click', function(e) {
         e.preventDefault();
@@ -195,8 +185,6 @@
     </div>
 </div>
 
-@endsection
-
 @foreach($eleves as $eleve)
 <div class="modal fade" id="editModal{{ $eleve->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $eleve->id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -229,4 +217,6 @@
         </div>
     </div>
 </div>
+@endsection
+
 

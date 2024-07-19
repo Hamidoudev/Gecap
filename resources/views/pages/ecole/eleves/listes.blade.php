@@ -89,6 +89,7 @@
                         <th>Classe</th>
                         <th>Matricule</th>
                         <th>Nom </th>
+                        <th>Prénom </th>
                         <th>Acte De Naissance </th>
                         <th>Action</th>
                     </tr>
@@ -106,6 +107,7 @@
                             </td> 
                             <td>{{ $eleve->matricule }}</td>                         
                             <td>{{ $eleve->nom  }}</td>
+                            <td>{{ $eleve->prenom  }}</td>
                            
                             <td>
                                 @if ($eleve->acte_n)
@@ -174,8 +176,6 @@
     </div>
 </div>
 
-@endsection
-
 @foreach($eleves as $eleve)
 <div class="modal fade" id="editModal{{ $eleve->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $eleve->id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -191,6 +191,25 @@
     </div>
 </div>
 @endforeach
+
+<script>
+    // Afficher le modal de confirmation lorsqu'on clique sur le lien de suppression
+    $('.confirm-text').on('click', function(e) {
+        e.preventDefault();
+        var deleteUrl = $(this).attr('href');
+        $('#deleteModal').modal('show');
+
+        // Lorsqu'on clique sur le bouton "Supprimer" du modal, redirige vers l'URL de suppression
+        $('#confirmDelete').on('click', function() {
+            window.location.href = deleteUrl;
+        });
+    });
+
+    function showDeleteModal(deleteUrl) {
+        $('#confirmDelete').attr('href', deleteUrl); // Met à jour le lien de suppression dans le modal
+        $('#deleteModal').modal('show'); // Affiche le modal
+    }
+</script>
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -208,4 +227,6 @@
         </div>
     </div>
 </div>
+@endsection
+
 

@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('enseignants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ecole_id')->constrained('ecoles')->onDelete('cascade');
-            $table->string('matricule');
+            $table->string('matricule')->unique();
             $table->string('nom');
             $table->string('prenom');
             $table->date('date_n');
@@ -30,6 +30,15 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        DB::unprepared('
+        CREATE TRIGGER generate_matricule BEFORE INSERT ON enseignants
+        FOR EACH ROW
+        BEGIN
+            DECLARE next_matricule INT;
+            SELECT IFNULL(MAX(CAST(SUBSTRING(matricule, 2) AS UNSIGNED)), 0) + 1 INTO next_matricule FROM eleves;
+            SET NEW.matricule = CONCAT("ENSEI", LPAD(next_matricule, 3, "0"));
+        END
+    ');
         // DB::table('enseignants')->insert([
 
         //     [

@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">Modifier un utilisateur</h5>
+                <h5 class="modal-title" id="editModal">Modifier un utilisateur</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,12 +14,12 @@
                     @method('PUT')
 
                     <div class="form-group">
-                        <label for="first_name">First Name</label>
+                        <label for="first_name"> Nom</label>
                         <input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="last_name">Last Name</label>
+                        <label for="last_name">Prénom</label>
                         <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}" required>
                     </div>
 
@@ -29,17 +29,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Phone</label>
+                        <label for="phone">Télephone</label>
                         <input type="text" name="phone" class="form-control" value="{{ $user->phone }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="username">Username</label>
+                        <label for="username">Nom D'utilisateur</label>
                         <input type="text" name="username" class="form-control" value="{{ $user->username }}" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="password">New Password</label>
+                        <label for="password"> Password</label>
                         <input type="password" name="password" class="form-control">
                         <small class="form-text text-muted">Leave blank if you don't want to change the password.</small>
                     </div>
@@ -54,7 +54,7 @@
                         <input type="file" name="profile_picture" class="form-control-file">
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="role_id">Role</label>
                         <select name="role_id" class="form-control" required>
                             @foreach($roles as $role)
@@ -79,10 +79,10 @@
                                 <option value="{{ $type->id }}" {{ $user->type_id == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
 
                     <!-- Hidden field for user ID -->
-                    <input type="hidden" name="user_id" value="{{ $user->id }}">
+                    {{-- <input type="hidden" name="user_id" value="{{ $user->id }}"> --}}
 
                     <button type="submit" class="btn btn-primary">Modifier</button>
                 </form>

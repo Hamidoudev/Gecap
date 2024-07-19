@@ -56,9 +56,16 @@ class ProgrammeController extends Controller
     public function show(string $id)
     {
         $programme = Programme::with(['ecole', 'classe', 'matiere'])->findOrFail($id);
+        $programme->contenu = $this->formatContent($programme->contenu);
         return view('pages.ecole.programmes.show', compact('programme'));
     }
 
+    private function formatContent($contenu)
+    {
+        $patterns = ['/2\./', '/3\./'];
+        $replacements = ['<br>2.', '<br>3.'];
+        return preg_replace($patterns, $replacements, $contenu);
+    }
     /**
      * Update the specified resource in storage.
      */

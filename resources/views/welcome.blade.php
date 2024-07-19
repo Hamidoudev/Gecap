@@ -14,22 +14,23 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Jost:wght@500;600;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Jost:wght@500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{ URL:: to('template/lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ URL:: to('template/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ URL:: to('template/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('template/lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('template/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('template/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ URL:: to('template/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('template/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{{ URL:: to('template/css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('template/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -46,42 +47,52 @@
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0 sticky-top shadow-sm">
-                <a href="#"  class="navbar-brand p-0">
+                <a href="#" class="navbar-brand p-0">
                     <h1 class="m-0">GECAP</h1>
-                    
+
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
                         <a href="#accueil" class="nav-item nav-link active">Accueil</a>
                         <a href="#apropos" class="nav-item nav-link">A-propos</a>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal" class="nav-item nav-link">Contact</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal"
+                            class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block " data-bs-toggle="dropdown">Se Connecter</a>
+                        <a href="#" class="btn rounded-pill py-2 px-4 ms-3 d-none d-lg-block "
+                            data-bs-toggle="dropdown">Se Connecter</a>
                         <div class="dropdown-menu m-0">
                             <a href="auth/ecole/login" class="dropdown-item">Ecole</a>
                             <a href="auth/enseignant/login" class="dropdown-item">Enseignant</a>
                         </div>
                     </div>
                 </div>
-                
+
             </nav>
 
             <div class="container-xxl bg-primary hero-header" id="accueil">
                 <div class="container px-lg-1 ">
                     <div class="row g-5 align-items-center ">
-                        <div class="col-lg-6 text-center text-lg-start mt-0" style="font-family: 'Times New Roman', Times, serif" >
+                        <div class="col-lg-6 text-center text-lg-start mt-0"
+                            style="font-family: 'Times New Roman', Times, serif">
                             <h1 class="text-white mb-4 animated slideInDown">Bienvenue sur GeCAP</h1>
-                            <p class="text-white pb-3 animated slideInDown">L'outil indispensable pour le Centre d'Animation Pédagogique de Sebenicoro !
-                                 Nous sommes ravis de vous accueillir sur notre plateforme conçue sur mesure pour simplifier et optimiser vos processus.
-                                 Facilitez votre gestion administrative, 
-                                 optimisez vos programmes pédagogiques et donnez une nouvelle dimension à votre efficacité organisationnelle</p>
+                            <p class="text-white pb-3 animated slideInDown">L'outil indispensable pour le Centre
+                                d'Animation Pédagogique de Sebenicoro !
+                                Nous sommes ravis de vous accueillir sur notre plateforme conçue sur mesure pour
+                                simplifier et optimiser vos processus.
+                                Facilitez votre gestion administrative,
+                                optimisez vos programmes pédagogiques et donnez une nouvelle dimension à votre
+                                efficacité organisationnelle</p>
                         </div>
-                        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200" onmousedown="startTimer()" onmouseup="stopTimer()" ontouchstart="startTimer()" ontouchend="stopTimer()">
-                          <img src="{{ URL:: to('Arsha/assets/img/login.png') }}" class="img-fluid animated" alt="">
+                        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200"
+                            onmousedown="startTimer()" onmouseup="stopTimer()" ontouchstart="startTimer()"
+                            ontouchend="stopTimer()">
+                            <img src="{{ URL::to('Arsha/assets/img/login.png') }}" class="img-fluid animated"
+                                alt="">
                         </div>
                     </div>
                 </div>
@@ -124,57 +135,68 @@
         <div class="container-xxl py-5">
             <div class="container py-5 px-lg-5">
                 <div class="wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="section-title text-secondary justify-content-center"><span></span>Nos Services<span></span></p>
-                    <h1 class="text-center mb-5">What Solutions We Provide</h1>
+                    <p class="section-title text-secondary justify-content-center"><span></span>Quelques membres de
+                        l'administration<span></span></p>
+                    <h1 class="text-center mb-5">Quelques membres</h1>
                 </div>
-                <div class="row g-4" id="apropos">
+                <div class="row g-4">
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <img src="{{ URL:: to('Arsha/assets/img/fille.png') }}" alt="Social Media Marketing" class="img-fluid">
+                                <img src="{{ URL::to('Arsha/assets/img/bakary3.png') }}" alt="Social Media Marketing"
+                                    class="img-fluid">
                             </div>
-                            <h5 class="mb-3">Social Media Marketing</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                            <h5 class="mb-3">Directeur Géneral</h5>
+                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
+                                stet diam sed stet lorem.</p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <img src="{{ URL:: to('Arsha/assets/img/skills.png') }}" alt="Email Marketing" class="img-fluid">
+                                <img src="{{ URL::to('Arsha/assets/img/lex2.png') }}" alt="Email Marketing"
+                                    class="img-fluid">
                             </div>
-                            <h5 class="mb-3">Email Marketing</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                            <h5 class="mb-3">Directeur Géneral Adjoint</h5>
+                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
+                                stet diam sed stet lorem.</p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <img src="{{ URL:: to('Arsha/assets/img/why-us.png') }}" alt="PPC Advertising" class="img-fluid">
+                                <img src="{{ URL::to('Arsha/assets/img/fouss2.png') }}" alt="PPC Advertising"
+                                    class="img-fluid">
                             </div>
-                            <h5 class="mb-3">PPC Advertising</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                            <h5 class="mb-3">Sécretaire Général</h5>
+                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
+                                stet diam sed stet lorem.</p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <img src="{{ URL:: to('Arsha/assets/img/images.png') }}" alt="App Development" class="img-fluid">
+                                <img src="{{ URL::to('Arsha/assets/img/eve2.png') }}" alt="App Development"
+                                    class="img-fluid">
                             </div>
-                            <h5 class="mb-3">App Development</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                            <h5 class="mb-3">Comptable</h5>
+                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
+                                stet diam sed stet lorem.</p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <img src="{{ URL:: to('Arsha/assets/img/hero-img.png') }}" alt="App Development" class="img-fluid">
+                                <img src="{{ URL::to('Arsha/assets/img/hamidou.png') }}" alt="App Development"
+                                    class="img-fluid">
                             </div>
-                            <h5 class="mb-3">App Development</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                            <h5 class="mb-3">Assistant Comptable</h5>
+                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
+                                stet diam sed stet lorem.</p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
@@ -182,17 +204,19 @@
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item d-flex flex-column text-center rounded">
                             <div class="service-icon flex-shrink-0">
-                                <img src="{{ URL:: to('Arsha/assets/img/boy.png') }}" alt="App Development" class="img-fluid">
+                                <img src="{{ URL::to('Arsha/assets/img/mira2.png') }}" alt="App Development"
+                                    class="img-fluid">
                             </div>
-                            <h5 class="mb-3">App Development</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet lorem.</p>
+                            <h5 class="mb-3">Sécretaire d'administration</h5>
+                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
+                                stet diam sed stet lorem.</p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <!-- Facts Start -->
+        <!-- Facts Start -->
         <div class="container-xxl bg-primary fact py-5 wow fadeInUp" data-wow-delay="0.1s">
             <div class="container py-5 px-lg-5">
                 <div class="row g-4">
@@ -219,14 +243,14 @@
                 </div>
             </div>
         </div>
-         <!-- Facts End -->
+        <!-- Facts End -->
 
         <!-- Service End -->
 
 
 
 
-        <!-- Projects Start 
+        <!-- Projects Start
         <div class="container-xxl py-5">
             <div class="container py-5 px-lg-5">
                 <div class="wow fadeInUp" data-wow-delay="0.1s">
@@ -339,7 +363,7 @@
          Projects End -->
 
 
-        <!-- Testimonial Start 
+        <!-- Testimonial Start
         <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
             <div class="container py-5 px-lg-5">
                 <p class="section-title text-secondary justify-content-center"><span></span>Testimonial<span></span></p>
@@ -383,161 +407,128 @@
 
         <!-- Team Start -->
         <div class="container-xxl py-5">
-            <div class="container py-5 px-lg-5">
+            <div class="container py-5 px-lg-5" id="apropos">
                 <div class="wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="section-title text-secondary justify-content-center"><span></span>Notre groupe<span></span></p>
-                    <h1 class="text-center mb-5">Les membres </h1>
+                    <p class="section-title text-secondary justify-content-center"><span></span>A prpos de
+                        nous<span></span></p>
+                    <h1 class="text-center mb-5">A PROPOS DE NOUS</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="team-item bg-light rounded">
-                            <div class="text-center border-bottom p-4">
-                                <img class="img-fluid rounded-circle mb-4" src="img/team-1.jpg" alt="">
-                                <h5>Fousseyni DIALLO</h5>
-                                <span>DCAP</span>
-                            </div>
-                            {{-- <div class="d-flex justify-content-center p-4">
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div> --}}
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="team-item bg-light rounded">
-                            <div class="text-center border-bottom p-4">
-                                <img class="img-fluid rounded-circle mb-4" src="img/team-2.jpg" alt="">
-                                <h5>Bakary KANTE</h5>
-                                <span>DCAP adjoint</span>
-                            </div>
-                            {{-- <div class="d-flex justify-content-center p-4">
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div> --}}
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="team-item bg-light rounded">
-                            <div class="text-center border-bottom p-4">
-                                <img class="img-fluid rounded-circle mb-4" src="img/team-3.jpg" alt="">
-                                <h5>Labati GASSAMBA</h5>
-                                <span>Sécretaire</span>
-                            </div>
-                            {{-- <div class="d-flex justify-content-center p-4">
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div> --}}
-                        </div>
+                    <p>Le CAP de Sébénikoro, situé au secteur 7 du quartier de Sébénikoro. Il administre les écoles des quartiers de Sébénikoro, Djicoroni-Para, Kalabambougou et Sibiribougou.
+                        Le CAP de Sébénikoro est une structure éducative qui offre différents services de soutien aux enseignants et aux écoles. 
+                        </p>
+
+                </div>
+            </div>
+        </div>
+   
+    <!-- Team End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-primary text-light footer wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5 px-lg-5">
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-3">
+                    <p class="section-title text-white h5 mb-4">Adresse<span></span></p>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>Sébénikoro</p>
+                    <p><i class="fa fa-phone-alt me-3"></i>+223 00 00 00 00</p>
+                    <p><i class="fa fa-envelope me-3"></i>gecap@email.com</p>
+                    {{-- <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i
+                                class="fab fa-instagram"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div> --}}
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <p class="section-title text-white h5 mb-4">Lien rapide<span></span></p>
+                    <a class="btn btn-link" href="#accueil">Accueil</a>
+                    <a class="btn btn-link" href="#apropos">A propos de nous</a>
+                    <a class="btn btn-link" href="" data-bs-toggle="modal"
+                        data-bs-target="#ajoutEnseignantModal">Contact</a>
+                </div>
+            </div>
+        </div>
+        <div class="container px-lg-5">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">GéCAP</a>, &copy; 2024 GéCAP.Tous droits
+                        réservés.
+
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Conçu par <a class="border-bottom" href="">DevEve&DevHamidou</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Team End -->
-        
-
-        <!-- Footer Start -->
-        <div class="container-fluid bg-primary text-light footer wow fadeIn" data-wow-delay="0.1s">
-            <div class="container py-5 px-lg-5">
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-3">
-                        <p class="section-title text-white h5 mb-4">Adresse<span></span></p>
-                        <p><i class="fa fa-map-marker-alt me-3"></i>Sébénikoro</p>
-                        <p><i class="fa fa-phone-alt me-3"></i>+223 00 00 00 00</p>
-                        <p><i class="fa fa-envelope me-3"></i>gecap@email.com</p>
-                        <div class="d-flex pt-2">
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <p class="section-title text-white h5 mb-4">Lien rapide<span></span></p>
-                        <a class="btn btn-link" href="#accueil">Accueil</a>
-                        <a class="btn btn-link" href="#apropos">A propos de nous</a>
-                        <a class="btn btn-link" href="" data-bs-toggle="modal" data-bs-target="#ajoutEnseignantModal">Contact</a>
-                    </div>
-                </div>
-            </div>
-            <div class="container px-lg-5">
-                <div class="copyright">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">GéCAP</a>, &copy; 2024 GéCAP.Tous droits réservés. 
-							
-							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Conçu par <a class="border-bottom" href="">AdminHome</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
+    </div>
+    <!-- Footer End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-secondary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-secondary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
     @include('contact')
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ URL:: to('template/lib/wow/wow.min.js') }}"></script>
-    <script src="{{ URL:: to('template/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ URL:: to('template/lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ URL:: to('template/lib/counterup/counterup.min.js') }}"></script>
-    <script src="{{ URL:: to('template/lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ URL:: to('template/lib/isotope/isotope.pkgd.min.js') }}"></script>
-    <script src="{{ URL:: to('template/lib/lightbox/js/lightbox.min.js') }}"></script>
+    <script src="{{ URL::to('template/lib/wow/wow.min.js') }}"></script>
+    <script src="{{ URL::to('template/lib/easing/easing.min.js') }}"></script>
+    <script src="{{ URL::to('template/lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ URL::to('template/lib/counterup/counterup.min.js') }}"></script>
+    <script src="{{ URL::to('template/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ URL::to('template/lib/isotope/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ URL::to('template/lib/lightbox/js/lightbox.min.js') }}"></script>
 
     <!-- Template Javascript -->
-    <script src="{{ URL:: to('template/js/main.js') }}"></script>
+    <script src="{{ URL::to('template/js/main.js') }}"></script>
 
     <script>
         // Fonction pour détecter l'appui long
         var timer;
+
         function startTimer() {
             timer = setTimeout(function() {
                 // Rediriger vers la page de connexion administrateur
                 window.location.href = "{{ url('auth/login') }}";
             }, 7000); // 7 secondes
-        }   
-    
+        }
+
         function stopTimer() {
             clearTimeout(timer);
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                // Remove 'active' class from all nav links
-                navLinks.forEach(nav => nav.classList.remove('active'));
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Remove 'active' class from all nav links
+                    navLinks.forEach(nav => nav.classList.remove('active'));
 
-                // Add 'active' class to the clicked nav link
-                this.classList.add('active');
+                    // Add 'active' class to the clicked nav link
+                    this.classList.add('active');
+                });
             });
+
+            // To handle modal links specifically if needed
+            const modalLink = document.querySelector('a[data-bs-target="#ajoutEnseignantModal"]');
+            if (modalLink) {
+                modalLink.addEventListener('click', function() {
+                    // Remove 'active' class from all nav links
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+
+                    // Add 'active' class to the clicked modal link
+                    this.classList.add('active');
+                });
+            }
         });
-
-        // To handle modal links specifically if needed
-        const modalLink = document.querySelector('a[data-bs-target="#ajoutEnseignantModal"]');
-        if (modalLink) {
-            modalLink.addEventListener('click', function() {
-                // Remove 'active' class from all nav links
-                navLinks.forEach(nav => nav.classList.remove('active'));
-
-                // Add 'active' class to the clicked modal link
-                this.classList.add('active');
-            });
-        }
-    });
     </script>
 </body>
 

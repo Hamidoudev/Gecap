@@ -39,18 +39,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'nullable|string|max:15',
-            'username' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'role_id' => 'required|exists:roles,id',
-            'role_type_user_id' => 'required|exists:role_type_users,id',
-            'type_id' => 'required|exists:types,id',
-        ]);
+       
 
         $user = new User();
         $user->first_name = $request->first_name;
@@ -59,9 +48,9 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
-        $user->role_id = $request->role_id;
-        $user->role_type_user_id = $request->role_type_user_id;
-        $user->type_id = $request->type_id;
+        $user->role_id = 3;
+        $user->role_type_user_id =3;
+        $user->type_id = 3;
 
         if ($request->hasFile('profile_picture')) {
             $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
@@ -70,7 +59,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     /**
@@ -94,18 +83,6 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'phone' => 'nullable|string|max:15',
-            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'role_id' => 'required|exists:roles,id',
-            'role_type_user_id' => 'required|exists:role_type_users,id',
-            'type_id' => 'required|exists:types,id',
-        ]);
 
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -115,9 +92,9 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-        $user->role_id = $request->role_id;
-        $user->role_type_user_id = $request->role_type_user_id;
-        $user->type_id = $request->type_id;
+        $user->role_id = 3;
+        $user->role_type_user_id =3;
+        $user->type_id =3;
 
         if ($request->hasFile('profile_picture')) {
             $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
@@ -126,7 +103,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
     /**
@@ -135,7 +112,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return to_route('admin.users.index')->with('message', 'Utilisateur a bien été supprimé');
+        return to_route('users.index')->with('message', 'Utilisateur a bien été supprimé');
     }
 
     public function search(Request $request){

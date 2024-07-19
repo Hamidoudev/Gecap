@@ -30,12 +30,12 @@
                                      </div>
                                  </div>
                                 
-                                 <div class="col-lg-3 col-sm-6 col-12">
+                                 {{-- <div class="col-lg-3 col-sm-6 col-12">
                                      <div class="form-group">
                                          <label> Matricule <span class="text-danger">*</span></label>
                                          <input type="text" name="matricule" id="matricule">
                                      </div>
-                                 </div>
+                                 </div> --}}
                                  <div class="col-lg-3 col-sm-6 col-12">
                                      <div class="form-group">
                                          <label> Nom <span class="text-danger">*</span></label>

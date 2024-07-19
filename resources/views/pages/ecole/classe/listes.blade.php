@@ -143,7 +143,6 @@
     </div>
 </div>
 
-@endsection
 
 @foreach($classes as $classe)
 <div class="modal fade" id="editModal{{ $classe->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $classe->id }}" aria-hidden="true">
@@ -160,21 +159,8 @@
     </div>
 </div>
 @endforeach
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirmation de suppression</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                Êtes-vous sûr de vouloir supprimer cet elève ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <a id="confirmDelete" class="btn btn-danger" href="#">Supprimer</a>
-            </div>
-        </div>
-    </div>
-</div>
+@endsection
+
+
+
 

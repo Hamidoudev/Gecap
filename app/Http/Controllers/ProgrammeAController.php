@@ -8,6 +8,7 @@ use App\Models\Matiere;
 use App\Models\Programme;
 use Illuminate\Http\Request;
 
+
 class ProgrammeAController extends Controller
 {
     /**
@@ -22,6 +23,7 @@ class ProgrammeAController extends Controller
         return view('programmes.listes', compact('programmes', 'classes','matieres','ecoles'));
     }
 
+    
     public function create()
     {
         $ecoles = Ecole::all();
@@ -78,6 +80,15 @@ class ProgrammeAController extends Controller
     public function show(string $id)
     {
         $programme = Programme::with(['ecole', 'classe', 'matiere'])->findOrFail($id);
+        $programme->contenu = $this->formatContent($programme->contenu);
+        
         return view('programmes.show', compact('programme'));
+    }
+
+    private function formatContent($contenu)
+    {
+        $patterns = ['/2\./', '/3\./'];
+        $replacements = ['<br>2.', '<br>3.'];
+        return preg_replace($patterns, $replacements, $contenu);
     }
 }

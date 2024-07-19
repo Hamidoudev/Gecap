@@ -1,5 +1,21 @@
 @extends('pages.admin.interface')
 @section('content')
+<style>
+    .photo-frame {
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    border: 2px solid #ccc; /* Adjust the border style as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Ensures the image doesn't overflow the frame */
+}
+
+.profile-picture {
+    max-width: 30%;
+    max-height: 30%;
+}
+</style>
 <div class="page-header">
     <div class="page-title">
     <h4>Listes des Utilisateurs</h4> 
@@ -18,7 +34,7 @@
                                         <th>Prenom</th>
                                         <th>Email</th>
                                         <th>Nom Utilisateur</th>
-                                        <th>Profil</th>
+                                        {{-- <th>Profil</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -29,14 +45,18 @@
                                             <td>{{ $user->last_name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->username }}</td>
-                                            <td>{{ $user->profile_picture }}</td>
+                                            {{-- <td>
+                                                <div class="photo-frame">
+                                                    <img src="{{ $user->profile_picture }}" alt="" class="profile-picture">
+                                                </div>
+                                            </td> --}}
                                             <td>
                                                 <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}">
                                                     <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
                                                 </a>
-                                                <a class="me-3 confirm-text" href="{{ route('grilles.delete', $user->id) }}" onclick="return confirm('voulez-vous vraiment supprimer {{ $user->first_name }} {{  $user->last_name }}?')">
+                                                {{-- <a class="me-3 confirm-text" href="{{ route('admin.users.delete', $user->id) }}" onclick="return confirm('voulez-vous vraiment supprimer {{ $user->first_name }} {{  $user->last_name }}?')">
                                                     <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}" alt="img">
-                                                </a>
+                                                </a> --}}
                                             </td>
                                         </tr>
                                     @endforeach

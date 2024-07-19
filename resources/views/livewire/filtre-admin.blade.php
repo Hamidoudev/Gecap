@@ -94,8 +94,6 @@
                             <th>Ecole</th>
                             <th>Classe</th>
                             <th> Emplois </th>
-
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -132,7 +130,7 @@
 
                                 <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
 
-                                <td>
+                                {{-- <td>
                                     <a class="me-3" wire:click="ActiveEdit({{ $emploi->id }})">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}"
                                             alt="img">
@@ -142,8 +140,8 @@
                                         data-url="{{ route('emplois.delete', $emploi->id) }}">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/delete.svg') }}"
                                             alt="img">
-                                    </a> --}}
-                                </td>
+                                    </a>
+                                </td> --}}
                             </tr>
                             <tr>
                         @endforeach

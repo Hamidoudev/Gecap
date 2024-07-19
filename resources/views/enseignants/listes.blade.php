@@ -26,7 +26,7 @@
                     </a>
                 </div>
             </div>
-            <div class="wordset">
+            {{-- <div class="wordset">
                 <ul>
                     <li>
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="{{ URL::to('admin-template/assets/img/icons/pdf.svg') }}" alt="img"></a>
@@ -38,10 +38,10 @@
                         <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="{{ URL::to('admin-template/assets/img/icons/printer.svg') }}" alt="img"></a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
         </div>
 
-        <div class="card" id="filter_inputs">
+        {{-- <div class="card" id="filter_inputs">
             <div class="card-body pb-0">
                 <div class="row">
                     <div class="col-lg-2 col-sm-6 col-12">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="table-responsive">
             <table class="table datanew">

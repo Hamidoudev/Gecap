@@ -66,7 +66,7 @@
 <body>
     <div class="container">
         <strong>
-            <h3 class="detail-info">Détail Emplois de l'école  {{ Auth::guard('ecole')->user()->nom }}</h3>
+            <h3 class="detail-info">Détail Emplois de l'école  {{ Auth::guard('enseignant')->user()->nom }}</h3>
         </strong>
         <p>Classe :  {{ $DetailEmploi->classe->libelle }}</p>
         <p>Cycle :  {{ $DetailEmploi->cycle->libelle }}</p>

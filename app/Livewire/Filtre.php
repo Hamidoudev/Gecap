@@ -75,6 +75,7 @@ class Filtre extends Component
 
     public function ActiveEdit($id)
     {
+        $this->id = $id;
         $this->fields =[];
         $DetailEmploi = Emplois::where('id', $id)->first();
         $this->selectedClasse = $DetailEmploi->classe_id;
@@ -380,7 +381,7 @@ class Filtre extends Component
             return 0;
         }
     }
-    public function saveEmploisEdit($id)
+    public function saveEmploisEdit()
     {
         if ($this->selectedClasse && $this->selectedCycle) {
             if ($this->selectedCycle == 1) {
@@ -388,7 +389,7 @@ class Filtre extends Component
                     if (count($this->heure_debut) == count($this->heure_fin) && count($this->heure_fin) == count($this->jour) && count($this->jour) == count($this->matiere_id)) {
                         DB::beginTransaction();
                         try {
-                            $emplois = Emplois::find($id);
+                            $emplois = Emplois::find($this->id);
                             if (!$emplois) {
                                 Toastr::error("Emploi du temps non trouvé");
                                 return 0;
@@ -436,7 +437,7 @@ class Filtre extends Component
                 if (count($this->heure_debut) == count($this->heure_fin) && count($this->heure_fin) == count($this->matiere_id) && count($this->matiere_id) == count($this->enseignant_id)) {
                     DB::beginTransaction();
                     try {
-                        $emplois = Emplois::find($id);
+                        $emplois = Emplois::find($this->id);
                         if (!$emplois) {
                             Toastr::error("Emploi du temps non trouvé");
                             return 0;
@@ -605,3 +606,85 @@ class Filtre extends Component
 
 //           return redirect()->back();
 //     }
+
+// public function saveEmplois()
+// {
+//     if ($this->selectedClasse && $this->selectedCycle) {
+//         if (count($this->heure_debut) == count($this->heure_fin) && count($this->heure_fin) == count($this->jour) && count($this->jour) == count($this->matiere_id)) {
+//             DB::beginTransaction();
+//             try {
+//                 $emplois = new Emplois;
+//                 $emplois->classe_id = $this->selectedClasse;
+//                 $emplois->ecole_id = Auth::guard('ecole')->user()->id;
+//                 $emplois->cycle_id = $this->selectedCycle;
+//                 $emplois->save();
+
+//                 for ($i = 0; $i < count($this->heure_debut); $i++) {
+//                     if ($this->heure_debut[$i] > $this->heure_fin[$i]) {
+//                         Toastr::error("Heure de debut superieur à heure de fin pour la matière " . $this->matiere_id[$i], "Erreur :");
+//                         DB::rollback();
+//                         return redirect()->back();
+//                     }
+
+//                     if ($this->selectedCycle == 1) {
+//                         $existingCour = EmploisMatiere::where([
+//                             ['jour', '=', $this->jour[$i]],
+//                             ['heure_debut', '=', $this->heure_debut[$i]],
+//                             ['enseignant_id', '=', $this->selectedEnseignant],
+//                         ])->first();
+
+//                         if ($existingCour) {
+//                             Toastr::error('Ce professeur est déjà pris dans le créneau choisi.', 'Erreur :');
+//                             DB::rollback();
+//                             return redirect()->back();
+//                         }
+
+//                         $emploisMatiere = new EmploisMatiere;
+//                         $emploisMatiere->emplois_id = $emplois->id;
+//                         $emploisMatiere->matiere_id = $this->matiere_id[$i];
+//                         $emploisMatiere->jour = $this->jour[$i];
+//                         $emploisMatiere->heure_debut = $this->heure_debut[$i];
+//                         $emploisMatiere->heure_fin = $this->heure_fin[$i];
+//                         $emploisMatiere->enseignant_id = $this->selectedEnseignant;
+//                         $emploisMatiere->save();
+//                     } else {
+//                         $existingCour = EmploisMatiere::where([
+//                             ['jour', '=', $this->jour[$i]],
+//                             ['heure_debut', '=', $this->heure_debut[$i]],
+//                             ['heure_fin', '=', $this->heure_fin[$i]],
+//                             ['enseignant_id', '=', $this->enseignant_id[$i]],
+//                         ])->first();
+
+//                         if ($existingCour) {
+//                             Toastr::error('L\'enseignant ' . Enseignant::find($this->enseignant_id[$i])->prenom . ' est déjà affecté à ce créneau.', 'Erreur :');
+//                             DB::rollback();
+//                             return redirect()->back();
+//                         }
+
+//                         $emploisMatiere = new EmploisMatiere;
+//                         $emploisMatiere->emplois_id = $emplois->id;
+//                         $emploisMatiere->enseignant_id = $this->enseignant_id[$i];
+//                         $emploisMatiere->matiere_id = $this->matiere_id[$i];
+//                         $emploisMatiere->jour = $this->jour[$i];
+//                         $emploisMatiere->heure_debut = $this->heure_debut[$i];
+//                         $emploisMatiere->heure_fin = $this->heure_fin[$i];
+//                         $emploisMatiere->save();
+//                     }
+//                 }
+//                 DB::commit();
+//                 Toastr::success("Emploi du temps ajouté avec succès!", "Succès:");
+//                 return redirect()->to(route("pages.ecole.emplois.listes"));
+//             } catch (\Exception $e) {
+//                 DB::rollback();
+//                 Toastr::error($e->getMessage(), "Erreur :");
+//                 return redirect()->back();
+//             }
+//         } else {
+//             Toastr::error("Veuillez remplir tous les champs correctement.", "Erreur :");
+//             return redirect()->back();
+//         }
+//     } else {
+//         Toastr::error("Veuillez sélectionner une classe et un cycle.", "Erreur :");
+//         return redirect()->back();
+//     }
+// }

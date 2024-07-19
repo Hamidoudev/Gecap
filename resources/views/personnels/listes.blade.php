@@ -28,7 +28,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="wordset">
+                {{-- <div class="wordset">
                     <ul>
                         <li>
                             <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
@@ -43,10 +43,10 @@
                                     src="{{ URL::to('admin-template/assets/img/icons/printer.svg') }}" alt="img"></a>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
 
-            <div class="card" id="filter_inputs">
+            {{-- <div class="card" id="filter_inputs">
                 <div class="card-body pb-0">
                     <div class="row">
                         <div class="col-lg-2 col-sm-6 col-12">
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>  --}}
 
             <div class="table-responsive">
                 <table class="table  datanew">
@@ -95,16 +95,14 @@
                             </th> --}}
                             <th>#</th>
                             <th>Maricule</th>
-                            <th>First name </th>
-                            <th>Last name </th>
-                            <th>Date Naissance </th>
+                            <th> Nom </th>
+                            <th> Prénom </th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Adresse</th>
                             <th>Genre</th>
                             <th>Poste</th>
                             <th>CV</th>
-                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -130,7 +128,7 @@
                                 <td>{{ $personneladmin->matricule }}</td>
                                 <td>{{ $personneladmin->nom }}</td>
                                 <td>{{ $personneladmin->prenom }}</td>
-                                <td>{{ $personneladmin->date_n }}</td>
+                                
                                 <td>{{ $personneladmin->email }}</td>
                                 <td>{{ $personneladmin->telephone }}</td>
                                 <td>{{ $personneladmin->adresse }}</td>
@@ -148,12 +146,7 @@
                                 
                                 
                                 <tdclass="__cf_email__" data-cfemail="42362a2d2f233102273a232f322e276c212d2f"></td>
-                                <td>
-                                    <div class="status-toggle d-flex justify-content-between align-items-center">
-                                        <input type="checkbox" id="user1" class="check">
-                                        <label for="user1" class="checktoggle">checkbox</label>
-                                    </div>
-                                </td>
+                               
                                 <td>
                                     <a class="me-3" data-bs-toggle="modal" data-bs-target="#editModal{{ $personneladmin->id }}">
                                         <img src="{{ URL::to('admin-template/assets/img/icons/edit.svg') }}" alt="img">
@@ -179,8 +172,6 @@
 @livewireScripts
 @include('personnels.ajout')
     
-@endsection
-
 @foreach($personneladmins as $personneladmin)
     <div class="modal fade" id="editModal{{ $personneladmin->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $personneladmin->id }}" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -196,3 +187,5 @@
         </div>
     </div>
 @endforeach
+@endsection
+

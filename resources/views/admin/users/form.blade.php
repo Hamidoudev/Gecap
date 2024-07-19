@@ -14,60 +14,60 @@
                             @csrf
             
                             <div class="row">
-                                <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="col-lg-12 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="first_name">First Name</label>
+                                        <label for="first_name">Nom</label>
                                         <input type="text" name="first_name" class="form-control" value="{{ old('first_name') }}" required>
                                     </div>
                                 </div>
                                 
-                                <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="col-lg-12 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="last_name">Last Name</label>
+                                        <label for="last_name">Prénom</label>
                                         <input type="text" name="last_name" class="form-control" value="{{ old('last_name') }}" required>
                                     </div>
                                 </div>
             
-                                <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="col-lg-12 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
                                     </div>
                                 </div>
             
-                                <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="col-lg-12 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="phone">Phone</label>
+                                        <label for="phone">Téléphone</label>
                                         <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
                                     </div>
                                 </div>
                             </div>
             
                             <div class="row">
-                                <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="col-lg-12 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="username">Username</label>
+                                        <label for="username">Nom d'Utilisateur</label>
                                         <input type="text" name="username" class="form-control" value="{{ old('username') }}" required>
                                     </div>
                                 </div>
             
-                                <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="col-lg-12 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="password">Password</label>
+                                        <label for="password">Mot de passe</label>
                                         <input type="password" name="password" class="form-control" required>
                                     </div>
                                 </div>
             
-                                <div class="col-lg-3 col-sm-6 col-12">
+                                <div class="col-lg-12 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="password_confirmation">Confirm Password</label>
+                                        <label for="password_confirmation">Confirmation</label>
                                         <input type="password" name="password_confirmation" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label> Profile Picture</label>
+                                        <label> Profile </label>
                                         <div class="image-upload">
                                             <input type="file" name="profile_picture">
                                             <div class="image-uploads">
@@ -81,14 +81,14 @@
                               
                             </div>
             
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label for="role_id">Role</label>
                                         <select name="role_id" class="form-control" required>
                                             {{-- @foreach($roles as $role)
                                                 <option value="{{ $role->id }}">{{ $role->nom }}</option>
-                                            @endforeach --}}
+                                            @endforeach 
                                         </select>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                         <select name="role_type_user_id" class="form-control" required>
                                             {{-- @foreach($roleTypeUsers as $roleTypeUser)
                                                 <option value="{{ $roleTypeUser->id }}">{{ $roleTypeUser->role_type }}</option>
-                                            @endforeach --}}
+                                            @endforeach 
                                         </select>
                                     </div>
                                 </div>
@@ -110,11 +110,11 @@
                                         <select name="type_id" class="form-control" required>
                                             {{-- @foreach($types as $type)
                                                 <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                            @endforeach --}}
+                                            @endforeach 
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
             
                             <div class="modal-footer justify-content">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
