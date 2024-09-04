@@ -159,8 +159,7 @@
                                     class="img-fluid">
                             </div>
                             <h5 class="mb-3">Directeur Géneral Adjoint</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
-                                stet diam sed stet lorem.</p>
+                            <p class="m-0"></p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
@@ -171,8 +170,7 @@
                                     class="img-fluid">
                             </div>
                             <h5 class="mb-3">Sécretaire Général</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
-                                stet diam sed stet lorem.</p>
+                            <p class="m-0"></p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
@@ -183,8 +181,7 @@
                                     class="img-fluid">
                             </div>
                             <h5 class="mb-3">Comptable</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
-                                stet diam sed stet lorem.</p>
+                            <p class="m-0"></p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
@@ -195,8 +192,7 @@
                                     class="img-fluid">
                             </div>
                             <h5 class="mb-3">Assistant Comptable</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
-                                stet diam sed stet lorem.</p>
+                            <p class="m-0"></p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
@@ -208,8 +204,7 @@
                                     class="img-fluid">
                             </div>
                             <h5 class="mb-3">Sécretaire d'administration</h5>
-                            <p class="m-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam
-                                stet diam sed stet lorem.</p>
+                            <p class="m-0"></p>
                             <a class="btn btn-square" href=""><i class="fa fa-arrow-right"></i></a>
                         </div>
                     </div>
@@ -497,7 +492,7 @@
             timer = setTimeout(function() {
                 // Rediriger vers la page de connexion administrateur
                 window.location.href = "{{ url('auth/login') }}";
-            }, 7000); // 7 secondes
+            }, 5000); // 7 secondes
         }
 
         function stopTimer() {
